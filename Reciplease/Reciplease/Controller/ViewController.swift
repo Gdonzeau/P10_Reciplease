@@ -15,13 +15,13 @@ class ViewController: UIViewController {
         .authorization(username: Keys.id.rawValue, password: Keys.key.rawValue),
         .accept("application/json")
     ]
-    let parameters = ["q": "Chicken,Tomatoes", "diet": "balanced"]
+    let parameters = ["app_id": Keys.id.rawValue,"app_key":Keys.key.rawValue, "q": "Chicken,Tomatoes", "diet": "balanced"]
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let finalAdressUrl = adressUrl
-        AF.request(finalAdressUrl, parameters: parameters, headers: headers).responseJSON {response in
+        AF.request(finalAdressUrl, parameters: parameters).responseJSON {response in
             debugPrint(response)
             
         }
