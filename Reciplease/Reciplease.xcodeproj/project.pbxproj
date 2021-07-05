@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -118,15 +118,10 @@
 		046E0546269328AD00C2F91C /* Reciplease */ = {
 			isa = PBXGroup;
 			children = (
+				046E0595269347CE00C2F91C /* OtherFiles */,
 				046E0582269344C700C2F91C /* Controller */,
 				046E0581269344C100C2F91C /* View */,
 				046E0580269344B900C2F91C /* Model */,
-				046E0547269328AD00C2F91C /* AppDelegate.swift */,
-				046E0549269328AD00C2F91C /* SceneDelegate.swift */,
-				046E054B269328AD00C2F91C /* ViewController.swift */,
-				046E054D269328AD00C2F91C /* Main.storyboard */,
-				046E0553269328B100C2F91C /* Assets.xcassets */,
-				046E0555269328B100C2F91C /* LaunchScreen.storyboard */,
 				046E0558269328B100C2F91C /* Info.plist */,
 				046E0550269328AD00C2F91C /* Reciplease.xcdatamodeld */,
 			);
@@ -161,6 +156,7 @@
 		046E0581269344C100C2F91C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				046E054D269328AD00C2F91C /* Main.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -168,8 +164,20 @@
 		046E0582269344C700C2F91C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				046E054B269328AD00C2F91C /* ViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		046E0595269347CE00C2F91C /* OtherFiles */ = {
+			isa = PBXGroup;
+			children = (
+				046E0547269328AD00C2F91C /* AppDelegate.swift */,
+				046E0549269328AD00C2F91C /* SceneDelegate.swift */,
+				046E0553269328B100C2F91C /* Assets.xcassets */,
+				046E0555269328B100C2F91C /* LaunchScreen.storyboard */,
+			);
+			path = OtherFiles;
 			sourceTree = "<group>";
 		};
 		357DFD7C77F11C2982FB5190 /* Frameworks */ = {
@@ -192,7 +200,6 @@
 				56A3AC4D16C3B09FD7EA6BDB /* Pods-RecipleaseTests.debug.xcconfig */,
 				FD37FE48E2E76B9D76BCE412 /* Pods-RecipleaseTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
