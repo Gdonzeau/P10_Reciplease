@@ -9,8 +9,8 @@ import UIKit
 
 class PreparingSearchViewController: ViewController{
     var ingredientsUsed = ""
-    var recipesSended = Recipes?.self
-
+    //var recipesSended = Recipes?.self
+    var recipesSended = "Bonjour"
     @IBOutlet weak var ingredientName: UITextField!
     @IBOutlet weak var ingredientTableView: UITableView!
     
@@ -73,7 +73,7 @@ class PreparingSearchViewController: ViewController{
             switch result {
             case .success(let recipes) :
                 print("Ok")
-                recipesSended = recipes
+                //recipesSended = recipes
                 print(recipes.recipes[0].recipe.name)
             case .failure(let error) :
                 print("KO")

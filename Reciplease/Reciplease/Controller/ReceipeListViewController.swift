@@ -8,35 +8,40 @@
 import UIKit
 
 class ReceipeListViewController: ViewController {
-    var recipesSended = Recipes?.self
-
+    //var recipesSended = Recipes?.self
+    var recipesSended = ""
     @IBOutlet weak var receipesTableView: UITableView!
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let reception = recipesSended {
+        let reception = recipesSended
         print("reçu : \(reception)")
-        }
         // Do any additional setup after loading the view.
     }
     
 }
-/*
+
 extension ReceipeListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { // Données à changer. Ici, juste pour faire tourner le prgm
+        return IngredientService.shared.ingredients.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath)
+        
+        let ingredient = IngredientService.shared.ingredients[indexPath.row]
+        
+        cell.textLabel?.text = ingredient.name
+        
+        return cell
     }
     
     
 }
- */
+ 
