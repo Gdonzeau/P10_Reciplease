@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04311930269C87470031E33E /* PreparingSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0431192F269C87470031E33E /* PreparingSearchTableViewCell.swift */; };
+		04311935269C87A50031E33E /* PreparingSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04311934269C87A50031E33E /* PreparingSearchViewController.swift */; };
 		046E0548269328AD00C2F91C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E0547269328AD00C2F91C /* AppDelegate.swift */; };
 		046E054A269328AD00C2F91C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E0549269328AD00C2F91C /* SceneDelegate.swift */; };
 		046E054C269328AD00C2F91C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E054B269328AD00C2F91C /* ViewController.swift */; };
@@ -17,6 +19,11 @@
 		046E0562269328B100C2F91C /* RecipleaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E0561269328B100C2F91C /* RecipleaseTests.swift */; };
 		046E056D269328B100C2F91C /* RecipleaseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E056C269328B100C2F91C /* RecipleaseUITests.swift */; };
 		046E059A26934A0800C2F91C /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E059926934A0800C2F91C /* APIKeys.swift */; };
+		046E05B9269501BF00C2F91C /* NetworkErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E05B8269501BF00C2F91C /* NetworkErrors.swift */; };
+		046E05DB269720BD00C2F91C /* Recettes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E05DA269720BD00C2F91C /* Recettes.swift */; };
+		046E05E02697215700C2F91C /* Recipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E05DF2697215700C2F91C /* Recipes.swift */; };
+		046E05E82698A16100C2F91C /* RecipesServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E05E72698A16000C2F91C /* RecipesServices.swift */; };
+		0479239E269C5D83006E7E03 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0479239D269C5D83006E7E03 /* Config.swift */; };
 		1EF15685FB2D6AA81A68B392 /* Pods_Reciplease.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C200DCE586B92ACEFE3DC59E /* Pods_Reciplease.framework */; };
 		81703C92C807CD42EF77C4A3 /* Pods_RecipleaseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34BAA56E5C46A4519E19318C /* Pods_RecipleaseTests.framework */; };
 		F6A76E943CD816542706E957 /* Pods_Reciplease_RecipleaseUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F897749332B043E273A3E4B /* Pods_Reciplease_RecipleaseUITests.framework */; };
@@ -40,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0431192F269C87470031E33E /* PreparingSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparingSearchTableViewCell.swift; sourceTree = "<group>"; };
+		04311934269C87A50031E33E /* PreparingSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparingSearchViewController.swift; sourceTree = "<group>"; };
 		046E0544269328AD00C2F91C /* Reciplease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reciplease.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		046E0547269328AD00C2F91C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		046E0549269328AD00C2F91C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +65,11 @@
 		046E056C269328B100C2F91C /* RecipleaseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipleaseUITests.swift; sourceTree = "<group>"; };
 		046E056E269328B100C2F91C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		046E059926934A0800C2F91C /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
+		046E05B8269501BF00C2F91C /* NetworkErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrors.swift; sourceTree = "<group>"; };
+		046E05DA269720BD00C2F91C /* Recettes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recettes.swift; sourceTree = "<group>"; };
+		046E05DF2697215700C2F91C /* Recipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipes.swift; sourceTree = "<group>"; };
+		046E05E72698A16000C2F91C /* RecipesServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesServices.swift; sourceTree = "<group>"; };
+		0479239D269C5D83006E7E03 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		34BAA56E5C46A4519E19318C /* Pods_RecipleaseTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RecipleaseTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56A3AC4D16C3B09FD7EA6BDB /* Pods-RecipleaseTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecipleaseTests.debug.xcconfig"; path = "Target Support Files/Pods-RecipleaseTests/Pods-RecipleaseTests.debug.xcconfig"; sourceTree = "<group>"; };
 		59DC3C3C5DF77DCDE9E14AFC /* Pods-Reciplease-RecipleaseUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reciplease-RecipleaseUITests.debug.xcconfig"; path = "Target Support Files/Pods-Reciplease-RecipleaseUITests/Pods-Reciplease-RecipleaseUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -120,6 +134,7 @@
 		046E0546269328AD00C2F91C /* Reciplease */ = {
 			isa = PBXGroup;
 			children = (
+				046E05B7269501AD00C2F91C /* Services */,
 				046E0595269347CE00C2F91C /* OtherFiles */,
 				046E0582269344C700C2F91C /* Controller */,
 				046E0581269344C100C2F91C /* View */,
@@ -151,6 +166,8 @@
 		046E0580269344B900C2F91C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				046E05DA269720BD00C2F91C /* Recettes.swift */,
+				046E05DF2697215700C2F91C /* Recipes.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -167,6 +184,8 @@
 			isa = PBXGroup;
 			children = (
 				046E054B269328AD00C2F91C /* ViewController.swift */,
+				0431192F269C87470031E33E /* PreparingSearchTableViewCell.swift */,
+				04311934269C87A50031E33E /* PreparingSearchViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -179,8 +198,18 @@
 				046E0553269328B100C2F91C /* Assets.xcassets */,
 				046E0555269328B100C2F91C /* LaunchScreen.storyboard */,
 				046E059926934A0800C2F91C /* APIKeys.swift */,
+				0479239D269C5D83006E7E03 /* Config.swift */,
 			);
 			path = OtherFiles;
+			sourceTree = "<group>";
+		};
+		046E05B7269501AD00C2F91C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				046E05B8269501BF00C2F91C /* NetworkErrors.swift */,
+				046E05E72698A16000C2F91C /* RecipesServices.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		357DFD7C77F11C2982FB5190 /* Frameworks */ = {
@@ -444,10 +473,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				046E05DB269720BD00C2F91C /* Recettes.swift in Sources */,
+				0479239E269C5D83006E7E03 /* Config.swift in Sources */,
 				046E0552269328AD00C2F91C /* Reciplease.xcdatamodeld in Sources */,
+				046E05E82698A16100C2F91C /* RecipesServices.swift in Sources */,
 				046E059A26934A0800C2F91C /* APIKeys.swift in Sources */,
 				046E054C269328AD00C2F91C /* ViewController.swift in Sources */,
+				046E05E02697215700C2F91C /* Recipes.swift in Sources */,
+				04311935269C87A50031E33E /* PreparingSearchViewController.swift in Sources */,
+				04311930269C87470031E33E /* PreparingSearchTableViewCell.swift in Sources */,
 				046E0548269328AD00C2F91C /* AppDelegate.swift in Sources */,
+				046E05B9269501BF00C2F91C /* NetworkErrors.swift in Sources */,
 				046E054A269328AD00C2F91C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

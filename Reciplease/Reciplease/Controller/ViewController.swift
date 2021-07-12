@@ -9,22 +9,20 @@ import UIKit
 import Alamofire
 
 class ViewController: UIViewController {
-    let adressUrl = "https://api.edamam.com/api/recipes/v2?type=public"
-    
-    let headers: HTTPHeaders = [
-        .authorization(username: Keys.id.rawValue, password: Keys.key.rawValue),
-        .accept("application/json")
-    ]
-    let parameters = ["app_id": Keys.id.rawValue,"app_key":Keys.key.rawValue, "q": "Chicken,Tomatoes", "diet": "balanced"]
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let finalAdressUrl = adressUrl
-        AF.request(finalAdressUrl, parameters: parameters).responseJSON {response in
-            debugPrint(response)
-            
-        }
+        
+    }
+    
+    
+    
+    // Error Alert adaptable
+    private func allErrors(errorMessage: String, errorTitle: String) {
+        let alertVC = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(alertVC,animated: true,completion: nil)
+        //toggleActivityIndicator(shown: false)
     }
 }
 

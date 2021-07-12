@@ -9,6 +9,6 @@ import Foundation
 
 enum Keys: String {
     
-    case id = "Change with your id"
-    case key = "Change with your key"
+    case id = "69ffad65"
+    case key = "78e86f78f494522d676401594c6b1778"
 }

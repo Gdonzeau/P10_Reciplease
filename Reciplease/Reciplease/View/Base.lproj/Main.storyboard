@@ -1,24 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Fco-RB-QTk">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Favorites-->
+        <scene sceneID="qER-VM-Mxd">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <viewController id="Wmv-kG-hqY" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="74F-xS-4qj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <viewLayoutGuide key="safeArea" id="4y1-S8-Cm4"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Favorites" id="M8P-YY-uTw"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CKg-LM-Kzu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-706" y="150"/>
+        </scene>
+        <!--Search-->
+        <scene sceneID="gfV-Il-IYX">
+            <objects>
+                <viewController id="3Uv-Xu-4zb" customClass="PreparingSearchViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Idf-HU-5yK">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i79-rf-TZa">
+                                <rect key="frame" x="20" y="607" width="374" height="60"/>
+                                <color key="backgroundColor" red="0.1833591759" green="0.61514002079999996" blue="0.45942020420000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="iTU-pp-FqM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <state key="normal" title="Search for recipes">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="searchRecipesButton:" destination="3Uv-Xu-4zb" eventType="touchUpInside" id="1rY-uY-Sbg"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="D6q-PF-yv0">
+                                <rect key="frame" x="0.0" y="200" width="414" height="387"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="qgg-ht-118"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="qgg-ht-118" firstAttribute="bottom" secondItem="i79-rf-TZa" secondAttribute="bottom" constant="20" id="9CB-lc-FhC"/>
+                            <constraint firstItem="qgg-ht-118" firstAttribute="trailing" secondItem="i79-rf-TZa" secondAttribute="trailing" constant="20" id="AQY-Sn-oHS"/>
+                            <constraint firstItem="D6q-PF-yv0" firstAttribute="top" secondItem="qgg-ht-118" secondAttribute="top" constant="200" id="LtD-70-FFX"/>
+                            <constraint firstItem="i79-rf-TZa" firstAttribute="leading" secondItem="qgg-ht-118" secondAttribute="leading" constant="20" id="Tvc-E1-fdx"/>
+                            <constraint firstItem="D6q-PF-yv0" firstAttribute="leading" secondItem="qgg-ht-118" secondAttribute="leading" id="fjf-dq-FW3"/>
+                            <constraint firstItem="qgg-ht-118" firstAttribute="trailing" secondItem="D6q-PF-yv0" secondAttribute="trailing" id="u1x-Fr-yfB"/>
+                            <constraint firstItem="i79-rf-TZa" firstAttribute="top" secondItem="D6q-PF-yv0" secondAttribute="bottom" constant="20" id="uzx-iv-H7H"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Search" id="G9Y-ZI-Fyg"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N4x-lu-X1Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-706" y="-459"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="070-qW-29q">
+            <objects>
+                <tabBarController id="Fco-RB-QTk" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="foU-mD-DRP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="3Uv-Xu-4zb" kind="relationship" relationship="viewControllers" id="Dth-fY-MM6"/>
+                        <segue destination="Wmv-kG-hqY" kind="relationship" relationship="viewControllers" id="584-fm-F5z"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mmF-Jg-Xlx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1595" y="-154"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
