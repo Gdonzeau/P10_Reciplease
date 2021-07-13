@@ -29,9 +29,11 @@ struct Hit: Decodable {
 
 struct Recipe : Decodable {
     var named: String
+    var image: URL
     
     enum CodingKeys: String, CodingKey {
         
         case named = "label"
+        case image
     }
 }

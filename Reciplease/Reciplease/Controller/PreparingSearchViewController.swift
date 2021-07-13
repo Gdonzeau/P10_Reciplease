@@ -10,7 +10,7 @@ import UIKit
 class PreparingSearchViewController: ViewController{
     var ingredientsUsed = ""
     var recipesSended = "Bonjour"
-    var recipesReceived: RecipesReceived!
+    var recipesReceived = [Recette]()
     
     @IBOutlet weak var ingredientName: UITextField!
     @IBOutlet weak var ingredientTableView: UITableView!
@@ -59,6 +59,7 @@ class PreparingSearchViewController: ViewController{
         for index in 0 ..< IngredientService.shared.ingredients.count {
             ingredientsUsed += IngredientService.shared.ingredients[index].name
             ingredientsUsed += " "
+            print(IngredientService.shared.ingredients[index].name)
         }
         /*
         for element in IngredientService.shared.ingredients {
@@ -75,14 +76,25 @@ class PreparingSearchViewController: ViewController{
             switch result {
             case .success(let recipes) :
                 print("Ok")
-                //self.recipesReceived.recipes[0].recipe = recipes.recipes[0].recipe
+                //self.recipesReceived.recipes[0].recipe.named) = recipes.recipes[0].recipe.named
+                
                 print(recipes.recipes[0].recipe.named)
+                self.savingAnswer(recipes:recipes)
                 self.performSegue(withIdentifier: "segueToReceiptList", sender: nil)
                 
             case .failure(let error) :
                 print("KO")
                 print(error.errorDescription as Any)
             }
+        }
+    }
+    func savingAnswer(recipes:(Recipes)) { // Converting recipes in an Array before sending it
+        for index in 0 ..< recipes.recipes.count {
+            let recetteName = recipes.recipes[index].recipe.named
+            let image = recipes.recipes[index].recipe.image
+            let recette = Recette(name: recetteName, image: image)
+            
+            recipesReceived.append(recette)
         }
     }
 }
@@ -106,14 +118,14 @@ extension PreparingSearchViewController: UITableViewDataSource {
         return cell
     }
 }
-extension PreparingSearchViewController: UITextFieldDelegate {
+extension PreparingSearchViewController: UITextFieldDelegate { // To dismiss keyboard when returnKey
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         ingredientName.resignFirstResponder()
         ingredientName.text = ""
         return true
     }
 }
-extension PreparingSearchViewController: UITableViewDelegate {
+extension PreparingSearchViewController: UITableViewDelegate { // To delete cells one by one
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             IngredientService.shared.remove(at: indexPath.row)

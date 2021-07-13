@@ -8,12 +8,7 @@
 import Foundation
 
 struct RecipesReceived {
-    var recipes: [Hit]
-}
-struct HitReceived {
-    var recipe: RecipeReceived
+    var recipesReceived:[Recette]
 }
 
-struct RecipeReceived {
-    var named:String
-}
+

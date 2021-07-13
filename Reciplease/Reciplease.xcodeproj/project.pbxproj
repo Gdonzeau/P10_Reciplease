@@ -172,9 +172,9 @@
 			isa = PBXGroup;
 			children = (
 				046E0550269328AD00C2F91C /* Reciplease.xcdatamodeld */,
+				04F8A602269DC67800B12445 /* RecipesReceived.swift */,
 				046E05DA269720BD00C2F91C /* Recettes.swift */,
 				046E05DF2697215700C2F91C /* Recipes.swift */,
-				04F8A602269DC67800B12445 /* RecipesReceived.swift */,
 				0431193E269C96E70031E33E /* Ingredient.swift */,
 				04311943269C97290031E33E /* IngredientService.swift */,
 			);

@@ -10,16 +10,17 @@ import UIKit
 class ReceipeListViewController: ViewController {
     //var recipesSended = Recipes?.self
     var recipesSended = ""
-    var recipesReceived: RecipesReceived!
+    var recipesReceived = [Recette]()
+    
     @IBOutlet weak var receipesTableView: UITableView!
+
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //let reception = recipesSended
-        let reception = recipesReceived
-        print("reçu : \(String(describing: reception))")
+        let reception = recipesReceived[0].name
+        print("reçu : \(reception)")
         // Do any additional setup after loading the view.
     }
     
@@ -31,15 +32,16 @@ extension ReceipeListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { // Données à changer. Ici, juste pour faire tourner le prgm
-        return IngredientService.shared.ingredients.count
+        return recipesReceived.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath)
         
-        let ingredient = IngredientService.shared.ingredients[indexPath.row]
+        let recipe = recipesReceived[indexPath.row]
+        let imageURL = recipesReceived[indexPath.row].image
+        cell.textLabel?.text = recipe.name
         
-        cell.textLabel?.text = ingredient.name
         
         return cell
     }

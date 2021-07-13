@@ -7,12 +7,7 @@
 
 import Foundation
 
-struct Recettes: Decodable {
-    
-    let all: [Recipes]
-    
-    enum CodingKeys: String, CodingKey {
-        
-      case all = "hits"
-    }
+struct Recette {
+    var name: String
+    var image: URL
   }
