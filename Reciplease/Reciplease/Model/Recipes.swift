@@ -9,7 +9,7 @@ import Foundation
 
 struct Recipes: Decodable {
     
-    let recipes: [Hit]
+    var recipes: [Hit]
     
     enum CodingKeys: String, CodingKey {
         
@@ -17,20 +17,21 @@ struct Recipes: Decodable {
     }
 }
 struct Hit: Decodable {
-    let recipe: Recipe
+    var recipe: Recipe
     
-    
+    /*
     enum CodingKeys: String, CodingKey {
         case recipe
         // case links = "_links"
     }
+ */
 }
 
 struct Recipe : Decodable {
-    let name: String
+    var named: String
     
     enum CodingKeys: String, CodingKey {
         
-        case name = "label"
+        case named = "label"
     }
 }

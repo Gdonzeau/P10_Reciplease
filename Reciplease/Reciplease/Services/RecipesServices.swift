@@ -12,7 +12,7 @@ class RecipesServices {
     static var shared = RecipesServices()
     private init() {}
     func getRecipes (ingredients: String, completion: @escaping (Result<Recipes,AFError>)->Void) { //completio type result
-        //let adressUrl = "https://api.edamam.com/api/recipes/v2?type=public"
+        
         let adressUrl = Settings.urlAdress // A mettre dans un fichier config
         
         let parameters = ["app_id": Keys.id.rawValue,

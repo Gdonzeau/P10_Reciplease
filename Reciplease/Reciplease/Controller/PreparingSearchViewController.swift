@@ -9,8 +9,9 @@ import UIKit
 
 class PreparingSearchViewController: ViewController{
     var ingredientsUsed = ""
-    //var recipesSended = Recipes?.self
     var recipesSended = "Bonjour"
+    var recipesReceived: RecipesReceived!
+    
     @IBOutlet weak var ingredientName: UITextField!
     @IBOutlet weak var ingredientTableView: UITableView!
     
@@ -22,7 +23,7 @@ class PreparingSearchViewController: ViewController{
     @IBAction func searchRecipesButton(_ sender: UIButton) {
         gettingIngredients()
         searchForRecipes(ingredients: ingredientsUsed)
-        performSegue(withIdentifier: "segueToReceiptList", sender: nil)
+        //performSegue(withIdentifier: "segueToReceiptList", sender: nil)
     }
     @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         disMissKeyboardMethod()
@@ -38,8 +39,9 @@ class PreparingSearchViewController: ViewController{
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToReceiptList" {
-            let successVC = segue.destination as! ReceipeListViewController
-            successVC.recipesSended = recipesSended
+            let receipListVC = segue.destination as! ReceipeListViewController
+            receipListVC.recipesSended = recipesSended
+            receipListVC.recipesReceived = recipesReceived
         }
     }
     func addIngredient() {
@@ -73,8 +75,10 @@ class PreparingSearchViewController: ViewController{
             switch result {
             case .success(let recipes) :
                 print("Ok")
-                //recipesSended = recipes
-                print(recipes.recipes[0].recipe.name)
+                //self.recipesReceived.recipes[0].recipe = recipes.recipes[0].recipe
+                print(recipes.recipes[0].recipe.named)
+                self.performSegue(withIdentifier: "segueToReceiptList", sender: nil)
+                
             case .failure(let error) :
                 print("KO")
                 print(error.errorDescription as Any)
@@ -107,5 +111,13 @@ extension PreparingSearchViewController: UITextFieldDelegate {
         ingredientName.resignFirstResponder()
         ingredientName.text = ""
         return true
+    }
+}
+extension PreparingSearchViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            IngredientService.shared.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .bottom)
+        }
     }
 }

@@ -10,14 +10,16 @@ import UIKit
 class ReceipeListViewController: ViewController {
     //var recipesSended = Recipes?.self
     var recipesSended = ""
+    var recipesReceived: RecipesReceived!
     @IBOutlet weak var receipesTableView: UITableView!
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let reception = recipesSended
-        print("reçu : \(reception)")
+        //let reception = recipesSended
+        let reception = recipesReceived
+        print("reçu : \(String(describing: reception))")
         // Do any additional setup after loading the view.
     }
     
