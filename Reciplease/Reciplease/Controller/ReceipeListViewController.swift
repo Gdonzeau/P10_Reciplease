@@ -11,17 +11,14 @@ class ReceipeListViewController: ViewController {
     //var recipesSended = Recipes?.self
     var recipesSended = ""
     var recipesReceived = [Recette]()
+    //var recipeChoosen  = Recette(name: "", image: URL(string: "")!, ingredientsNeeded: [])
     
     @IBOutlet weak var receipesTableView: UITableView!
 
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         let reception = recipesReceived[0].name
         print("reçu : \(reception)")
-        // Do any additional setup after loading the view.
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -32,10 +29,10 @@ class ReceipeListViewController: ViewController {
             //let recipeChoosenVC = segue.destination as! RecipeChoosenViewController
             //let blogIndex = tableView.indexPathForSelectedRow?.row
             recipeChoosenVC.recipeName = recipesReceived[index].name
-            
+            recipeChoosenVC.recipeChoosen = recipesReceived[index]
+            recipeChoosenVC.imageUrl = recipesReceived[index].image
         }
     }
-    
 }
 
 extension ReceipeListViewController: UITableViewDataSource {
@@ -49,11 +46,9 @@ extension ReceipeListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath)
-        
         let recipe = recipesReceived[indexPath.row]
-        let imageURL = recipesReceived[indexPath.row].image
+        //let imageURL = recipesReceived[indexPath.row].image
         cell.textLabel?.text = recipe.name
-        
         
         return cell
     }
@@ -63,24 +58,5 @@ extension ReceipeListViewController: UITableViewDataSource {
             let row = indexPath.row
             print(row)
         }
-    /*
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-            //getting the index path of selected row
-            let indexPath = tableView.indexPathForSelectedRow
-        print(indexPath as Any)
-            //getting the current cell from the index path
-        let currentCell = tableView.cellForRow(at: indexPath!)! as UITableViewCell
-            print(currentCell)
-            //getting the text of that cell
-            let currentItem = currentCell.textLabel!.text
-            
-        let alertController = UIAlertController(title: "Simplified iOS", message: "You Selected " + currentItem! , preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "Close Alert", style: .default, handler: nil)
-            alertController.addAction(defaultAction)
-            
-        present(alertController, animated: true, completion: nil)
-        }
-    */
-    
 }
  

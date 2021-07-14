@@ -165,16 +165,23 @@
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jg5-HU-I4M">
-                                                    <rect key="frame" x="131" y="23" width="141" height="56"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jg5-HU-I4M">
+                                                    <rect key="frame" x="164" y="11" width="46" height="68"/>
                                                     <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="90" id="Yf7-Ii-8lo"/>
+                                                    </constraints>
                                                     <state key="normal" title="Button"/>
                                                     <connections>
                                                         <action selector="recipeButton:" destination="Y1H-8N-Oyy" eventType="touchUpInside" id="zW7-bJ-IZo"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="jg5-HU-I4M" firstAttribute="top" secondItem="lud-53-kij" secondAttribute="topMargin" id="ARX-53-VWI"/>
+                                                <constraint firstItem="jg5-HU-I4M" firstAttribute="bottom" secondItem="lud-53-kij" secondAttribute="bottomMargin" id="Bjy-Zk-uma"/>
+                                                <constraint firstItem="jg5-HU-I4M" firstAttribute="centerX" secondItem="lud-53-kij" secondAttribute="centerX" id="kvE-RZ-wC5"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="N1R-fJ-665" kind="show" identifier="segueFromCellToChoosenRecipe" id="EXq-62-jE9"/>
@@ -212,12 +219,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SKV-Xv-Bgf">
+                                <rect key="frame" x="20" y="80" width="374" height="240"/>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yjk-DI-X4D">
+                                <rect key="frame" x="20" y="396" width="374" height="300"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TeZ-db-QOR">
-                                <rect key="frame" x="20" y="20" width="374" height="40"/>
+                                <rect key="frame" x="20" y="328" width="374" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="zj4-UD-5NY"/>
+                                    <constraint firstAttribute="height" constant="60" id="q1H-ca-SZY"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -225,14 +243,24 @@
                         <viewLayoutGuide key="safeArea" id="eou-Cj-9QO"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="TeZ-db-QOR" firstAttribute="leading" secondItem="eou-Cj-9QO" secondAttribute="leading" constant="20" id="8wN-sD-uZN"/>
-                            <constraint firstItem="eou-Cj-9QO" firstAttribute="trailing" secondItem="TeZ-db-QOR" secondAttribute="trailing" constant="20" id="UbA-mV-9tJ"/>
-                            <constraint firstItem="TeZ-db-QOR" firstAttribute="top" secondItem="eou-Cj-9QO" secondAttribute="top" constant="20" id="crf-j2-Odt"/>
+                            <constraint firstItem="SKV-Xv-Bgf" firstAttribute="leading" secondItem="eou-Cj-9QO" secondAttribute="leading" constant="20" id="5wb-HO-VSn"/>
+                            <constraint firstItem="TeZ-db-QOR" firstAttribute="centerY" secondItem="F45-ic-DC0" secondAttribute="centerY" id="6r0-4e-g3x"/>
+                            <constraint firstItem="eou-Cj-9QO" firstAttribute="bottom" secondItem="yjk-DI-X4D" secondAttribute="bottom" constant="20" id="IM3-fx-tK4"/>
+                            <constraint firstItem="yjk-DI-X4D" firstAttribute="leading" secondItem="eou-Cj-9QO" secondAttribute="leading" constant="20" id="NxS-U8-9QJ"/>
+                            <constraint firstItem="TeZ-db-QOR" firstAttribute="leading" secondItem="eou-Cj-9QO" secondAttribute="leading" constant="20" id="Oqj-wY-faG"/>
+                            <constraint firstItem="TeZ-db-QOR" firstAttribute="top" secondItem="SKV-Xv-Bgf" secondAttribute="bottom" constant="8" symbolic="YES" id="RYr-gS-sff"/>
+                            <constraint firstItem="yjk-DI-X4D" firstAttribute="top" secondItem="TeZ-db-QOR" secondAttribute="bottom" constant="8" symbolic="YES" id="S5M-5Z-qII"/>
+                            <constraint firstItem="eou-Cj-9QO" firstAttribute="trailing" secondItem="yjk-DI-X4D" secondAttribute="trailing" constant="20" id="TgU-6O-RE3"/>
+                            <constraint firstItem="eou-Cj-9QO" firstAttribute="trailing" secondItem="SKV-Xv-Bgf" secondAttribute="trailing" constant="20" id="XNP-h5-wzZ"/>
+                            <constraint firstItem="eou-Cj-9QO" firstAttribute="trailing" secondItem="TeZ-db-QOR" secondAttribute="trailing" constant="20" id="cnW-BK-y6Y"/>
+                            <constraint firstItem="SKV-Xv-Bgf" firstAttribute="top" secondItem="eou-Cj-9QO" secondAttribute="top" constant="80" id="xEJ-Xc-uAN"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="sDw-qj-Pl3"/>
                     <connections>
                         <outlet property="blogNameLabel" destination="TeZ-db-QOR" id="i8E-uw-Crm"/>
+                        <outlet property="imageRecipe" destination="SKV-Xv-Bgf" id="mvE-WW-Qzx"/>
+                        <outlet property="ingredientsList" destination="yjk-DI-X4D" id="QkS-cH-fFR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hec-RH-soI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -259,6 +287,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
