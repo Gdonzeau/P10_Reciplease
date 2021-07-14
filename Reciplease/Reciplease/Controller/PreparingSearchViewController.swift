@@ -45,9 +45,10 @@ class PreparingSearchViewController: ViewController{
         }
     }
     func addIngredient() {
-        guard let ingredientAdded = ingredientName.text else {
+        guard var ingredientAdded = ingredientName.text else {
             return
         }
+        ingredientAdded = "- " + ingredientAdded
         
         let newIngredient = Ingredient(name: ingredientAdded)
         IngredientService.shared.add(ingredient: newIngredient)
