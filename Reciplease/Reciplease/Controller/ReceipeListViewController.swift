@@ -8,10 +8,8 @@
 import UIKit
 
 class ReceipeListViewController: ViewController {
-    //var recipesSended = Recipes?.self
-    var recipesSended = ""
+    
     var recipesReceived = [Recette]()
-    //var recipeChoosen  = Recette(name: "", image: URL(string: "")!, ingredientsNeeded: [])
     
     @IBOutlet weak var receipesTableView: UITableView!
 
@@ -26,11 +24,7 @@ class ReceipeListViewController: ViewController {
            let recipeChoosenVC = segue.destination as? RecipeChoosenViewController,
            let index = receipesTableView.indexPathForSelectedRow?.row {
             print("C'est parti")
-            //let recipeChoosenVC = segue.destination as! RecipeChoosenViewController
-            //let blogIndex = tableView.indexPathForSelectedRow?.row
-            recipeChoosenVC.recipeName = recipesReceived[index].name
             recipeChoosenVC.recipeChoosen = recipesReceived[index]
-            recipeChoosenVC.imageUrl = recipesReceived[index].image
         }
     }
 }
@@ -40,23 +34,30 @@ extension ReceipeListViewController: UITableViewDataSource {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { // Données à changer. Ici, juste pour faire tourner le prgm
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recipesReceived.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as? RecipeTableViewCell else {
+            return UITableViewCell()
+        }
         let recipe = recipesReceived[indexPath.row]
-        //let imageURL = recipesReceived[indexPath.row].image
-        cell.textLabel?.text = recipe.name
+        let image = UIImageView()
+        let timeToPrepare = String(Int(recipe.totalTime))
+        let name = recipe.name
+        if let imageUrl = recipe.image { // There is a picture
+            image.load(url: imageUrl)
+            cell.configure(image: image, timeToPrepare: timeToPrepare, imageURL: imageUrl, name: name)
+            // Fin
+        } else { // Create a Default image
+            cell.backgroundColor = UIColor.darkGray
+            print("problème d'image")
+        }
         
+        //cell.textLabel?.text = recipe.name
         return cell
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            tableView.deselectRow(at: indexPath, animated: true)
-            
-            let row = indexPath.row
-            print(row)
-        }
+    
 }
  

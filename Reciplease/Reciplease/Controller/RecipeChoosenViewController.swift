@@ -11,27 +11,22 @@ class RecipeChoosenViewController: UIViewController {
 
     var recipeName = String()
     var ingredientList = String()
-    var recipeChoosen = Recette(name: "", image: URL(string: "")!, ingredientsNeeded: [])
-    var imageUrl = URL(string: "")
+    var recipeChoosen = Recette(name: "", image: URL(string: ""), ingredientsNeeded: [], totalTime: 0.00)
+    //var imageUrl = URL(string: "")
     @IBOutlet weak var blogNameLabel: UILabel!
     @IBOutlet weak var imageRecipe: UIImageView!
     @IBOutlet weak var ingredientsList: UITextView!
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-    
-    
-
     override func viewWillAppear(_ animated: Bool) {
         prepareInformations()
         blogNameLabel.text = recipeName
         ingredientsList.text = ingredientList
-        guard let imageUrl = imageUrl else {
+        guard let imageUrl = recipeChoosen.image else {
             return
         }
         imageRecipe.load(url: imageUrl)

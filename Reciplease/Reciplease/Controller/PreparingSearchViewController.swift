@@ -40,7 +40,7 @@ class PreparingSearchViewController: ViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToReceiptList" {
             let receipListVC = segue.destination as! ReceipeListViewController
-            receipListVC.recipesSended = recipesSended
+            //receipListVC.recipesSended = recipesSended
             receipListVC.recipesReceived = recipesReceived
         }
     }
@@ -79,7 +79,7 @@ class PreparingSearchViewController: ViewController{
         ingredientName.resignFirstResponder()
     }
     func searchForRecipes(ingredients: String) {
-        RecipesServices.shared.getRecipes(ingredients: ingredients) { (result) in // Attention, ingrédient mal écrit provoque fatalError
+        RecipesServices.shared.getRecipes(ingredients: ingredients) { (result) in
             switch result {
             case .success(let recipes) :
                 print("Ok")
@@ -107,8 +107,9 @@ class PreparingSearchViewController: ViewController{
             let recetteName = recipes.recipes[index].recipe.named
             let image = recipes.recipes[index].recipe.image
             let ingredients = recipes.recipes[index].recipe.ingredientsNeeded
+            let timeToPrepare = recipes.recipes[index].recipe.totalTime
             print(image)
-            let recette = Recette(name: recetteName, image: image, ingredientsNeeded: ingredients) // Let's finalizing recipe to add to array
+            let recette = Recette(name: recetteName, image: image, ingredientsNeeded: ingredients, totalTime: timeToPrepare) // Let's finalizing recipe to add to array
             
             recipesReceived.append(recette)
         }

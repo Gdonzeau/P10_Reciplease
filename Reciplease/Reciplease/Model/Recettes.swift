@@ -9,6 +9,7 @@ import Foundation
 
 struct Recette {
     var name: String
-    var image: URL
+    var image: URL?
     var ingredientsNeeded: [String]
+    var totalTime: Float
   }

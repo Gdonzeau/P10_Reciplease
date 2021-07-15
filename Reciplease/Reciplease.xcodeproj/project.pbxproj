@@ -188,6 +188,7 @@
 		046E0581269344C100C2F91C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				04F8A60D269E49A100B12445 /* RecipeTableViewCell.swift */,
 				046E054D269328AD00C2F91C /* Main.storyboard */,
 			);
 			path = View;
@@ -199,7 +200,6 @@
 				046E054B269328AD00C2F91C /* ViewController.swift */,
 				04311934269C87A50031E33E /* PreparingSearchViewController.swift */,
 				04311948269CA9AB0031E33E /* ReceipeListViewController.swift */,
-				04F8A60D269E49A100B12445 /* RecipeTableViewCell.swift */,
 				04F8A612269E4C0B00B12445 /* RecipeChoosenViewController.swift */,
 			);
 			path = Controller;
