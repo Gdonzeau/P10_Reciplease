@@ -12,4 +12,5 @@ struct Recette {
     var image: URL?
     var ingredientsNeeded: [String]
     var totalTime: Float
+    var url: URL?
   }

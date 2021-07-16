@@ -11,15 +11,27 @@ class RecipeChoosenViewController: UIViewController {
 
     var recipeName = String()
     var ingredientList = String()
-    var recipeChoosen = Recette(name: "", image: URL(string: ""), ingredientsNeeded: [], totalTime: 0.00)
+    var recipeChoosen = Recette(name: "", image: URL(string: ""), ingredientsNeeded: [], totalTime: 0.00, url: URL(string: ""))
     //var imageUrl = URL(string: "")
     @IBOutlet weak var blogNameLabel: UILabel!
     @IBOutlet weak var imageRecipe: UIImageView!
     @IBOutlet weak var ingredientsList: UITextView!
+    @IBOutlet weak var getDirectionsButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var addToFavorites: UIButton!// Text = added si déjà ajouté
     
+    @IBAction func addButton(_ sender: UIButton) {
+    }
+    @IBAction func getDirectionsButtonAction(_ sender: UIButton) {
+        toggleActivityIndicator(shown: true)
+        
+        if let url = recipeChoosen.url {
+            UIApplication.shared.open(url)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        toggleActivityIndicator(shown: false)
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -31,16 +43,20 @@ class RecipeChoosenViewController: UIViewController {
         }
         imageRecipe.load(url: imageUrl)
     }
-    func prepareInformations() {
+    private func prepareInformations() {
         recipeName = recipeChoosen.name
         presentIngredients()
     }
-    func presentIngredients() {
+    private func presentIngredients() {
         for index in 0 ..< recipeChoosen.ingredientsNeeded.count {
             ingredientList += "- "
             ingredientList += recipeChoosen.ingredientsNeeded[index]
             ingredientList += "\n"
         }
+    }
+    private func toggleActivityIndicator(shown: Bool) {
+        getDirectionsButton.isHidden = shown
+        activityIndicator.isHidden = !shown
     }
     
 }

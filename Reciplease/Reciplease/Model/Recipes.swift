@@ -32,6 +32,7 @@ struct Recipe : Decodable {
     var image: URL
     var ingredientsNeeded: [String]
     var totalTime: Float
+    var url: URL
     
     enum CodingKeys: String, CodingKey {
         
@@ -39,5 +40,6 @@ struct Recipe : Decodable {
         case image
         case ingredientsNeeded = "ingredientLines"
         case totalTime
+        case url
     }
 }

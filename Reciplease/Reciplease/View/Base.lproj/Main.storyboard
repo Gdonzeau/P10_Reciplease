@@ -51,20 +51,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i79-rf-TZa">
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="34" translatesAutoresizingMaskIntoConstraints="NO" id="TRG-Ba-mmS">
                                 <rect key="frame" x="20" y="607" width="374" height="60"/>
-                                <color key="backgroundColor" red="0.1833591759" green="0.61514002079999996" blue="0.45942020420000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i79-rf-TZa">
+                                        <rect key="frame" x="0.0" y="0.0" width="303" height="60"/>
+                                        <color key="backgroundColor" red="0.1833591759" green="0.61514002079999996" blue="0.45942020420000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="iTU-pp-FqM"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                        <state key="normal" title="Search for recipes">
+                                            <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="searchRecipesButton:" destination="3Uv-Xu-4zb" eventType="touchUpInside" id="1rY-uY-Sbg"/>
+                                        </connections>
+                                    </button>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="1hJ-OM-z66">
+                                        <rect key="frame" x="337" y="0.0" width="37" height="60"/>
+                                        <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </activityIndicatorView>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="iTU-pp-FqM"/>
+                                    <constraint firstAttribute="height" constant="60" id="YV3-ph-jeB"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <state key="normal" title="Search for recipes">
-                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="searchRecipesButton:" destination="3Uv-Xu-4zb" eventType="touchUpInside" id="1rY-uY-Sbg"/>
-                                </connections>
-                            </button>
+                            </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="D6q-PF-yv0">
                                 <rect key="frame" x="0.0" y="244" width="414" height="343"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -136,16 +148,16 @@
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="qgg-ht-118" firstAttribute="bottom" secondItem="i79-rf-TZa" secondAttribute="bottom" constant="20" id="9CB-lc-FhC"/>
-                            <constraint firstItem="qgg-ht-118" firstAttribute="trailing" secondItem="i79-rf-TZa" secondAttribute="trailing" constant="20" id="AQY-Sn-oHS"/>
                             <constraint firstItem="D6q-PF-yv0" firstAttribute="top" secondItem="qgg-ht-118" secondAttribute="top" constant="200" id="LtD-70-FFX"/>
+                            <constraint firstItem="qgg-ht-118" firstAttribute="trailing" secondItem="TRG-Ba-mmS" secondAttribute="trailing" constant="20" id="QYk-ne-Wxi"/>
                             <constraint firstItem="D6q-PF-yv0" firstAttribute="top" secondItem="7zm-YE-dI6" secondAttribute="bottom" constant="20" id="R06-QM-d2e"/>
-                            <constraint firstItem="i79-rf-TZa" firstAttribute="leading" secondItem="qgg-ht-118" secondAttribute="leading" constant="20" id="Tvc-E1-fdx"/>
                             <constraint firstItem="qgg-ht-118" firstAttribute="trailing" secondItem="7zm-YE-dI6" secondAttribute="trailing" constant="20" id="dMP-d3-CuK"/>
+                            <constraint firstItem="TRG-Ba-mmS" firstAttribute="leading" secondItem="qgg-ht-118" secondAttribute="leading" constant="20" id="dR5-KP-Ymc"/>
                             <constraint firstItem="D6q-PF-yv0" firstAttribute="leading" secondItem="qgg-ht-118" secondAttribute="leading" id="fjf-dq-FW3"/>
+                            <constraint firstItem="TRG-Ba-mmS" firstAttribute="top" secondItem="D6q-PF-yv0" secondAttribute="bottom" constant="20" id="fzz-c2-wad"/>
                             <constraint firstItem="qgg-ht-118" firstAttribute="trailing" secondItem="D6q-PF-yv0" secondAttribute="trailing" id="u1x-Fr-yfB"/>
-                            <constraint firstItem="i79-rf-TZa" firstAttribute="top" secondItem="D6q-PF-yv0" secondAttribute="bottom" constant="20" id="uzx-iv-H7H"/>
                             <constraint firstItem="7zm-YE-dI6" firstAttribute="leading" secondItem="qgg-ht-118" secondAttribute="leading" constant="20" id="vH6-Al-CAU"/>
+                            <constraint firstItem="qgg-ht-118" firstAttribute="bottom" secondItem="TRG-Ba-mmS" secondAttribute="bottom" constant="20" id="wgk-9Q-ti8"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="y6W-f6-sFd" appends="YES" id="g9y-Du-xrd"/>
@@ -154,8 +166,10 @@
                     <tabBarItem key="tabBarItem" title="Search" id="G9Y-ZI-Fyg"/>
                     <navigationItem key="navigationItem" title="Reciplease" id="DWm-EH-te7"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="1hJ-OM-z66" id="lAz-Vh-MP6"/>
                         <outlet property="ingredientName" destination="gPc-u2-AZf" id="B0A-sb-CCL"/>
                         <outlet property="ingredientTableView" destination="D6q-PF-yv0" id="q66-7q-CzK"/>
+                        <outlet property="searchButton" destination="i79-rf-TZa" id="qcg-Np-zpa"/>
                         <segue destination="2aN-AQ-If6" kind="show" identifier="segueToReceiptList" id="WZK-tf-qLm"/>
                     </connections>
                 </viewController>
@@ -166,13 +180,15 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-707" y="-461"/>
+            <point key="canvasLocation" x="-707.24637681159425" y="-461.41304347826093"/>
         </scene>
         <!--Search-->
         <scene sceneID="CtQ-Kf-A6b">
             <objects>
                 <navigationController id="JQ0-ec-uID" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" id="7Ec-d4-N9V"/>
+                    <tabBarItem key="tabBarItem" title="Search" badgeValue="Research" id="7Ec-d4-N9V">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8Nq-lX-cT6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -290,7 +306,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TeZ-db-QOR">
-                                <rect key="frame" x="20" y="446" width="374" height="50"/>
+                                <rect key="frame" x="20" y="322" width="374" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Wub-Z7-k2L"/>
                                     <constraint firstAttribute="height" constant="50" id="q1H-ca-SZY"/>
@@ -300,20 +316,47 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SKV-Xv-Bgf">
-                                <rect key="frame" x="20" y="64" width="374" height="374"/>
+                                <rect key="frame" x="20" y="64" width="374" height="250"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="374" id="Ufc-gg-Vjy"/>
-                                    <constraint firstAttribute="width" secondItem="SKV-Xv-Bgf" secondAttribute="height" multiplier="1:1" id="VLn-Gq-gSG"/>
+                                    <constraint firstAttribute="height" constant="250" id="uQK-FI-rM1"/>
                                 </constraints>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yjk-DI-X4D">
-                                <rect key="frame" x="20" y="504" width="374" height="163"/>
+                                <rect key="frame" x="20" y="380" width="374" height="287"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="34" translatesAutoresizingMaskIntoConstraints="NO" id="Nu1-b0-XjZ">
+                                <rect key="frame" x="20" y="607" width="374" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U3Z-hJ-oYa">
+                                        <rect key="frame" x="0.0" y="0.0" width="303" height="60"/>
+                                        <color key="backgroundColor" red="0.1833591759" green="0.61514002079999996" blue="0.45942020420000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="LPi-Pj-oXT"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                        <state key="normal" title="Get directions">
+                                            <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="getDirectionsButtonAction:" destination="N1R-fJ-665" eventType="touchUpInside" id="KGP-eH-dnL"/>
+                                            <action selector="searchRecipesButton:" destination="3Uv-Xu-4zb" eventType="touchUpInside" id="tCf-bq-OhZ"/>
+                                        </connections>
+                                    </button>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="f9m-wt-6h7">
+                                        <rect key="frame" x="337" y="0.0" width="37" height="60"/>
+                                        <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="EBL-AD-y1S"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="eou-Cj-9QO"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -322,19 +365,40 @@
                             <constraint firstItem="eou-Cj-9QO" firstAttribute="bottom" secondItem="yjk-DI-X4D" secondAttribute="bottom" constant="20" id="IM3-fx-tK4"/>
                             <constraint firstItem="yjk-DI-X4D" firstAttribute="leading" secondItem="eou-Cj-9QO" secondAttribute="leading" constant="20" id="NxS-U8-9QJ"/>
                             <constraint firstItem="TeZ-db-QOR" firstAttribute="leading" secondItem="eou-Cj-9QO" secondAttribute="leading" constant="20" id="Oqj-wY-faG"/>
+                            <constraint firstItem="Nu1-b0-XjZ" firstAttribute="leading" secondItem="eou-Cj-9QO" secondAttribute="leading" constant="20" id="QtW-Ai-SNh"/>
                             <constraint firstItem="eou-Cj-9QO" firstAttribute="trailing" secondItem="yjk-DI-X4D" secondAttribute="trailing" constant="20" id="TgU-6O-RE3"/>
                             <constraint firstItem="yjk-DI-X4D" firstAttribute="top" secondItem="TeZ-db-QOR" secondAttribute="bottom" constant="8" symbolic="YES" id="X1T-ba-JOt"/>
                             <constraint firstItem="eou-Cj-9QO" firstAttribute="trailing" secondItem="SKV-Xv-Bgf" secondAttribute="trailing" constant="20" id="XNP-h5-wzZ"/>
                             <constraint firstItem="eou-Cj-9QO" firstAttribute="trailing" secondItem="TeZ-db-QOR" secondAttribute="trailing" constant="20" id="cnW-BK-y6Y"/>
                             <constraint firstItem="TeZ-db-QOR" firstAttribute="leading" secondItem="eou-Cj-9QO" secondAttribute="leading" constant="20" id="g0L-YG-AhO"/>
+                            <constraint firstItem="eou-Cj-9QO" firstAttribute="bottom" secondItem="Nu1-b0-XjZ" secondAttribute="bottom" constant="20" id="g9d-nU-O8z"/>
                             <constraint firstItem="eou-Cj-9QO" firstAttribute="trailing" secondItem="TeZ-db-QOR" secondAttribute="trailing" constant="20" id="jzr-FS-LZd"/>
+                            <constraint firstItem="eou-Cj-9QO" firstAttribute="trailing" secondItem="Nu1-b0-XjZ" secondAttribute="trailing" constant="20" id="l6x-fh-Zak"/>
                             <constraint firstItem="TeZ-db-QOR" firstAttribute="top" secondItem="SKV-Xv-Bgf" secondAttribute="bottom" constant="8" symbolic="YES" id="nhA-VT-Dyx"/>
                             <constraint firstItem="SKV-Xv-Bgf" firstAttribute="top" secondItem="eou-Cj-9QO" secondAttribute="top" constant="20" id="vrj-b8-kt3"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="sDw-qj-Pl3"/>
+                    <navigationItem key="navigationItem" id="sDw-qj-Pl3">
+                        <nil key="title"/>
+                        <barButtonItem key="rightBarButtonItem" title="Add to favorites" style="plain" id="s5X-zN-xem">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hqP-gO-9EC">
+                                <rect key="frame" x="361" y="5" width="33" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add">
+                                    <color key="titleColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="addButton:" destination="N1R-fJ-665" eventType="touchUpInside" id="L8j-HO-3Cz"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="f9m-wt-6h7" id="R4R-s7-h3J"/>
+                        <outlet property="addButon" destination="hqP-gO-9EC" id="cd3-04-6ce"/>
+                        <outlet property="addToFavorites" destination="hqP-gO-9EC" id="7b3-M3-ASX"/>
                         <outlet property="blogNameLabel" destination="TeZ-db-QOR" id="i8E-uw-Crm"/>
+                        <outlet property="getDirectionsButton" destination="U3Z-hJ-oYa" id="Kbb-q8-M3F"/>
                         <outlet property="imageRecipe" destination="SKV-Xv-Bgf" id="mvE-WW-Qzx"/>
                         <outlet property="ingredientsList" destination="yjk-DI-X4D" id="QkS-cH-fFR"/>
                     </connections>
@@ -347,10 +411,12 @@
         <scene sceneID="070-qW-29q">
             <objects>
                 <tabBarController id="Fco-RB-QTk" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" itemPositioning="fill" id="foU-mD-DRP">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="foU-mD-DRP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="JQ0-ec-uID" kind="relationship" relationship="viewControllers" id="ZfG-pR-Soj"/>

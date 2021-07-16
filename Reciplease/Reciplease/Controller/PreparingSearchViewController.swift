@@ -14,6 +14,8 @@ class PreparingSearchViewController: ViewController{
     
     @IBOutlet weak var ingredientName: UITextField!
     @IBOutlet weak var ingredientTableView: UITableView!
+    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     
     @IBAction func addIngredientButton(_ sender: UIButton) {
@@ -21,9 +23,9 @@ class PreparingSearchViewController: ViewController{
         addIngredient()
     }
     @IBAction func searchRecipesButton(_ sender: UIButton) {
+        toggleActivityIndicator(shown: true)
         gettingIngredients()
         searchForRecipes(ingredients: ingredientsUsed)
-        //performSegue(withIdentifier: "segueToReceiptList", sender: nil)
     }
     @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         disMissKeyboardMethod()
@@ -31,7 +33,7 @@ class PreparingSearchViewController: ViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        toggleActivityIndicator(shown: false)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -44,7 +46,7 @@ class PreparingSearchViewController: ViewController{
             receipListVC.recipesReceived = recipesReceived
         }
     }
-    func addIngredient() {
+    private func addIngredient() {
         guard var ingredientAdded = ingredientName.text else {
             return
         }
@@ -55,7 +57,7 @@ class PreparingSearchViewController: ViewController{
         ingredientName.text = ""
         viewWillAppear(true)
     }
-    func gettingIngredients() {
+    private func gettingIngredients() {
         guard IngredientService.shared.ingredients.count > 0 else {
             let error = APIErrors.nothingIsWritten
             if let errorMessage = error.errorDescription, let errorTitle = error.failureReason {
@@ -75,15 +77,15 @@ class PreparingSearchViewController: ViewController{
  */
     }
     
-    func disMissKeyboardMethod() {
+    private func disMissKeyboardMethod() {
         ingredientName.resignFirstResponder()
     }
-    func searchForRecipes(ingredients: String) {
+    private func searchForRecipes(ingredients: String) {
         RecipesServices.shared.getRecipes(ingredients: ingredients) { (result) in
             switch result {
             case .success(let recipes) :
-                print("Ok")
-                guard recipes.recipes.count > 0 else {
+                self.toggleActivityIndicator(shown: false)
+                guard recipes.recipes.count > 0 else { // There are answers
                     let error = APIErrors.nothingIsWritten
                     if let errorMessage = error.errorDescription, let errorTitle = error.failureReason {
                         self.allErrors(errorMessage: errorMessage, errorTitle: errorTitle)
@@ -100,7 +102,7 @@ class PreparingSearchViewController: ViewController{
             }
         }
     }
-    func savingAnswer(recipes:(Recipes)) { // Converting recipes in an Array before sending it
+    private func savingAnswer(recipes:(Recipes)) { // Converting recipes in an Array before sending it
         recipesReceived = [Recette]() // Let's delete the array between two requests
         for index in 0 ..< recipes.recipes.count {
             // All recipe's characteristics
@@ -108,11 +110,16 @@ class PreparingSearchViewController: ViewController{
             let image = recipes.recipes[index].recipe.image
             let ingredients = recipes.recipes[index].recipe.ingredientsNeeded
             let timeToPrepare = recipes.recipes[index].recipe.totalTime
+            let url = recipes.recipes[index].recipe.url
             print(image)
-            let recette = Recette(name: recetteName, image: image, ingredientsNeeded: ingredients, totalTime: timeToPrepare) // Let's finalizing recipe to add to array
+            let recette = Recette(name: recetteName, image: image, ingredientsNeeded: ingredients, totalTime: timeToPrepare, url: url) // Let's finalizing recipe to add to array
             
             recipesReceived.append(recette)
         }
+    }
+    private func toggleActivityIndicator(shown: Bool) {
+        searchButton.isHidden = shown
+        activityIndicator.isHidden = !shown
     }
     private func allErrors(errorMessage: String, errorTitle: String) {
         let alertVC = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
