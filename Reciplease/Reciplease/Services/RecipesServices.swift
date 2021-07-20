@@ -17,6 +17,8 @@ class RecipesServices {
         
         let parameters = ["app_id": Keys.id.rawValue,
                           "app_key":Keys.key.rawValue,
+                          "from":"1", // À tester... et à passer ensuite en Config si ça marche
+                          "to":"60",
                           "q": ingredients]
         Session.default.request(adressUrl, parameters: parameters)
             .validate() //requête et valide que la réponse est valide (200, pas d'erreur, etc.)

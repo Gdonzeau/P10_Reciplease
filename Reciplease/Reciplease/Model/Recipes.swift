@@ -20,14 +20,14 @@ struct RecipeReceived {
         case additionnalInfo
     }
     enum AdditionalInfoKeys: String, CodingKey {
-            //case elevation
+        case elevation
         case name
         case image
         case ingredientsNeeded
         case totalTime
         case url
-        }
-  }
+    }
+}
 
 struct Recipes: Decodable {
     
@@ -41,11 +41,11 @@ struct Recipes: Decodable {
 struct Hit: Decodable {
     var recipe: Recipe
     /*
-    enum CodingKeys: String, CodingKey {
-        case recipe
-        // case links = "_links"
-    }
- */
+     enum CodingKeys: String, CodingKey {
+     case recipe
+     // case links = "_links"
+     }
+     */
 }
 
 struct Recipe : Decodable {
@@ -64,34 +64,34 @@ struct Recipe : Decodable {
         case url
     }
     /*
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(Int.self, forKey: .id)
-        missionName = try container.decode(String.self, forKey: .missionName)
-        date = try container.decode(Date.self, forKey: .date)
-        succeeded = try container.decode(Bool.self, forKey: .succeeded)
-        timeline = try container.decodeIfPresent(Timeline.self, forKey: .timeline)
-        
-        let linksContainer = try container.nestedContainer(keyedBy: CodingKeys.LinksKeys.self, forKey: .links)
-        patchURL = try linksContainer.decode(URL.self, forKey: .patchURL)
-        
-        let siteContainer = try container.nestedContainer(keyedBy: CodingKeys.SiteKeys.self, forKey: .launchSite)
-        site = try siteContainer.decode(String.self, forKey: .siteName)
-        
-        let rocketContainer = try container.nestedContainer(keyedBy: CodingKeys.RocketKeys.self, forKey: .rocket)
-        rocket = try rocketContainer.decode(String.self, forKey: .rocketName)
-        let secondStageContainer = try rocketContainer.nestedContainer(keyedBy: CodingKeys.RocketKeys.SecondStageKeys.self, forKey: .secondStage)
-        
-        var payloadsContainer = try secondStageContainer.nestedUnkeyedContainer(forKey: .payloads)
-        var payloads = ""
-        while !payloadsContainer.isAtEnd {
-            let payloadContainer = try payloadsContainer.nestedContainer(keyedBy: CodingKeys.RocketKeys.SecondStageKeys.PayloadKeys.self)
-            let payloadName = try payloadContainer.decode(String.self, forKey: .payloadName)
-            payloads += payloads == "" ? payloadName : ", \(payloadName)"
-        }
-        self.payloads = payloads
-    }
-    */
+     init(from decoder: Decoder) throws {
+     let container = try decoder.container(keyedBy: CodingKeys.self)
+     id = try container.decode(Int.self, forKey: .id)
+     missionName = try container.decode(String.self, forKey: .missionName)
+     date = try container.decode(Date.self, forKey: .date)
+     succeeded = try container.decode(Bool.self, forKey: .succeeded)
+     timeline = try container.decodeIfPresent(Timeline.self, forKey: .timeline)
+     
+     let linksContainer = try container.nestedContainer(keyedBy: CodingKeys.LinksKeys.self, forKey: .links)
+     patchURL = try linksContainer.decode(URL.self, forKey: .patchURL)
+     
+     let siteContainer = try container.nestedContainer(keyedBy: CodingKeys.SiteKeys.self, forKey: .launchSite)
+     site = try siteContainer.decode(String.self, forKey: .siteName)
+     
+     let rocketContainer = try container.nestedContainer(keyedBy: CodingKeys.RocketKeys.self, forKey: .rocket)
+     rocket = try rocketContainer.decode(String.self, forKey: .rocketName)
+     let secondStageContainer = try rocketContainer.nestedContainer(keyedBy: CodingKeys.RocketKeys.SecondStageKeys.self, forKey: .secondStage)
+     
+     var payloadsContainer = try secondStageContainer.nestedUnkeyedContainer(forKey: .payloads)
+     var payloads = ""
+     while !payloadsContainer.isAtEnd {
+     let payloadContainer = try payloadsContainer.nestedContainer(keyedBy: CodingKeys.RocketKeys.SecondStageKeys.PayloadKeys.self)
+     let payloadName = try payloadContainer.decode(String.self, forKey: .payloadName)
+     payloads += payloads == "" ? payloadName : ", \(payloadName)"
+     }
+     self.payloads = payloads
+     }
+     */
 }
 extension Recipe: Equatable {
     static func == (lhs: Recipe, rhs: Recipe) -> Bool {
