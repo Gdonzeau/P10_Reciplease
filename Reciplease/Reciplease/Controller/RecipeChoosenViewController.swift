@@ -21,6 +21,7 @@ class RecipeChoosenViewController: UIViewController {
     @IBOutlet weak var addToFavorites: UIButton!// Text = added si déjà ajouté
     
     @IBAction func addButton(_ sender: UIButton) {
+        addRecipeToFavorites()
     }
     @IBAction func getDirectionsButtonAction(_ sender: UIButton) {
         toggleActivityIndicator(shown: true)
@@ -57,6 +58,19 @@ class RecipeChoosenViewController: UIViewController {
     private func toggleActivityIndicator(shown: Bool) {
         getDirectionsButton.isHidden = shown
         activityIndicator.isHidden = !shown
+    }
+    private func addRecipeToFavorites() {
+        saveRecipe(recipeToSave: recipeChoosen)
+    }
+    
+    private func saveRecipe(recipeToSave: Recette) {
+        let recipe = RecipeRegistred(context: AppDelegate.viewContext) //Appel du CoreDate RecipeService
+        //recipe.imageUrl = recipeToSave.image
+        recipe.ingredients = recipeToSave.ingredientsNeeded
+        recipe.name = recipeToSave.name
+        recipe.totalTime = recipeToSave.totalTime
+        
+        try? AppDelegate.viewContext.save()
     }
     
 }

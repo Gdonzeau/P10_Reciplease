@@ -13,6 +13,14 @@ class RecipeTableViewCell: UITableViewCell {
     @IBOutlet weak var imageBackgroundCell: UIImageView!
     @IBOutlet weak var recipeName: UILabel!
     @IBOutlet weak var blackLine: UIView!
+    var recipe: Recipe {
+        didSet {
+            imageBackgroundCell.load(url: imageURL)
+            recipeName.text = recipe.name
+            //recipeName.font(.custom("OpenSans-Bold", size: 34))
+            totalTime.text = recipe.timeToPrepare
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

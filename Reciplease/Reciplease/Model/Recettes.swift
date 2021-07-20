@@ -14,3 +14,4 @@ struct Recette {
     var totalTime: Float
     var url: URL?
   }
+

@@ -1,69 +1,63 @@
 //
-//  Recette.swift
+//  Test_Arborescence.swift
 //  Reciplease
 //
-//  Created by Guillaume Donzeau on 08/07/2021.
+//  Created by Guillaume Donzeau on 19/07/2021.
 //
 
 import Foundation
+import UIKit
 
-struct RecipeReceived {
-    var name: String
-    var image: URL?
-    var ingredientsNeeded: [String]
-    var totalTime: Float
-    var url: URL?
-    var elevation: String
+struct Launch: Identifiable {
+    let id: Int
+    let missionName: String
+//    let launchDateUtc: Date
+//    let launchSuccess: Bool
     
+    let date: Date
+    let succeeded: Bool
+    let timeline: Timeline?
+    
+    let rocket: String
+    let site: String
+    let patchURL: URL
+    let payloads: String
+    var patch: UIImage?
+}
+
+extension Launch: Decodable {
     enum CodingKeys: String, CodingKey {
+        case timeline
+        case links
+        case rocket
+        case id = "flight_number"
+        case missionName = "mission_name"
+        case date = "launch_date_utc"
+        case succeeded = "launch_success"
+        case launchSite = "launch_site"
         
-        case additionnalInfo
-    }
-    enum AdditionalInfoKeys: String, CodingKey {
-            //case elevation
-        case name
-        case image
-        case ingredientsNeeded
-        case totalTime
-        case url
+        enum RocketKeys: String, CodingKey {
+            case rocketName = "rocket_name"
+            case secondStage = "second_stage"
+            
+            enum SecondStageKeys: String, CodingKey {
+                case payloads
+                
+                enum PayloadKeys: String, CodingKey {
+                    case payloadName = "payload_id"
+                }
+            }
         }
-  }
-
-struct Recipes: Decodable {
-    
-    var recipes: [Hit]
-    
-    enum CodingKeys: String, CodingKey {
         
-        case recipes = "hits"
-    }
-}
-struct Hit: Decodable {
-    var recipe: Recipe
-    /*
-    enum CodingKeys: String, CodingKey {
-        case recipe
-        // case links = "_links"
-    }
- */
-}
-
-struct Recipe : Decodable {
-    var named: String
-    var image: URL
-    var ingredientsNeeded: [String]
-    var totalTime: Float
-    var url: URL
-    
-    enum CodingKeys: String, CodingKey {
+        enum SiteKeys: String, CodingKey {
+            case siteName = "site_name_long"
+        }
         
-        case named = "label"
-        case image
-        case ingredientsNeeded = "ingredientLines"
-        case totalTime
-        case url
+        enum LinksKeys: String, CodingKey {
+            case patchURL = "mission_patch"
+        }
     }
-    /*
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(Int.self, forKey: .id)
@@ -91,10 +85,30 @@ struct Recipe : Decodable {
         }
         self.payloads = payloads
     }
-    */
 }
-extension Recipe: Equatable {
-    static func == (lhs: Recipe, rhs: Recipe) -> Bool {
-        return lhs.named == rhs.named && lhs.url == rhs.url // if var(de type Recipe) == var(
+
+struct Timeline {
+    let propellerLoading: Int?
+    let liftoff: Int?
+    let mainEngineCutoff: Int?
+    let payloadDeploy: Int?
+}
+
+extension Timeline: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case propellerLoading = "go_for_prop_loading"
+        case liftoff
+        case mainEngineCutoff = "meco"
+        case payloadDeploy = "payload_deploy"
+    }
+}
+
+struct Payload {
+    let name: String
+}
+
+extension Payload: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case name = "payload_id"
     }
 }

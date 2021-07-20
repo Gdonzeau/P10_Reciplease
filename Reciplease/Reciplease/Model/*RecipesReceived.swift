@@ -6,9 +6,9 @@
 //
 
 import Foundation
-
+/*
 struct RecipesReceived {
     var recipesReceived:[Recette]
 }
-
+*/
 

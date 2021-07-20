@@ -43,6 +43,8 @@ extension ReceipeListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         let recipe = recipesReceived[indexPath.row]
+        cell.recipe = recipe
+        // Ici il faut changer quelque chose
         let image = UIImageView()
         let timeToPrepare = String(Int(recipe.totalTime))
         let name = recipe.name
@@ -54,7 +56,7 @@ extension ReceipeListViewController: UITableViewDataSource {
             cell.backgroundColor = UIColor.darkGray
             print("problème d'image")
         }
-        
+        // Fin de ce qu'il faut changer
         //cell.textLabel?.text = recipe.name
         return cell
     }
