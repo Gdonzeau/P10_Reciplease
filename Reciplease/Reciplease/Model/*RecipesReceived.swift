@@ -40,7 +40,7 @@ struct RecipesReceived {
  */
 
 struct RecipeReceived: Codable {
-    var recipe: [Recipe]
+    var recipe: Any
     var name: String // label selon l'API
     var image: URL?
     var ingredientsNeeded: [String]
@@ -60,8 +60,8 @@ struct RecipeReceived: Codable {
         //case additionnalInfo
     }
     func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys)
-        try container.encode(<#T##value: Bool##Bool#>, forKey: <#T##KeyedEncodingContainer<CodingKeys>.Key#>)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(recipe, forKey: .recipe)
     }
 }
 /*
