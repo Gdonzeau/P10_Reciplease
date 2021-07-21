@@ -6,30 +6,17 @@
 //
 
 import Foundation
-struct Employee: Codable {
-    var name: String
-    var id: Int
-    var gift: Toy
-}
+
 struct Toy: Codable {
-    var name: String
+  var name: String
 }
 
-// 1
-enum CodingKeys: CodingKey {
-  case name, id, gift
+struct Employee: Codable {
+  var name: String
+  var id: Int
+  var favoriteToy: Toy
 }
-// 2
-enum GiftKeys: CodingKey {
-  case toy
-}
-// 3
-func encode(to encoder: Encoder) throws {
-  var container = encoder.container(keyedBy: CodingKeys.self)
-  try container.encode(name, forKey: .name)
-  try container.encode(id, forKey: .id)
-  // 4
-  var giftContainer = container
-    .nestedContainer(keyedBy: GiftKeys.self, forKey: .gift)
-  try giftContainer.encode(favoriteToy, forKey: .toy)
-}
+
+let toy = Toy(name: "Teddy Bear")
+
+let employee = Employee(name: "John Appleseed", id: 7, favoriteToy: toy)
