@@ -13,6 +13,8 @@ class RecipeTableViewCell: UITableViewCell {
     @IBOutlet weak var imageBackgroundCell: UIImageView!
     @IBOutlet weak var recipeName: UILabel!
     @IBOutlet weak var blackLine: UIView!
+    //var recipe = Recipe(from: <#Decoder#>)
+    /* Ajouter didSet
     var recipe: Recipe {
         didSet {
             imageBackgroundCell.load(url: imageURL)
@@ -21,7 +23,7 @@ class RecipeTableViewCell: UITableViewCell {
             totalTime.text = recipe.timeToPrepare
         }
     }
-    
+    */
     override func awakeFromNib() {
         super.awakeFromNib()
         addShadow()

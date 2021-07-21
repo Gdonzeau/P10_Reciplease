@@ -78,6 +78,7 @@ extension Launch: Decodable {
         
         var payloadsContainer = try secondStageContainer.nestedUnkeyedContainer(forKey: .payloads)
         var payloads = ""
+        
         while !payloadsContainer.isAtEnd {
             let payloadContainer = try payloadsContainer.nestedContainer(keyedBy: CodingKeys.RocketKeys.SecondStageKeys.PayloadKeys.self)
             let payloadName = try payloadContainer.decode(String.self, forKey: .payloadName)

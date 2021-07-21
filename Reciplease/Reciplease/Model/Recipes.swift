@@ -7,28 +7,6 @@
 
 import Foundation
 
-struct RecipeReceived {
-    var name: String
-    var image: URL?
-    var ingredientsNeeded: [String]
-    var totalTime: Float
-    var url: URL?
-    var elevation: String
-    
-    enum CodingKeys: String, CodingKey {
-        
-        case additionnalInfo
-    }
-    enum AdditionalInfoKeys: String, CodingKey {
-        case elevation
-        case name
-        case image
-        case ingredientsNeeded
-        case totalTime
-        case url
-    }
-}
-
 struct Recipes: Decodable {
     
     var recipes: [Hit]

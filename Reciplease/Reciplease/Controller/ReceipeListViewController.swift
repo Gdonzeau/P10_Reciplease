@@ -10,7 +10,7 @@ import UIKit
 class ReceipeListViewController: ViewController {
     
     var recipesReceived = [Recette]()
-    
+    //var recipesReceived = [RecipeReceived]()
     @IBOutlet weak var receipesTableView: UITableView!
 
     override func viewDidLoad() {
@@ -43,7 +43,7 @@ extension ReceipeListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         let recipe = recipesReceived[indexPath.row]
-        cell.recipe = recipe
+        //cell.recipe = recipe //*******
         // Ici il faut changer quelque chose
         let image = UIImageView()
         let timeToPrepare = String(Int(recipe.totalTime))
