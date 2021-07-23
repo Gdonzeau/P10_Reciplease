@@ -8,15 +8,17 @@
 import UIKit
 
 class ReceipeListViewController: ViewController {
-    
-    var recipesReceived = [Recette]()
+    var TableViewUSed = ""
+    var recipesReceived = [RecipeType]()
     //var recipesReceived = [RecipeReceived]()
     @IBOutlet weak var receipesTableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if recipesReceived.count > 0 {
         let reception = recipesReceived[0].name
         print("reçu : \(reception)")
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

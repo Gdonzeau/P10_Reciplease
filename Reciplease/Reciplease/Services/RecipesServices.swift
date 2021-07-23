@@ -11,7 +11,7 @@ import Alamofire
 class RecipesServices {
     static var shared = RecipesServices()
     private init() {}
-    func getRecipes (ingredients: String, completion: @escaping (Result<Recipes,AFError>)->Void) { //completio type result
+    func getRecipes (ingredients: String, completion: @escaping (Result<RecipeResponse,AFError>)->Void) { //completio type result
         
         let adressUrl = Settings.urlAdress // A mettre dans un fichier config
         
@@ -22,7 +22,7 @@ class RecipesServices {
                           "q": ingredients]
         Session.default.request(adressUrl, parameters: parameters)
             .validate() //requête et valide que la réponse est valide (200, pas d'erreur, etc.)
-            .responseDecodable(of: Recipes.self) { (response) in
+            .responseDecodable(of: RecipeResponse.self) { (response) in
                 completion(response.result)
             }
     }

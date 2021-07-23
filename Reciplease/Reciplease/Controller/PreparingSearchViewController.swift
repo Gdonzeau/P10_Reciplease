@@ -10,7 +10,7 @@ import UIKit
 class PreparingSearchViewController: ViewController{
     var ingredientsUsed = ""
     //var recipesReceived = [RecipeReceived]()
-    var recipesReceived = [Recette]()
+    var recipesReceived = [RecipeType]()
     
     @IBOutlet weak var ingredientName: UITextField!
     @IBOutlet weak var ingredientTableView: UITableView!
@@ -92,7 +92,7 @@ class PreparingSearchViewController: ViewController{
                     }
                     return
                 }
-                print(recipes.recipes[0].recipe.named)
+                //print("Test : \(recipes)")
                 self.savingAnswer(recipes:recipes)
                 self.performSegue(withIdentifier: "segueToReceiptList", sender: nil)
                 
@@ -102,17 +102,19 @@ class PreparingSearchViewController: ViewController{
             }
         }
     }
-    private func savingAnswer(recipes:(Recipes)) { // Converting recipes in an Array before sending it
-        recipesReceived = [Recette]() // Let's delete the array between two requests
+    private func savingAnswer(recipes:(RecipeResponse)) { // Converting recipes in an Array before sending it
+        recipesReceived = [RecipeType]() // Let's delete the array between two requests
+        print(recipes.recipes.count)
         for index in 0 ..< recipes.recipes.count {
             // All recipe's characteristics
-            let recetteName = recipes.recipes[index].recipe.named
-            let image = recipes.recipes[index].recipe.image
-            let ingredients = recipes.recipes[index].recipe.ingredientsNeeded
-            let timeToPrepare = recipes.recipes[index].recipe.totalTime
-            let url = recipes.recipes[index].recipe.url
-            print(image)
-            let recette = Recette(name: recetteName, image: image, ingredientsNeeded: ingredients, totalTime: timeToPrepare, url: url) // Let's finalizing recipe to add to array
+            // À sortir
+            let recipeName = recipes.recipes[index].name
+            let image = recipes.recipes[index].imageURL
+            let ingredients = recipes.recipes[index].ingredients
+            let timeToPrepare = recipes.recipes[index].duration
+            let url = recipes.recipes[index].url
+            
+            let recette = RecipeType(name: recipeName, image: URL(string: image), ingredientsNeeded: ingredients, totalTime: timeToPrepare, url: URL(string: url)) // Let's finalizing recipe to add to array
             
             recipesReceived.append(recette)
         }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Recette {
+struct RecipeType {
     var name: String
     var image: URL?
     var ingredientsNeeded: [String]

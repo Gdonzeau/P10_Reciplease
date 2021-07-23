@@ -29,10 +29,81 @@
         <!--Favorites-->
         <scene sceneID="qER-VM-Mxd">
             <objects>
-                <viewController id="Wmv-kG-hqY" sceneMemberID="viewController">
+                <viewController id="Wmv-kG-hqY" customClass="ReceipeListViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="74F-xS-4qj">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="A47-Xq-mdn">
+                                <rect key="frame" x="20" y="44" width="374" height="603"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="TopLeft" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecipeCell" rowHeight="120" id="TrA-qN-O1L" customClass="RecipeTableViewCell" customModule="Reciplease" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="374" height="120"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="TopLeft" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TrA-qN-O1L" id="VyF-sU-XhI">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="120"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Psh-yJ-MHu">
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="120"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="120" id="Hua-DS-U5D"/>
+                                                        <constraint firstAttribute="width" secondItem="Psh-yJ-MHu" secondAttribute="height" multiplier="187:45" id="VD8-dD-oEL"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="totalTime" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXq-JE-doZ">
+                                                    <rect key="frame" x="281" y="34.666666666666664" width="72" height="50.999999999999993"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="umi-NF-oUR">
+                                                    <rect key="frame" x="0.0" y="118" width="374" height="2"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recipe's Name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c34-zz-HYo">
+                                                    <rect key="frame" x="2" y="88" width="372" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="KjP-sI-7gb"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="umi-NF-oUR" firstAttribute="top" secondItem="c34-zz-HYo" secondAttribute="bottom" id="4cg-Gt-lQe"/>
+                                                <constraint firstItem="umi-NF-oUR" firstAttribute="leading" secondItem="Psh-yJ-MHu" secondAttribute="leading" id="6na-DD-jCe"/>
+                                                <constraint firstAttribute="bottom" secondItem="c34-zz-HYo" secondAttribute="bottom" constant="2" id="8da-vS-2he"/>
+                                                <constraint firstAttribute="bottom" secondItem="Psh-yJ-MHu" secondAttribute="bottom" id="9xC-eG-IyC"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="qXq-JE-doZ" secondAttribute="bottom" constant="23.329999999999998" id="Lmk-Oo-cTR"/>
+                                                <constraint firstItem="c34-zz-HYo" firstAttribute="leading" secondItem="VyF-sU-XhI" secondAttribute="leading" constant="2" id="ORP-XQ-pd5"/>
+                                                <constraint firstItem="Psh-yJ-MHu" firstAttribute="leading" secondItem="VyF-sU-XhI" secondAttribute="leading" id="S7q-G0-BcE"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="qXq-JE-doZ" secondAttribute="trailing" constant="1" id="VXX-Cd-un2"/>
+                                                <constraint firstItem="qXq-JE-doZ" firstAttribute="top" secondItem="VyF-sU-XhI" secondAttribute="topMargin" constant="23.670000000000002" id="Wk1-iS-FU1"/>
+                                                <constraint firstAttribute="bottom" secondItem="umi-NF-oUR" secondAttribute="bottom" id="cW3-Ia-yd5"/>
+                                                <constraint firstItem="qXq-JE-doZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VyF-sU-XhI" secondAttribute="leading" constant="20" symbolic="YES" id="f1D-y8-fVh"/>
+                                                <constraint firstItem="Psh-yJ-MHu" firstAttribute="top" secondItem="VyF-sU-XhI" secondAttribute="top" id="fY9-4Y-clH"/>
+                                                <constraint firstItem="umi-NF-oUR" firstAttribute="trailing" secondItem="c34-zz-HYo" secondAttribute="trailing" id="o1K-1u-dgh"/>
+                                                <constraint firstAttribute="trailing" secondItem="c34-zz-HYo" secondAttribute="trailing" id="pW0-ia-k74"/>
+                                                <constraint firstAttribute="trailing" secondItem="Psh-yJ-MHu" secondAttribute="trailing" id="u2q-NO-HfQ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="blackLine" destination="umi-NF-oUR" id="wfv-jP-hhe"/>
+                                            <outlet property="imageBackgroundCell" destination="Psh-yJ-MHu" id="mub-QO-xyn"/>
+                                            <outlet property="recipeName" destination="c34-zz-HYo" id="K6g-ef-MG5"/>
+                                            <outlet property="totalTime" destination="qXq-JE-doZ" id="a0f-8U-Say"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="2aN-AQ-If6" id="CjV-OG-Hy4"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="4y1-S8-Cm4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
@@ -380,23 +451,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="sDw-qj-Pl3">
                         <nil key="title"/>
-                        <barButtonItem key="rightBarButtonItem" title="Add to favorites" style="plain" id="s5X-zN-xem">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hqP-gO-9EC">
-                                <rect key="frame" x="361" y="5" width="33" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add">
-                                    <color key="titleColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="addButton:" destination="N1R-fJ-665" eventType="touchUpInside" id="L8j-HO-3Cz"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="f9m-wt-6h7" id="R4R-s7-h3J"/>
-                        <outlet property="addButon" destination="hqP-gO-9EC" id="cd3-04-6ce"/>
-                        <outlet property="addToFavorites" destination="hqP-gO-9EC" id="7b3-M3-ASX"/>
                         <outlet property="blogNameLabel" destination="TeZ-db-QOR" id="i8E-uw-Crm"/>
                         <outlet property="getDirectionsButton" destination="U3Z-hJ-oYa" id="Kbb-q8-M3F"/>
                         <outlet property="imageRecipe" destination="SKV-Xv-Bgf" id="mvE-WW-Qzx"/>

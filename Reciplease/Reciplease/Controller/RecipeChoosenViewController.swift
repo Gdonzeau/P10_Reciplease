@@ -11,18 +11,14 @@ class RecipeChoosenViewController: UIViewController {
 
     var recipeName = String()
     var ingredientList = String()
-    var recipeChoosen = Recette(name: "", image: URL(string: ""), ingredientsNeeded: [], totalTime: 0.00, url: URL(string: ""))
+    var recipeChoosen = RecipeType(name: "", image: URL(string: ""), ingredientsNeeded: [], totalTime: 0.00, url: URL(string: ""))
     //var imageUrl = URL(string: "")
     @IBOutlet weak var blogNameLabel: UILabel!
     @IBOutlet weak var imageRecipe: UIImageView!
     @IBOutlet weak var ingredientsList: UITextView!
     @IBOutlet weak var getDirectionsButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var addToFavorites: UIButton!// Text = added si déjà ajouté
     
-    @IBAction func addButton(_ sender: UIButton) {
-        addRecipeToFavorites()
-    }
     @IBAction func getDirectionsButtonAction(_ sender: UIButton) {
         toggleActivityIndicator(shown: true)
         
@@ -63,7 +59,7 @@ class RecipeChoosenViewController: UIViewController {
         saveRecipe(recipeToSave: recipeChoosen)
     }
     
-    private func saveRecipe(recipeToSave: Recette) {
+    private func saveRecipe(recipeToSave: RecipeType) {
         let recipe = RecipeRegistred(context: AppDelegate.viewContext) //Appel du CoreDate RecipeService
         //recipe.imageUrl = recipeToSave.image
         recipe.ingredients = recipeToSave.ingredientsNeeded
