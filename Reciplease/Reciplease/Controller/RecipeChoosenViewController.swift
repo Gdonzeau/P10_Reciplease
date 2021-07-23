@@ -18,7 +18,11 @@ class RecipeChoosenViewController: UIViewController {
     @IBOutlet weak var ingredientsList: UITextView!
     @IBOutlet weak var getDirectionsButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var stackView: UIStackView!
     
+    @IBAction func saveRecipe(_ sender: UIButton) {
+        addRecipeToFavorites()
+    }
     @IBAction func getDirectionsButtonAction(_ sender: UIButton) {
         toggleActivityIndicator(shown: true)
         
@@ -52,7 +56,7 @@ class RecipeChoosenViewController: UIViewController {
         }
     }
     private func toggleActivityIndicator(shown: Bool) {
-        getDirectionsButton.isHidden = shown
+        stackView.isHidden = shown
         activityIndicator.isHidden = !shown
     }
     private func addRecipeToFavorites() {
@@ -68,6 +72,7 @@ class RecipeChoosenViewController: UIViewController {
         
         try? AppDelegate.viewContext.save()
     }
+    
     
 }
 extension UIImageView { // Publishing the image
