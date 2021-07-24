@@ -1,24 +1,55 @@
 //
-//  ReceipeListViewController.swift
+//  FavoriteRecipeListViewController.swift
 //  Reciplease
 //
-//  Created by Guillaume Donzeau on 12/07/2021.
+//  Created by Guillaume Donzeau on 24/07/2021.
 //
 
 import UIKit
+import CoreData
 
-class ReceipeListViewController: ViewController {
+class FavoriteRecipeListViewController: UIViewController {
+    
     var TableViewUSed = ""
     var recipesReceived = [RecipeType]()
+    var recipes = RecipeRegistred.all
+    //var recipesReceived = RecipeRegistred.all
     //var recipesReceived = [RecipeReceived]()
     @IBOutlet weak var receipesTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if recipesReceived.count > 0 {
-            let reception = recipesReceived[0].name
-            print("reçu : \(reception)")
+        let request: NSFetchRequest<RecipeRegistred> = RecipeRegistred.fetchRequest()
+        guard let recipesRegistred = try? AppDelegate.viewContext.fetch(request) else {
+            print("erreur, oups.")
+            return
         }
+        //print("Voilà")
+        //print(recipesRegistred[0].name)
+        for recipeRegistred in recipesRegistred {
+            if let name = recipeRegistred.name, let ingredientsNeeded = recipeRegistred.ingredients {
+                let totalTime = recipeRegistred.totalTime
+                let recipe = RecipeType(name: name, ingredientsNeeded: ingredientsNeeded, totalTime: totalTime)
+                //print(recipe.name)
+                recipesReceived.append(recipe)
+            }
+        }
+        print("recettes enregistrées")
+        for index in 0 ..< recipesRegistred.count {
+            guard let recetteLue = recipesRegistred[index].name else {
+                return
+            }
+            print(recetteLue)
+        }
+        
+        
+        
+        /*
+         if recipesReceived.count > 0 {
+         let reception = recipesReceived[0].name
+         print("reçu : \(reception)")
+         }
+         */
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -31,7 +62,7 @@ class ReceipeListViewController: ViewController {
     }
 }
 
-extension ReceipeListViewController: UITableViewDataSource {
+extension FavoriteRecipeListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -70,4 +101,5 @@ extension ReceipeListViewController: UITableViewDataSource {
     }
     
 }
+
 

@@ -11,7 +11,7 @@ class RecipeChoosenViewController: UIViewController {
 
     var recipeName = String()
     var ingredientList = String()
-    var recipeChoosen = RecipeType(name: "", image: URL(string: ""), ingredientsNeeded: [], totalTime: 0.00, url: URL(string: ""))
+    var recipeChoosen = RecipeType(name: "", image: "", ingredientsNeeded: [], totalTime: 0.00, url: "")
     //var imageUrl = URL(string: "")
     @IBOutlet weak var blogNameLabel: UILabel!
     @IBOutlet weak var imageRecipe: UIImageView!
@@ -27,7 +27,10 @@ class RecipeChoosenViewController: UIViewController {
         toggleActivityIndicator(shown: true)
         
         if let url = recipeChoosen.url {
-            UIApplication.shared.open(url)
+            guard let urlAdress = URL(string: url) else {
+                return
+            }
+            UIApplication.shared.open(urlAdress)
         }
     }
     override func viewDidLoad() {
@@ -40,9 +43,12 @@ class RecipeChoosenViewController: UIViewController {
         blogNameLabel.text = recipeName
         ingredientsList.text = ingredientList
         guard let imageUrl = recipeChoosen.image else {
-            return
+            return // Message d'erreur à ajouter
         }
-        imageRecipe.load(url: imageUrl)
+        guard let imageUrlUnwrapped = URL(string: imageUrl) else {
+            return // Message d'erreur à ajouter
+        }
+        imageRecipe.load(url: imageUrlUnwrapped)
     }
     private func prepareInformations() {
         recipeName = recipeChoosen.name

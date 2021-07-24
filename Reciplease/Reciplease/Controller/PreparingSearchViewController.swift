@@ -113,8 +113,13 @@ class PreparingSearchViewController: ViewController{
             let ingredients = recipes.recipes[index].ingredients
             let timeToPrepare = recipes.recipes[index].duration
             let url = recipes.recipes[index].url
-            
-            let recette = RecipeType(name: recipeName, image: URL(string: image), ingredientsNeeded: ingredients, totalTime: timeToPrepare, url: URL(string: url)) // Let's finalizing recipe to add to array
+            guard let imageUrlUnwrapped = URL(string: image) else {
+                return // Message d'erreur à ajouter
+            }
+            guard let UrlRecipe = URL(string: url) else {
+                return // Message d'erreur à ajouter
+            }
+            let recette = RecipeType(name: recipeName, image: image, ingredientsNeeded: ingredients, totalTime: timeToPrepare, url: url) // Let's finalizing recipe to add to array
             
             recipesReceived.append(recette)
         }

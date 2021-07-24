@@ -9,9 +9,9 @@ import Foundation
 
 struct RecipeType {
     var name: String
-    var image: URL?
+    var image: String?//URL?
     var ingredientsNeeded: [String]
     var totalTime: Float
-    var url: URL?
+    var url: String?//URL?
   }
 

@@ -29,7 +29,7 @@
         <!--Favorites-->
         <scene sceneID="qER-VM-Mxd">
             <objects>
-                <viewController id="Wmv-kG-hqY" customClass="ReceipeListViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Wmv-kG-hqY" customClass="FavoriteRecipeListViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="74F-xS-4qj">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -99,9 +99,6 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="2aN-AQ-If6" id="CjV-OG-Hy4"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4y1-S8-Cm4"/>
@@ -109,6 +106,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Favorites" id="M8P-YY-uTw"/>
                     <navigationItem key="navigationItem" id="s5W-MZ-FNR"/>
+                    <connections>
+                        <outlet property="receipesTableView" destination="A47-Xq-mdn" id="gLl-ZU-vqq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CKg-LM-Kzu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -377,7 +377,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mXQ-kT-I4k">
-                                <rect key="frame" x="20" y="20" width="374" height="628"/>
+                                <rect key="frame" x="20" y="20" width="374" height="647"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Trk-Dx-Olm">
                                         <rect key="frame" x="157" y="0.0" width="60" height="60"/>
@@ -387,17 +387,17 @@
                                         </constraints>
                                     </activityIndicatorView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0fW-H4-blQ">
-                                        <rect key="frame" x="0.0" y="68" width="374" height="560"/>
+                                        <rect key="frame" x="0.0" y="68" width="374" height="579"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SKV-Xv-Bgf">
-                                                <rect key="frame" x="0.0" y="0.0" width="374" height="250"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="269"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="374" id="Ufc-gg-Vjy"/>
                                                     <constraint firstAttribute="height" constant="250" id="uQK-FI-rM1"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TeZ-db-QOR">
-                                                <rect key="frame" x="0.0" y="250" width="374" height="50"/>
+                                                <rect key="frame" x="0.0" y="269" width="374" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="q1H-ca-SZY"/>
                                                 </constraints>
@@ -406,7 +406,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yjk-DI-X4D">
-                                                <rect key="frame" x="0.0" y="300" width="374" height="200"/>
+                                                <rect key="frame" x="0.0" y="319" width="374" height="200"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="aK9-N7-Wjz"/>
@@ -417,7 +417,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="34" translatesAutoresizingMaskIntoConstraints="NO" id="Nu1-b0-XjZ">
-                                                <rect key="frame" x="0.0" y="500" width="374" height="60"/>
+                                                <rect key="frame" x="0.0" y="519" width="374" height="60"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U3Z-hJ-oYa">
                                                         <rect key="frame" x="0.0" y="0.0" width="280" height="60"/>
