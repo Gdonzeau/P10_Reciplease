@@ -71,7 +71,7 @@ class RecipeChoosenViewController: UIViewController {
     
     private func saveRecipe(recipeToSave: RecipeType) {
         let recipe = RecipeRegistred(context: AppDelegate.viewContext) //Appel du CoreDate RecipeService
-        //recipe.imageUrl = recipeToSave.image
+        recipe.imageUrl = recipeToSave.image
         recipe.ingredients = recipeToSave.ingredientsNeeded
         recipe.name = recipeToSave.name
         recipe.totalTime = recipeToSave.totalTime

@@ -13,6 +13,7 @@ class FavoriteRecipeListViewController: UIViewController {
     var TableViewUSed = ""
     var recipesReceived = [RecipeType]()
     var recipes = RecipeRegistred.all
+    let urlDefault = URL(string: "www.gdtr.fr")
     //var recipesReceived = RecipeRegistred.all
     //var recipesReceived = [RecipeReceived]()
     @IBOutlet weak var receipesTableView: UITableView!
@@ -36,7 +37,7 @@ class FavoriteRecipeListViewController: UIViewController {
         }
         print("recettes enregistrées")
         for index in 0 ..< recipesRegistred.count {
-            guard let recetteLue = recipesRegistred[index].name else {
+            guard let recetteLue = recipesRegistred[index].imageUrl else {
                 return
             }
             print(recetteLue)
@@ -87,16 +88,20 @@ extension FavoriteRecipeListViewController: UITableViewDataSource {
         //cell.recipe = recipe //*******
         // Ici il faut changer quelque chose
         let image = UIImageView()
+        image.image = UIImage(named: "imageDefault")
         let timeToPrepare = String(Int(recipe.totalTime))
         let name = recipe.name
         guard let imageUrl = recipe.image else { // There is a picture
             // Create a Default image
-            cell.backgroundColor = UIColor.darkGray
+            image.image = UIImage(named: "imageDefault")
             print("problème d'image")
-            return UITableViewCell() // À améliorer...
+            cell.configure(image: image, timeToPrepare: timeToPrepare, imageURL: URL(string: "") ?? urlDefault!, name: name)
+            return cell // À améliorer...
+            
         }
         guard let URLUnwrapped = URL(string: imageUrl) else {
             print("Lien internet mauvais") // Message d'erreur
+            cell.configure(image: image, timeToPrepare: timeToPrepare, imageURL: URL(string: "")!, name: name)
             return UITableViewCell() // À améliorer
         }
         image.load(url: URLUnwrapped)
@@ -108,6 +113,15 @@ extension FavoriteRecipeListViewController: UITableViewDataSource {
         return cell
     }
     
+}
+extension FavoriteRecipeListViewController: UITableViewDelegate { // To delete cells one by one // Erreur actuellement quand on veut effacer
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("On efface : \(indexPath.row)")
+            recipesReceived.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .bottom)
+        }
+    }
 }
 
 
