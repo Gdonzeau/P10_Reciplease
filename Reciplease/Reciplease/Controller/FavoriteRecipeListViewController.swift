@@ -51,6 +51,13 @@ class FavoriteRecipeListViewController: UIViewController {
          }
          */
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        receipesTableView.reloadData()
+        print("Va apparaître")
+        //recipes = recipesReceived
+        
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueFromCellToChoosenRecipe",
@@ -68,7 +75,8 @@ extension FavoriteRecipeListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recipesReceived.count
+        //return recipesReceived.count
+        return recipes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
