@@ -290,7 +290,7 @@
                                         <rect key="frame" x="188.66666666666666" y="0.0" width="37" height="37"/>
                                     </activityIndicatorView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ETt-k4-Ph6">
-                                        <rect key="frame" x="0.0" y="65" width="414" height="578"/>
+                                        <rect key="frame" x="0.0" y="65" width="414" height="520"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="TopLeft" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecipeCell" rowHeight="120" id="Y1H-8N-Oyy" customClass="RecipeTableViewCell" customModule="Reciplease" customModuleProvider="target">
@@ -307,8 +307,12 @@
                                                                 <constraint firstAttribute="width" secondItem="T75-5G-lTE" secondAttribute="height" multiplier="187:45" id="jQf-rh-d1p"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="totalTime" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ib3-Ur-5Lf">
-                                                            <rect key="frame" x="321" y="34.666666666666664" width="72" height="50.999999999999993"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="totalTime" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ib3-Ur-5Lf">
+                                                            <rect key="frame" x="321" y="36" width="72" height="51"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="72" id="BXw-Qi-IJX"/>
+                                                                <constraint firstAttribute="height" constant="51" id="jyc-Oe-IYg"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -329,7 +333,6 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="T75-5G-lTE" secondAttribute="trailing" id="1IV-d2-RF5"/>
-                                                        <constraint firstItem="ib3-Ur-5Lf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lud-53-kij" secondAttribute="leading" constant="20" symbolic="YES" id="24P-YS-IzX"/>
                                                         <constraint firstAttribute="trailingMargin" secondItem="ib3-Ur-5Lf" secondAttribute="trailing" constant="1" id="EyY-FA-rfN"/>
                                                         <constraint firstAttribute="bottom" secondItem="T75-5G-lTE" secondAttribute="bottom" id="GJk-JJ-tHg"/>
                                                         <constraint firstAttribute="bottom" secondItem="AHf-0U-RHE" secondAttribute="bottom" id="JAw-kq-6B1"/>
@@ -337,8 +340,7 @@
                                                         <constraint firstItem="xUf-fa-qoD" firstAttribute="leading" secondItem="lud-53-kij" secondAttribute="leading" constant="2" id="VIl-F7-qjV"/>
                                                         <constraint firstItem="AHf-0U-RHE" firstAttribute="leading" secondItem="T75-5G-lTE" secondAttribute="leading" id="XNA-Nd-33m"/>
                                                         <constraint firstItem="AHf-0U-RHE" firstAttribute="trailing" secondItem="xUf-fa-qoD" secondAttribute="trailing" id="ZIz-0H-ccg"/>
-                                                        <constraint firstItem="ib3-Ur-5Lf" firstAttribute="top" secondItem="lud-53-kij" secondAttribute="topMargin" constant="23.670000000000002" id="hFA-ju-PgW"/>
-                                                        <constraint firstAttribute="bottomMargin" secondItem="ib3-Ur-5Lf" secondAttribute="bottom" constant="23.329999999999998" id="hYV-Gj-WYU"/>
+                                                        <constraint firstItem="xUf-fa-qoD" firstAttribute="top" secondItem="ib3-Ur-5Lf" secondAttribute="bottom" constant="1" id="gDI-at-eNS"/>
                                                         <constraint firstItem="T75-5G-lTE" firstAttribute="leading" secondItem="lud-53-kij" secondAttribute="leading" id="n3e-tG-ilt"/>
                                                         <constraint firstAttribute="bottom" secondItem="xUf-fa-qoD" secondAttribute="bottom" constant="2" id="s1s-st-fjW"/>
                                                         <constraint firstAttribute="trailing" secondItem="xUf-fa-qoD" secondAttribute="trailing" id="vYd-DH-kr1"/>
@@ -358,7 +360,23 @@
                                             <outlet property="dataSource" destination="2aN-AQ-If6" id="c9f-iQ-Rie"/>
                                         </connections>
                                     </tableView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zyV-Si-7vu">
+                                        <rect key="frame" x="20" y="613" width="374" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="rWv-XF-lib"/>
+                                        </constraints>
+                                        <state key="normal" title="Reload"/>
+                                        <connections>
+                                            <action selector="reloadTable:" destination="2aN-AQ-If6" eventType="touchUpInside" id="fCT-Mr-Drc"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="zyV-Si-7vu" secondAttribute="bottom" id="HrV-ow-M0K"/>
+                                    <constraint firstItem="zyV-Si-7vu" firstAttribute="leading" secondItem="kIW-Cz-a3C" secondAttribute="leading" constant="20" id="XDk-6V-UXT"/>
+                                    <constraint firstAttribute="trailing" secondItem="zyV-Si-7vu" secondAttribute="trailing" constant="20" id="r53-7s-ubS"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="H1y-9H-jaE"/>

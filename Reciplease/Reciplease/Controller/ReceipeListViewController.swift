@@ -15,6 +15,9 @@ class ReceipeListViewController: ViewController {
     @IBOutlet weak var receipesTableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBAction func reloadTable(_ sender: UIButton) {
+        receipesTableView.reloadData()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         toggleActivityIndicator(shown: true)
@@ -102,12 +105,14 @@ class ReceipeListViewController: ViewController {
             let recette = RecipeType(name: recipeName, image: image, ingredientsNeeded: ingredients, totalTime: timeToPrepare, url: url) // Let's finalizing recipe to add to array
             
             RecipeStorage.shared.add(recipe:recette)
-            viewWillAppear(true)
+            //viewWillAppear(true)
         }
-        toggleActivityIndicator(shown: false)
+        
         for index in 0 ..< RecipeStorage.shared.recipes.count {
             print(RecipeStorage.shared.recipes[index].name)
         }
+        receipesTableView.reloadData()
+        toggleActivityIndicator(shown: false)
     }
     private func allErrors(errorMessage: String, errorTitle: String) {
         let alertVC = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
@@ -155,12 +160,28 @@ extension ReceipeListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as? RecipeTableViewCell else {
+            print("oups")
             return UITableViewCell()
         }
         let recipe = RecipeStorage.shared.recipes[indexPath.row]
-        cell.totalTime.text = String(recipe.totalTime)
-        cell.recipeName.text = recipe.name
+        let name = recipe.name
+        let timeToPrepare = String(Int(recipe.totalTime))
+        let image = UIImageView()
+        guard let imageUrl = recipe.image else { // There is a picture
+            // Create a Default image
+            cell.backgroundColor = UIColor.blue
+            print("problème d'image")
+            return UITableViewCell() // À améliorer...
+        }
+        guard let URLUnwrapped = URL(string: imageUrl) else {
+            print("Lien internet mauvais") // Message d'erreur
+            return UITableViewCell() // À améliorer
+        }
+        image.load(url: URLUnwrapped)
+        //cell.totalTime.text = String(recipe.totalTime)
+        //cell.recipeName.text = recipe.name
         //cell.imageBackgroundCell = recipe.image
+        cell.configure(image: image, timeToPrepare: timeToPrepare, imageURL: URLUnwrapped, name: name)
         //let recipe = recipesReceived[indexPath.row]
         
         //fullingCell(recipe: recipe)
@@ -188,7 +209,7 @@ extension ReceipeListViewController: UITableViewDataSource {
         
         // Fin de ce qu'il faut changer
         //cell.textLabel?.text = recipe.name
-        
+        print("super")
         return cell
     }
     
