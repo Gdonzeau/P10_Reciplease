@@ -151,20 +151,24 @@ class ReceipeListViewController: ViewController {
 
 extension ReceipeListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
+        print("1")
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recipesReceived.count
+        print(RecipeStorage.shared.recipes.count)
+        return RecipeStorage.shared.recipes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("Search")
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as? RecipeTableViewCell else {
             print("oups")
             return UITableViewCell()
         }
         let recipe = RecipeStorage.shared.recipes[indexPath.row]
         let name = recipe.name
+        print("name: \(name)") //Ne s'affiche pas. Pourquoi ?
         let timeToPrepare = String(Int(recipe.totalTime))
         let image = UIImageView()
         guard let imageUrl = recipe.image else { // There is a picture
