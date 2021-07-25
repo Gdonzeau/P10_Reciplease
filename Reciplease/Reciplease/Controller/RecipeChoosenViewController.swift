@@ -17,15 +17,12 @@ class RecipeChoosenViewController: UIViewController {
     @IBOutlet weak var imageRecipe: UIImageView!
     @IBOutlet weak var ingredientsList: UITextView!
     @IBOutlet weak var getDirectionsButton: UIButton!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var stackView: UIStackView!
     
     @IBAction func saveRecipe(_ sender: UIButton) {
         addRecipeToFavorites()
     }
     @IBAction func getDirectionsButtonAction(_ sender: UIButton) {
-        toggleActivityIndicator(shown: true)
-        
         if let url = recipeChoosen.url {
             guard let urlAdress = URL(string: url) else {
                 return
@@ -35,7 +32,7 @@ class RecipeChoosenViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        toggleActivityIndicator(shown: false)
+        
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -61,10 +58,7 @@ class RecipeChoosenViewController: UIViewController {
             ingredientList += "\n"
         }
     }
-    private func toggleActivityIndicator(shown: Bool) {
-        stackView.isHidden = shown
-        activityIndicator.isHidden = !shown
-    }
+    
     private func addRecipeToFavorites() {
         saveRecipe(recipeToSave: recipeChoosen)
     }

@@ -23,9 +23,9 @@ class PreparingSearchViewController: ViewController{
         addIngredient()
     }
     @IBAction func searchRecipesButton(_ sender: UIButton) {
-        toggleActivityIndicator(shown: true)
+        //toggleActivityIndicator(shown: true)
         gettingIngredients()
-        searchForRecipes(ingredients: ingredientsUsed)
+        //searchForRecipes(ingredients: ingredientsUsed)
     }
     @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         disMissKeyboardMethod()
@@ -33,7 +33,7 @@ class PreparingSearchViewController: ViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        toggleActivityIndicator(shown: false)
+        //toggleActivityIndicator(shown: false)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -43,7 +43,8 @@ class PreparingSearchViewController: ViewController{
         if segue.identifier == "segueToReceiptList" {
             let receipListVC = segue.destination as! ReceipeListViewController
             //receipListVC.recipesSended = recipesSended
-            receipListVC.recipesReceived = recipesReceived
+            //receipListVC.recipesReceived = recipesReceived
+            receipListVC.ingredientsUsed = ingredientsUsed
         }
     }
     private func addIngredient() {
@@ -57,6 +58,7 @@ class PreparingSearchViewController: ViewController{
         ingredientName.text = ""
         viewWillAppear(true)
     }
+    
     private func gettingIngredients() {
         guard IngredientService.shared.ingredients.count > 0 else {
             let error = APIErrors.nothingIsWritten
@@ -70,6 +72,7 @@ class PreparingSearchViewController: ViewController{
             ingredientsUsed += " "
             print(IngredientService.shared.ingredients[index].name)
         }
+        self.performSegue(withIdentifier: "segueToReceiptList", sender: nil)
         /*
         for element in IngredientService.shared.ingredients {
             ingredientsUsed += element.name
@@ -80,6 +83,7 @@ class PreparingSearchViewController: ViewController{
     private func disMissKeyboardMethod() {
         ingredientName.resignFirstResponder()
     }
+    /*
     private func searchForRecipes(ingredients: String) {
         RecipesServices.shared.getRecipes(ingredients: ingredients) { (result) in
             switch result {
@@ -102,6 +106,8 @@ class PreparingSearchViewController: ViewController{
             }
         }
     }
+ */
+    /*
     private func savingAnswer(recipes:(RecipeResponse)) { // Converting recipes in an Array before sending it
         recipesReceived = [RecipeType]() // Let's delete the array between two requests
         print(recipes.recipes.count)
@@ -124,10 +130,13 @@ class PreparingSearchViewController: ViewController{
             recipesReceived.append(recette)
         }
     }
+    */
+    /*
     private func toggleActivityIndicator(shown: Bool) {
         searchButton.isHidden = shown
         activityIndicator.isHidden = !shown
     }
+ */
     private func allErrors(errorMessage: String, errorTitle: String) {
         let alertVC = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))

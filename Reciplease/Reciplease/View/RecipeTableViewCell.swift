@@ -31,7 +31,7 @@ class RecipeTableViewCell: UITableViewCell {
     }
     private func addShadow() {
         
-        blackLine.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7).cgColor
+        blackLine.layer.shadowColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.7).cgColor
         blackLine.layer.shadowRadius = 0.0
         blackLine.layer.shadowOffset = CGSize(width: 4.0, height: 4.0)
         blackLine.layer.shadowOpacity = 2.0
