@@ -29,6 +29,27 @@ class ReceipeListViewController: ViewController {
             recipeChoosenVC.recipeChoosen = recipesReceived[index]
         }
     }
+    
+    func fullingCell(recipe: RecipeType) -> UITableViewCell {
+        
+        let cell = RecipeTableViewCell()
+        let image = UIImageView()
+        let timeToPrepare = String(Int(recipe.totalTime))
+        let name = recipe.name
+        guard let imageUrl = recipe.image else { // There is a picture
+            // Create a Default image
+            cell.backgroundColor = UIColor.blue
+            print("problème d'image")
+            return UITableViewCell() // À améliorer...
+        }
+        guard let URLUnwrapped = URL(string: imageUrl) else {
+            print("Lien internet mauvais") // Message d'erreur
+            return UITableViewCell() // À améliorer
+        }
+        image.load(url: URLUnwrapped)
+        cell.configure(image: image, timeToPrepare: timeToPrepare, imageURL: URLUnwrapped, name: name)
+        return cell
+    }
 }
 
 extension ReceipeListViewController: UITableViewDataSource {
@@ -45,6 +66,8 @@ extension ReceipeListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         let recipe = recipesReceived[indexPath.row]
+        //fullingCell(recipe: recipe)
+        
         //cell.recipe = recipe //*******
         // Ici il faut changer quelque chose
         let image = UIImageView()
@@ -52,7 +75,7 @@ extension ReceipeListViewController: UITableViewDataSource {
         let name = recipe.name
         guard let imageUrl = recipe.image else { // There is a picture
             // Create a Default image
-            cell.backgroundColor = UIColor.darkGray
+            cell.backgroundColor = UIColor.blue
             print("problème d'image")
             return UITableViewCell() // À améliorer...
         }
@@ -66,6 +89,7 @@ extension ReceipeListViewController: UITableViewDataSource {
         
         // Fin de ce qu'il faut changer
         //cell.textLabel?.text = recipe.name
+        
         return cell
     }
     

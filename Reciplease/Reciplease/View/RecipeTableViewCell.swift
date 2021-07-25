@@ -49,7 +49,13 @@ class RecipeTableViewCell: UITableViewCell {
  */
     }
     func configure(image: UIImageView, timeToPrepare: String, imageURL: URL, name: String) {
+        if imageURL != URL(string: "") {
         imageBackgroundCell.load(url: imageURL)
+        } else {
+            let imageTest : UIImage = UIImage(named:"imageDefault")!
+            imageBackgroundCell = UIImageView(image: imageTest)
+            //imageBackgroundCell = UIImage(named: "imageDefault")
+        }
         recipeName.text = name
         //recipeName.font(.custom("OpenSans-Bold", size: 34))
         totalTime.text = timeToPrepare

@@ -105,6 +105,7 @@ extension FavoriteRecipeListViewController: UITableViewDataSource {
             return UITableViewCell() // À améliorer
         }
         image.load(url: URLUnwrapped)
+        
         cell.configure(image: image, timeToPrepare: timeToPrepare, imageURL: URLUnwrapped, name: name)
         // Fin
         
