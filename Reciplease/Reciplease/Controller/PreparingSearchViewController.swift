@@ -9,13 +9,13 @@ import UIKit
 
 class PreparingSearchViewController: ViewController{
     var ingredientsUsed = ""
-    //var recipesReceived = [RecipeReceived]()
-    var recipesReceived = [RecipeType]()
+    var parameters = "Search"
+    //var recipesReceived = [RecipeType]()
     
     @IBOutlet weak var ingredientName: UITextField!
     @IBOutlet weak var ingredientTableView: UITableView!
     @IBOutlet weak var searchButton: UIButton!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    //@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     
     @IBAction func addIngredientButton(_ sender: UIButton) {
@@ -23,9 +23,7 @@ class PreparingSearchViewController: ViewController{
         addIngredient()
     }
     @IBAction func searchRecipesButton(_ sender: UIButton) {
-        //toggleActivityIndicator(shown: true)
         gettingIngredients()
-        //searchForRecipes(ingredients: ingredientsUsed)
     }
     @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         disMissKeyboardMethod()
@@ -33,7 +31,6 @@ class PreparingSearchViewController: ViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //toggleActivityIndicator(shown: false)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -41,10 +38,9 @@ class PreparingSearchViewController: ViewController{
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToReceiptList" {
-            let receipListVC = segue.destination as! ReceipeListViewController
-            //receipListVC.recipesSended = recipesSended
-            //receipListVC.recipesReceived = recipesReceived
-            receipListVC.ingredientsUsed = ingredientsUsed
+            let recipeListVC = segue.destination as! RecipeListViewController
+            recipeListVC.ingredientsUsed = ingredientsUsed
+            recipeListVC.parameters = parameters
         }
     }
     private func addIngredient() {
@@ -83,60 +79,7 @@ class PreparingSearchViewController: ViewController{
     private func disMissKeyboardMethod() {
         ingredientName.resignFirstResponder()
     }
-    /*
-    private func searchForRecipes(ingredients: String) {
-        RecipesServices.shared.getRecipes(ingredients: ingredients) { (result) in
-            switch result {
-            case .success(let recipes) :
-                self.toggleActivityIndicator(shown: false)
-                guard recipes.recipes.count > 0 else { // There are answers
-                    let error = APIErrors.nothingIsWritten
-                    if let errorMessage = error.errorDescription, let errorTitle = error.failureReason {
-                        self.allErrors(errorMessage: errorMessage, errorTitle: errorTitle)
-                    }
-                    return
-                }
-                //print("Test : \(recipes)")
-                self.savingAnswer(recipes:recipes)
-                self.performSegue(withIdentifier: "segueToReceiptList", sender: nil)
-                
-            case .failure(let error) :
-                print("KO")
-                print(error.errorDescription as Any)
-            }
-        }
-    }
- */
-    /*
-    private func savingAnswer(recipes:(RecipeResponse)) { // Converting recipes in an Array before sending it
-        recipesReceived = [RecipeType]() // Let's delete the array between two requests
-        print(recipes.recipes.count)
-        for index in 0 ..< recipes.recipes.count {
-            // All recipe's characteristics
-            // À sortir
-            let recipeName = recipes.recipes[index].name
-            let image = recipes.recipes[index].imageURL
-            let ingredients = recipes.recipes[index].ingredients
-            let timeToPrepare = recipes.recipes[index].duration
-            let url = recipes.recipes[index].url
-            guard let imageUrlUnwrapped = URL(string: image) else {
-                return // Message d'erreur à ajouter
-            }
-            guard let UrlRecipe = URL(string: url) else {
-                return // Message d'erreur à ajouter
-            }
-            let recette = RecipeType(name: recipeName, image: image, ingredientsNeeded: ingredients, totalTime: timeToPrepare, url: url) // Let's finalizing recipe to add to array
-            
-            recipesReceived.append(recette)
-        }
-    }
-    */
-    /*
-    private func toggleActivityIndicator(shown: Bool) {
-        searchButton.isHidden = shown
-        activityIndicator.isHidden = !shown
-    }
- */
+    
     private func allErrors(errorMessage: String, errorTitle: String) {
         let alertVC = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))

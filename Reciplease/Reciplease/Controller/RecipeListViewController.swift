@@ -6,28 +6,26 @@
 //
 
 import UIKit
+import CoreData
 
-class ReceipeListViewController: ViewController {
-    var TableViewUSed = ""
+class RecipeListViewController: ViewController {
+    
     var ingredientsUsed = ""
-    var recipesReceived = [RecipeType]()
-    //var recipesReceived = [RecipeReceived]()
+    var parameters = ""
+    
     @IBOutlet weak var receipesTableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    @IBAction func reloadTable(_ sender: UIButton) {
-        receipesTableView.reloadData()
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         toggleActivityIndicator(shown: true)
-        searchForRecipes(ingredients: ingredientsUsed)
-        /*
-        if recipesReceived.count > 0 {
-            let reception = recipesReceived[0].name
-            print("reçu : \(reception)")
+        if parameters == "Search" {
+            searchForRecipes(ingredients: ingredientsUsed)
+        } else {
+            loadingFavoriteRecipes()
+            receipesTableView.reloadData()
         }
-        */
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -39,30 +37,14 @@ class ReceipeListViewController: ViewController {
            let recipeChoosenVC = segue.destination as? RecipeChoosenViewController,
            let index = receipesTableView.indexPathForSelectedRow?.row {
             print("C'est parti")
-            recipeChoosenVC.recipeChoosen = recipesReceived[index]
-        }
-    }
-    /*
-    private func gettingIngredients() {
-        guard IngredientService.shared.ingredients.count > 0 else {
-            let error = APIErrors.nothingIsWritten
-            if let errorMessage = error.errorDescription, let errorTitle = error.failureReason {
-            allErrors(errorMessage: errorMessage, errorTitle: errorTitle)
+            if parameters == "Search" {
+                recipeChoosenVC.recipeChoosen = RecipeStorage.shared.recipes[index]
+            } else {
+                recipeChoosenVC.recipeChoosen = FavoriteRecipesStorage.shared.recipes[index]
             }
-            return
         }
-        for index in 0 ..< IngredientService.shared.ingredients.count {
-            ingredientsUsed += IngredientService.shared.ingredients[index].name
-            ingredientsUsed += " "
-            print(IngredientService.shared.ingredients[index].name)
-        }
-        /*
-        for element in IngredientService.shared.ingredients {
-            ingredientsUsed += element.name
-        }
- */
     }
- */
+    
     private func searchForRecipes(ingredients: String) {
         RecipesServices.shared.getRecipes(ingredients: ingredients) { (result) in
             switch result {
@@ -78,8 +60,8 @@ class ReceipeListViewController: ViewController {
                 //print("Test : \(recipes)")
                 self.savingAnswer(recipes:recipes)
                 self.receipesTableView.reloadData()
-                //self.performSegue(withIdentifier: "segueToReceiptList", sender: nil)
-                
+            //self.performSegue(withIdentifier: "segueToReceiptList", sender: nil)
+            
             case .failure(let error) :
                 print("KO")
                 print(error.errorDescription as Any)
@@ -90,7 +72,6 @@ class ReceipeListViewController: ViewController {
         while RecipeStorage.shared.recipes.count > 0 {
             RecipeStorage.shared.remove(at: RecipeStorage.shared.recipes.count - 1) // Let's delete the array between two requests
         }
-        
         print(recipes.recipes.count)
         for index in 0 ..< recipes.recipes.count {
             // All recipe's characteristics
@@ -100,12 +81,7 @@ class ReceipeListViewController: ViewController {
             let ingredients = recipes.recipes[index].ingredients
             let timeToPrepare = recipes.recipes[index].duration
             let url = recipes.recipes[index].url
-            guard let imageUrlUnwrapped = URL(string: image) else {
-                return // Message d'erreur à ajouter
-            }
-            guard let UrlRecipe = URL(string: url) else {
-                return // Message d'erreur à ajouter
-            }
+            
             let recette = RecipeType(name: recipeName, image: image, ingredientsNeeded: ingredients, totalTime: timeToPrepare, url: url) // Let's finalizing recipe to add to array
             
             RecipeStorage.shared.add(recipe:recette)
@@ -116,6 +92,33 @@ class ReceipeListViewController: ViewController {
             print(RecipeStorage.shared.recipes[index].name)
         }
         //receipesTableView.reloadData()
+        toggleActivityIndicator(shown: false)
+    }
+    private func loadingFavoriteRecipes() {
+        let request: NSFetchRequest<RecipeRegistred> = RecipeRegistred.fetchRequest()
+        guard let recipesRegistred = try? AppDelegate.viewContext.fetch(request) else {
+            print("erreur, oups.")
+            return
+        }
+        for recipeRegistred in recipesRegistred {
+            guard let recipeName = recipeRegistred.name else {
+                return
+            }
+            let image = recipeRegistred.imageUrl
+            guard let ingredients = recipeRegistred.ingredients else {
+                return
+            }
+            let timeToPrepare = recipeRegistred.totalTime
+            let url = recipeRegistred.url
+            
+            let recette = RecipeType(name: recipeName, image: image, ingredientsNeeded: ingredients, totalTime: timeToPrepare, url: url) // Let's finalizing recipe to add to array
+            
+            FavoriteRecipesStorage.shared.add(recipe:recette)
+        }
+        
+        for index in 0 ..< FavoriteRecipesStorage.shared.recipes.count {
+            print(FavoriteRecipesStorage.shared.recipes[index].name)
+        }
         toggleActivityIndicator(shown: false)
     }
     private func allErrors(errorMessage: String, errorTitle: String) {
@@ -129,50 +132,39 @@ class ReceipeListViewController: ViewController {
         receipesTableView.isHidden = shown
         activityIndicator.isHidden = !shown
     }
-    /*
-    func fullingCell(recipe: RecipeType) -> UITableViewCell {
-        
-        let cell = RecipeTableViewCell()
-        let image = UIImageView()
-        let timeToPrepare = String(Int(recipe.totalTime))
-        let name = recipe.name
-        guard let imageUrl = recipe.image else { // There is a picture
-            // Create a Default image
-            cell.backgroundColor = UIColor.blue
-            print("problème d'image")
-            return UITableViewCell() // À améliorer...
-        }
-        guard let URLUnwrapped = URL(string: imageUrl) else {
-            print("Lien internet mauvais") // Message d'erreur
-            return UITableViewCell() // À améliorer
-        }
-        image.load(url: URLUnwrapped)
-        cell.configure(image: image, timeToPrepare: timeToPrepare, imageURL: URLUnwrapped, name: name)
-        return cell
-    }
-    */
 }
 
-extension ReceipeListViewController: UITableViewDataSource {
+extension RecipeListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         print("1")
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(RecipeStorage.shared.recipes.count)
-        return RecipeStorage.shared.recipes.count
+        switch parameters {
+        case "Search":
+            print(RecipeStorage.shared.recipes.count)
+            return RecipeStorage.shared.recipes.count
+        default:
+            print(FavoriteRecipesStorage.shared.recipes.count)
+            return FavoriteRecipesStorage.shared.recipes.count
+        }
+        //print(RecipeStorage.shared.recipes.count)
+        //return RecipeStorage.shared.recipes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("Search")
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as? RecipeTableViewCell else {
             print("oups")
             return UITableViewCell()
         }
-        let recipe = RecipeStorage.shared.recipes[indexPath.row]
+        var recipe = RecipeType(name: "", ingredientsNeeded: [], totalTime: 0.0)
+        if parameters == "Search" {
+            recipe = RecipeStorage.shared.recipes[indexPath.row]
+        } else {
+            recipe = FavoriteRecipesStorage.shared.recipes[indexPath.row]
+        }
         let name = recipe.name
-        print("name: \(name)") //Ne s'affiche pas. Pourquoi ?
         let timeToPrepare = String(Int(recipe.totalTime))
         let image = UIImageView()
         guard let imageUrl = recipe.image else { // There is a picture
@@ -186,40 +178,23 @@ extension ReceipeListViewController: UITableViewDataSource {
             return UITableViewCell() // À améliorer
         }
         image.load(url: URLUnwrapped)
-        //cell.totalTime.text = String(recipe.totalTime)
-        //cell.recipeName.text = recipe.name
-        //cell.imageBackgroundCell = recipe.image
+        
         cell.configure(image: image, timeToPrepare: timeToPrepare, imageURL: URLUnwrapped, name: name)
-        //let recipe = recipesReceived[indexPath.row]
         
-        //fullingCell(recipe: recipe)
-        
-        //cell.recipe = recipe //*******
-        // Ici il faut changer quelque chose
-        /*
-        let image = UIImageView()
-        let timeToPrepare = String(Int(recipe.totalTime))
-        let name = recipe.name
-        guard let imageUrl = recipe.image else { // There is a picture
-            // Create a Default image
-            cell.backgroundColor = UIColor.blue
-            print("problème d'image")
-            return UITableViewCell() // À améliorer...
-        }
-        guard let URLUnwrapped = URL(string: imageUrl) else {
-            print("Lien internet mauvais") // Message d'erreur
-            return UITableViewCell() // À améliorer
-        }
-        image.load(url: URLUnwrapped)
-        cell.configure(image: image, timeToPrepare: timeToPrepare, imageURL: URLUnwrapped, name: name)
-        */
-        // Fin
-        
-        // Fin de ce qu'il faut changer
-        //cell.textLabel?.text = recipe.name
-        print("super")
         return cell
     }
     
 }
-
+extension RecipeListViewController: UITableViewDelegate { // To delete cells one by one
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("On efface : \(indexPath.row)")
+            if parameters == "Search" {
+                RecipeStorage.shared.remove(at: indexPath.row)
+            } else {
+                FavoriteRecipesStorage.shared.remove(at: indexPath.row)
+            }
+            tableView.deleteRows(at: [indexPath], with: .bottom)
+        }
+    }
+}
