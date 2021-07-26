@@ -18,7 +18,7 @@ class RecipeListViewController: ViewController {
     
     @IBOutlet weak var deleteDataButton: UIButton!
     @IBAction func deleteData(_ sender: UIButton) {
-        deleteObject()
+        deleteObject(rank: 0)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,15 +147,18 @@ class RecipeListViewController: ViewController {
          */
         toggleActivityIndicator(shown: false)
     }
-    private func deleteObject() {
+    private func deleteObject(rank: Int) {
         let request: NSFetchRequest<RecipeRegistred> = RecipeRegistred.fetchRequest()
         guard let recipesRegistred = try? AppDelegate.viewContext.fetch(request) else {
             return
         }
-        
+        let objectToDelete = recipesRegistred[rank]
+        AppDelegate.viewContext.delete(objectToDelete)
+        /*
         for object in recipesRegistred {
             AppDelegate.viewContext.delete(object)
         }
+        */
         do {
             try AppDelegate.viewContext.save()
         }
