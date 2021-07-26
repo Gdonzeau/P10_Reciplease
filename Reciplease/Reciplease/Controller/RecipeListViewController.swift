@@ -11,7 +11,7 @@ import CoreData
 class RecipeListViewController: ViewController {
     
     var ingredientsUsed = ""
-    var parameters = ""
+    var parameters: Parameters = .favorites // By défault
     
     @IBOutlet weak var receipesTableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -19,7 +19,7 @@ class RecipeListViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         toggleActivityIndicator(shown: true)
-        if parameters == "Search" {
+        if parameters == .search {
             searchForRecipes(ingredients: ingredientsUsed)
         } else {
             loadingFavoriteRecipes()
@@ -37,7 +37,7 @@ class RecipeListViewController: ViewController {
            let recipeChoosenVC = segue.destination as? RecipeChoosenViewController,
            let index = receipesTableView.indexPathForSelectedRow?.row {
             print("C'est parti")
-            if parameters == "Search" {
+            if parameters == .search {
                 recipeChoosenVC.recipeChoosen = RecipeStorage.shared.recipes[index]
             } else {
                 recipeChoosenVC.recipeChoosen = FavoriteRecipesStorage.shared.recipes[index]
@@ -142,7 +142,7 @@ extension RecipeListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch parameters {
-        case "Search":
+        case .search:
             print(RecipeStorage.shared.recipes.count)
             return RecipeStorage.shared.recipes.count
         default:
@@ -159,7 +159,7 @@ extension RecipeListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         var recipe = RecipeType(name: "", ingredientsNeeded: [], totalTime: 0.0)
-        if parameters == "Search" {
+        if parameters == .search {
             recipe = RecipeStorage.shared.recipes[indexPath.row]
         } else {
             recipe = FavoriteRecipesStorage.shared.recipes[indexPath.row]
@@ -189,7 +189,7 @@ extension RecipeListViewController: UITableViewDelegate { // To delete cells one
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             print("On efface : \(indexPath.row)")
-            if parameters == "Search" {
+            if parameters == .search {
                 RecipeStorage.shared.remove(at: indexPath.row)
             } else {
                 FavoriteRecipesStorage.shared.remove(at: indexPath.row)
