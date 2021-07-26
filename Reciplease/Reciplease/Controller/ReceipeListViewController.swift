@@ -77,6 +77,7 @@ class ReceipeListViewController: ViewController {
                 }
                 //print("Test : \(recipes)")
                 self.savingAnswer(recipes:recipes)
+                self.receipesTableView.reloadData()
                 //self.performSegue(withIdentifier: "segueToReceiptList", sender: nil)
                 
             case .failure(let error) :
@@ -86,7 +87,10 @@ class ReceipeListViewController: ViewController {
         }
     }
     private func savingAnswer(recipes:(RecipeResponse)) { // Converting recipes in an Array before sending it
-        recipesReceived = [RecipeType]() // Let's delete the array between two requests
+        while RecipeStorage.shared.recipes.count > 0 {
+            RecipeStorage.shared.remove(at: RecipeStorage.shared.recipes.count - 1) // Let's delete the array between two requests
+        }
+        
         print(recipes.recipes.count)
         for index in 0 ..< recipes.recipes.count {
             // All recipe's characteristics
@@ -111,7 +115,7 @@ class ReceipeListViewController: ViewController {
         for index in 0 ..< RecipeStorage.shared.recipes.count {
             print(RecipeStorage.shared.recipes[index].name)
         }
-        receipesTableView.reloadData()
+        //receipesTableView.reloadData()
         toggleActivityIndicator(shown: false)
     }
     private func allErrors(errorMessage: String, errorTitle: String) {
