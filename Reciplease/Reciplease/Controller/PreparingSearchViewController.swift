@@ -9,7 +9,7 @@ import UIKit
 
 class PreparingSearchViewController: ViewController{
     var ingredientsUsed = ""
-    var parameters = "Search"
+    var parameters: Parameters = .search
     //var recipesReceived = [RecipeType]()
     
     @IBOutlet weak var ingredientName: UITextField!
