@@ -191,7 +191,7 @@
                                 <rect key="frame" x="188.66666666666666" y="349.66666666666669" width="37" height="37"/>
                             </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ETt-k4-Ph6">
-                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="603"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="TopLeft" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecipeCell" rowHeight="120" id="Y1H-8N-Oyy" customClass="RecipeTableViewCell" customModule="Reciplease" customModuleProvider="target">
@@ -262,21 +262,34 @@
                                     <outlet property="dataSource" destination="2aN-AQ-If6" id="c9f-iQ-Rie"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7tP-4m-DLA">
+                                <rect key="frame" x="0.0" y="647" width="414" height="40"/>
+                                <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Delete Data"/>
+                                <connections>
+                                    <action selector="deleteData:" destination="2aN-AQ-If6" eventType="touchUpInside" id="K2U-l7-h2k"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="H1y-9H-jaE"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="7tP-4m-DLA" firstAttribute="top" secondItem="ETt-k4-Ph6" secondAttribute="bottom" id="7nr-H2-JGA"/>
                             <constraint firstItem="crH-ro-3of" firstAttribute="centerY" secondItem="Gpc-0C-Vfz" secondAttribute="centerY" id="FWd-F6-ERA"/>
+                            <constraint firstItem="H1y-9H-jaE" firstAttribute="trailing" secondItem="7tP-4m-DLA" secondAttribute="trailing" id="GP9-6i-vQk"/>
                             <constraint firstItem="crH-ro-3of" firstAttribute="centerX" secondItem="Gpc-0C-Vfz" secondAttribute="centerX" id="L9O-mI-0gI"/>
+                            <constraint firstItem="7tP-4m-DLA" firstAttribute="leading" secondItem="H1y-9H-jaE" secondAttribute="leading" id="LZ8-Fg-kgf"/>
                             <constraint firstItem="ETt-k4-Ph6" firstAttribute="top" secondItem="H1y-9H-jaE" secondAttribute="top" id="XLw-HU-u7T"/>
                             <constraint firstItem="ETt-k4-Ph6" firstAttribute="trailing" secondItem="H1y-9H-jaE" secondAttribute="trailing" id="ZqA-1L-6bZ"/>
                             <constraint firstItem="ETt-k4-Ph6" firstAttribute="leading" secondItem="H1y-9H-jaE" secondAttribute="leading" id="d2I-Qr-VNp"/>
-                            <constraint firstItem="ETt-k4-Ph6" firstAttribute="bottom" secondItem="H1y-9H-jaE" secondAttribute="bottom" id="l3o-Zw-Q3c"/>
+                            <constraint firstItem="H1y-9H-jaE" firstAttribute="bottom" secondItem="7tP-4m-DLA" secondAttribute="bottom" id="ioI-Zn-ncj"/>
+                            <constraint firstItem="ETt-k4-Ph6" firstAttribute="bottom" secondItem="H1y-9H-jaE" secondAttribute="bottom" constant="-40" id="l3o-Zw-Q3c"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bca-N0-Mfd"/>
                     <connections>
                         <outlet property="activityIndicator" destination="crH-ro-3of" id="hMw-ID-577"/>
+                        <outlet property="deleteDataButton" destination="7tP-4m-DLA" id="w9p-PI-11r"/>
                         <outlet property="receipesTableView" destination="ETt-k4-Ph6" id="sWB-Ny-QuU"/>
                     </connections>
                 </viewController>
