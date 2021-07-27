@@ -117,11 +117,11 @@ class RecipeListViewController: ViewController {
         toggleActivityIndicator(shown: false)
     }
     private func loadingFavoriteRecipes() { //Storing recipes from CoreData
-        
+        /*
         while FavoriteRecipesStorage.shared.recipes.count > 0 {
             FavoriteRecipesStorage.shared.remove(at: 0) // Let's delete the array between two requests
         }
-        
+        */
         let request: NSFetchRequest<RecipeRegistred> = RecipeRegistred.fetchRequest()
         guard let recipesRegistred = try? AppDelegate.viewContext.fetch(request) else {
             print("erreur, oups.")
@@ -144,7 +144,7 @@ class RecipeListViewController: ViewController {
             
             favoriteRecipes.append(recette)
             
-            FavoriteRecipesStorage.shared.add(recipe:recette) // Ne pas utiliser ?
+          //  FavoriteRecipesStorage.shared.add(recipe:recette) // Ne pas utiliser ?
         }
         
         toggleActivityIndicator(shown: false)
@@ -154,17 +154,10 @@ class RecipeListViewController: ViewController {
         guard let recipesRegistred = try? AppDelegate.viewContext.fetch(request) else {
             return
         }
-        /*
+        
         let objectToDelete = recipesRegistred[rank]
         AppDelegate.viewContext.delete(objectToDelete)
- */
-        
-        for object in recipesRegistred {
-            if object.isEqual(object) { // Mettre évidemment autre chose que object
-            AppDelegate.viewContext.delete(object)
-            }
-        }
-        
+ 
         do {
             try AppDelegate.viewContext.save()
         }

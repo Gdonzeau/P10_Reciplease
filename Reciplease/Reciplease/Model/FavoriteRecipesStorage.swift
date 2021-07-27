@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+/*
 class FavoriteRecipesStorage {
     static let shared = FavoriteRecipesStorage()
     private init() {}
@@ -20,3 +20,4 @@ class FavoriteRecipesStorage {
         recipes.remove(at: index)
     }
 }
+*/
