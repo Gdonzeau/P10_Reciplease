@@ -15,3 +15,9 @@ struct RecipeType {
     var url: String?//URL?
   }
 
+extension RecipeType: Equatable {
+    static func == (lhs: RecipeType, rhs: RecipeType) -> Bool {
+        return lhs.name == rhs.name && lhs.url == rhs.url // if var(de type Recipe) == var(
+    }
+}
+

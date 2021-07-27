@@ -12,6 +12,8 @@ class RecipeListViewController: ViewController {
     
     var ingredientsUsed = ""
     var parameters: Parameters = .favorites // By défault
+    var favoriteRecipes = [RecipeType]() // To store recipes from Core Data
+    var downloadedRecipes = [RecipeType]() // To store recipes from API
     
     @IBOutlet weak var receipesTableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -38,6 +40,7 @@ class RecipeListViewController: ViewController {
         }
         
     }
+    // Nécessaire ?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if parameters == .search {
@@ -54,20 +57,22 @@ class RecipeListViewController: ViewController {
            let index = receipesTableView.indexPathForSelectedRow?.row {
             print("C'est parti")
             if parameters == .search {
-                recipeChoosenVC.recipeChoosen = RecipeStorage.shared.recipes[index]
+                //recipeChoosenVC.recipeChoosen = RecipeStorage.shared.recipes[index]
+                recipeChoosenVC.recipeChoosen = downloadedRecipes[index]
             } else {
-                recipeChoosenVC.recipeChoosen = FavoriteRecipesStorage.shared.recipes[index]
+                //recipeChoosenVC.recipeChoosen = FavoriteRecipesStorage.shared.recipes[index]
+                recipeChoosenVC.recipeChoosen = favoriteRecipes[index]
             }
         }
     }
     
-    private func searchForRecipes(ingredients: String) {
+    private func searchForRecipes(ingredients: String) { // Receiving recipes from API
         RecipesServices.shared.getRecipes(ingredients: ingredients) { (result) in
             switch result {
             case .success(let recipes) :
                 self.toggleActivityIndicator(shown: false)
                 guard recipes.recipes.count > 0 else { // There are answers
-                    let error = APIErrors.nothingIsWritten
+                    let error = APIErrors.nothingIsWritten // Changer l'erreur pour "Aucune réponse disponible"
                     if let errorMessage = error.errorDescription, let errorTitle = error.failureReason {
                         self.allErrors(errorMessage: errorMessage, errorTitle: errorTitle)
                     }
@@ -84,13 +89,13 @@ class RecipeListViewController: ViewController {
             }
         }
     }
-    private func savingAnswer(recipes:(RecipeResponse)) { // Converting recipes in an Array before sending it
-        
+    private func savingAnswer(recipes:(RecipeResponse)) { // Storing recipes received from API
+        /*
         while RecipeStorage.shared.recipes.count > 0 {
             RecipeStorage.shared.remove(at: 0) // Let's delete the array between two requests
         }
-        
-        print(recipes.recipes.count)
+        */
+        // print(recipes.recipes.count)
         for index in 0 ..< recipes.recipes.count {
             // All recipe's characteristics
             // À sortir
@@ -102,19 +107,16 @@ class RecipeListViewController: ViewController {
             
             let recette = RecipeType(name: recipeName, image: image, ingredientsNeeded: ingredients, totalTime: timeToPrepare, url: url) // Let's finalizing recipe to add to array
             
-            RecipeStorage.shared.add(recipe:recette)
+            downloadedRecipes.append(recette)
+            //RecipeStorage.shared.add(recipe:recette)
             //viewWillAppear(true)
         }
-        /*
-         for index in 0 ..< RecipeStorage.shared.recipes.count {
-         print(RecipeStorage.shared.recipes[index].name)
-         }
-         */
+        
         //receipesTableView.reloadData()
         
         toggleActivityIndicator(shown: false)
     }
-    private func loadingFavoriteRecipes() {
+    private func loadingFavoriteRecipes() { //Storing recipes from CoreData
         
         while FavoriteRecipesStorage.shared.recipes.count > 0 {
             FavoriteRecipesStorage.shared.remove(at: 0) // Let's delete the array between two requests
@@ -125,6 +127,7 @@ class RecipeListViewController: ViewController {
             print("erreur, oups.")
             return
         }
+        
         for recipeRegistred in recipesRegistred {
             guard let recipeName = recipeRegistred.name else {
                 return
@@ -138,13 +141,12 @@ class RecipeListViewController: ViewController {
             
             let recette = RecipeType(name: recipeName, image: image, ingredientsNeeded: ingredients, totalTime: timeToPrepare, url: url) // Let's finalizing recipe to add to array
             
-            FavoriteRecipesStorage.shared.add(recipe:recette)
+            
+            favoriteRecipes.append(recette)
+            
+            FavoriteRecipesStorage.shared.add(recipe:recette) // Ne pas utiliser ?
         }
-        /*
-         for index in 0 ..< FavoriteRecipesStorage.shared.recipes.count {
-         print(FavoriteRecipesStorage.shared.recipes[index].name)
-         }
-         */
+        
         toggleActivityIndicator(shown: false)
     }
     private func deleteObject(rank: Int) {
@@ -152,13 +154,17 @@ class RecipeListViewController: ViewController {
         guard let recipesRegistred = try? AppDelegate.viewContext.fetch(request) else {
             return
         }
+        /*
         let objectToDelete = recipesRegistred[rank]
         AppDelegate.viewContext.delete(objectToDelete)
-        /*
+ */
+        
         for object in recipesRegistred {
+            if object.isEqual(object) { // Mettre évidemment autre chose que object
             AppDelegate.viewContext.delete(object)
+            }
         }
-        */
+        
         do {
             try AppDelegate.viewContext.save()
         }
@@ -183,18 +189,25 @@ class RecipeListViewController: ViewController {
 
 extension RecipeListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        print("1")
+        //print("1")
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch parameters {
         case .search:
+            return downloadedRecipes.count
+            /*
             print(RecipeStorage.shared.recipes.count)
             return RecipeStorage.shared.recipes.count
+ */
         default:
+            print("nombre de favoris : \(favoriteRecipes.count)")
+            return favoriteRecipes.count
+            /*
             print(FavoriteRecipesStorage.shared.recipes.count)
             return FavoriteRecipesStorage.shared.recipes.count
+ */
         }
         //print(RecipeStorage.shared.recipes.count)
         //return RecipeStorage.shared.recipes.count
@@ -207,9 +220,11 @@ extension RecipeListViewController: UITableViewDataSource {
         }
         var recipe = RecipeType(name: "", ingredientsNeeded: [], totalTime: 0.0)
         if parameters == .search {
-            recipe = RecipeStorage.shared.recipes[indexPath.row]
+            //recipe = RecipeStorage.shared.recipes[indexPath.row]
+            recipe = downloadedRecipes[indexPath.row]
         } else {
-            recipe = FavoriteRecipesStorage.shared.recipes[indexPath.row]
+            //recipe = FavoriteRecipesStorage.shared.recipes[indexPath.row]
+            recipe = favoriteRecipes[indexPath.row]
         }
         let name = recipe.name
         let timeToPrepare = String(Int(recipe.totalTime))
@@ -237,11 +252,13 @@ extension RecipeListViewController: UITableViewDelegate { // To delete cells one
         if editingStyle == .delete {
             print("On efface : \(indexPath.row)")
             if parameters == .search {
-                RecipeStorage.shared.remove(at: indexPath.row)
+                downloadedRecipes.remove(at: indexPath.row)
+                //RecipeStorage.shared.remove(at: indexPath.row)
             } else {
-                FavoriteRecipesStorage.shared.recipes[indexPath.row]
-                FavoriteRecipesStorage.shared.remove(at: indexPath.row)
-                
+                //FavoriteRecipesStorage.shared.recipes[indexPath.row]
+                favoriteRecipes.remove(at: indexPath.row)
+                //FavoriteRecipesStorage.shared.remove(at: indexPath.row)
+                deleteObject(rank: indexPath.row)
                 do {
                     try AppDelegate.viewContext.save()
                 }

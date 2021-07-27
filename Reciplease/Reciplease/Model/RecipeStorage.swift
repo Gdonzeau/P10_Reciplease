@@ -6,6 +6,7 @@
 //
 
 import Foundation
+/*
 class RecipeStorage {
     static let shared = RecipeStorage()
     private init() {}
@@ -19,3 +20,5 @@ class RecipeStorage {
         recipes.remove(at: index)
     }
 }
+// // On remplace RecipeType par Recipe
+*/

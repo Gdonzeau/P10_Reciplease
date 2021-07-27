@@ -339,7 +339,7 @@
                                                 <rect key="frame" x="0.0" y="583" width="374" height="60"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U3Z-hJ-oYa">
-                                                        <rect key="frame" x="0.0" y="0.0" width="261" height="60"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="186" height="60"/>
                                                         <color key="backgroundColor" red="0.1833591759" green="0.61514002079999996" blue="0.45942020420000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="60" id="LPi-Pj-oXT"/>
@@ -354,9 +354,10 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6NB-h3-m9N">
-                                                        <rect key="frame" x="295" y="0.0" width="79" height="60"/>
+                                                        <rect key="frame" x="220" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
+                                                            <constraint firstAttribute="width" secondItem="6NB-h3-m9N" secondAttribute="height" multiplier="1:1" id="4IK-ge-ZJT"/>
                                                             <constraint firstAttribute="height" constant="60" id="RP8-hT-aFL"/>
                                                         </constraints>
                                                         <state key="normal" title="Save"/>
@@ -369,10 +370,28 @@
                                                             <action selector="saveRecipe:" destination="N1R-fJ-665" eventType="touchUpInside" id="Jdj-9w-nQe"/>
                                                         </connections>
                                                     </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="noG-hb-JUz">
+                                                        <rect key="frame" x="314" y="0.0" width="60" height="60"/>
+                                                        <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="noG-hb-JUz" secondAttribute="height" multiplier="1:1" id="Kh7-tm-JOl"/>
+                                                            <constraint firstAttribute="height" constant="60" id="l7G-42-5aX"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Del"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="deleteRecipe:" destination="N1R-fJ-665" eventType="touchUpInside" id="uGN-2q-620"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="EBL-AD-y1S"/>
                                                     <constraint firstItem="6NB-h3-m9N" firstAttribute="top" secondItem="Nu1-b0-XjZ" secondAttribute="top" id="TQ7-NO-qZr"/>
+                                                    <constraint firstItem="noG-hb-JUz" firstAttribute="height" secondItem="6NB-h3-m9N" secondAttribute="height" id="mrh-9o-Ccy"/>
                                                     <constraint firstAttribute="bottom" secondItem="6NB-h3-m9N" secondAttribute="bottom" id="qyy-kL-P6x"/>
                                                 </constraints>
                                             </stackView>
@@ -395,9 +414,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="blogNameLabel" destination="TeZ-db-QOR" id="i8E-uw-Crm"/>
+                        <outlet property="deleteRecipeButton" destination="noG-hb-JUz" id="nc4-3R-3hk"/>
                         <outlet property="getDirectionsButton" destination="U3Z-hJ-oYa" id="Kbb-q8-M3F"/>
                         <outlet property="imageRecipe" destination="SKV-Xv-Bgf" id="mvE-WW-Qzx"/>
                         <outlet property="ingredientsList" destination="yjk-DI-X4D" id="QkS-cH-fFR"/>
+                        <outlet property="saveRecipeButton" destination="6NB-h3-m9N" id="9WZ-uF-SIW"/>
                         <outlet property="stackView" destination="0fW-H4-blQ" id="i2J-sj-V7q"/>
                     </connections>
                 </viewController>
