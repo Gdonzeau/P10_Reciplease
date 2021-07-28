@@ -16,11 +16,12 @@ enum APIErrors: String, LocalizedError {
     case invalidStatusCode = "Status invalid"
     case errorGenerated = "Error generated"
     case nothingIsWritten = "You must write something correct"
-    case townUnknown = "Town Unknown"
+    case ingredientUnknown = "Town Unknown"
     
     var errorDescription: String? {
         switch self {
-        case .noData: return "Aucune donnée n'est renvoyée."
+        case .noData:
+            return "Aucune donnée n'est renvoyée."
         case .noError:
             return "Tout va bien, pas d'erreur."
         case .decodingError:
@@ -32,14 +33,15 @@ enum APIErrors: String, LocalizedError {
         case .errorGenerated:
             return "Erreur au moment de la requête réseau."
         case .nothingIsWritten:
-            return "Vous devez écrire quelque chose de correct."
-        case .townUnknown:
-            return "Le nom de la ville est inconnu."
+            return "You must write something."
+        case .ingredientUnknown:
+            return "There is at least one ingredient unknown"
         }
     }
     var failureReason: String? {
         switch self {
-        case .noData: return "Pas de données"
+        case .noData:
+            return "Pas de données"
         case .noError:
             return "Pas d'erreur"
         case .decodingError:
@@ -51,9 +53,9 @@ enum APIErrors: String, LocalizedError {
         case .errorGenerated:
             return "Erreur requête réseau"
         case .nothingIsWritten:
-            return "Entrée non compréhensible"
-        case .townUnknown:
-            return "Nom de ville inconnu"
+            return "No ingredient"
+        case .ingredientUnknown:
+            return "Ingredient unknown"
         }
     }
 }

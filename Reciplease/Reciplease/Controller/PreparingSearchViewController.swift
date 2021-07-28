@@ -10,13 +10,10 @@ import UIKit
 class PreparingSearchViewController: ViewController{
     var ingredientsUsed = ""
     var parameters: Parameters = .search
-    //var recipesReceived = [RecipeType]()
     
     @IBOutlet weak var ingredientName: UITextField!
     @IBOutlet weak var ingredientTableView: UITableView!
     @IBOutlet weak var searchButton: UIButton!
-    //@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
     
     @IBAction func addIngredientButton(_ sender: UIButton) {
         ingredientName.resignFirstResponder()
@@ -79,7 +76,7 @@ class PreparingSearchViewController: ViewController{
     private func disMissKeyboardMethod() {
         ingredientName.resignFirstResponder()
     }
-    
+
     private func allErrors(errorMessage: String, errorTitle: String) {
         let alertVC = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))

@@ -13,6 +13,7 @@ struct RecipeType {
     var ingredientsNeeded: [String]
     var totalTime: Float
     var url: String?//URL?
+    var person: Int
   }
 
 extension RecipeType: Equatable {

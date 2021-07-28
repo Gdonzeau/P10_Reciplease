@@ -16,7 +16,7 @@ class RecipeListViewController: ViewController {
     var downloadedRecipes = [RecipeType]() // To store recipes from API
     
     @IBOutlet weak var receipesTableView: UITableView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    //@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var deleteDataButton: UIButton!
     @IBAction func deleteData(_ sender: UIButton) {
@@ -24,33 +24,44 @@ class RecipeListViewController: ViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        toggleActivityIndicator(shown: true)
         
-         if parameters == .search {
+        toggleActivityIndicator(shown: true)
+        testCoreData() // Only for test
+        self.receipesTableView.rowHeight = 120.0
+        /*
+        if parameters == .search {
             deleteDataButton.isHidden = true
-         } else {
+        } else {
             deleteDataButton.isHidden = false
-         }
-         
+        }
+        
         if parameters == .search {
             searchForRecipes(ingredients: ingredientsUsed)
         } else {
             loadingFavoriteRecipes()
             receipesTableView.reloadData()
         }
-        
+        */
+    }
+    private func testCoreData() { // Only for test
+        for recipe in RecipeRegistred.all {
+            print (recipe.name as Any)
+        }
     }
     // Nécessaire ?
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if parameters == .search {
-            searchForRecipes(ingredients: ingredientsUsed)
-        } else {
-            loadingFavoriteRecipes()
-            receipesTableView.reloadData()
-        }
-        receipesTableView.reloadData()
-    }
+     override func viewWillAppear(_ animated: Bool) {
+     super.viewWillAppear(animated)
+        
+     if parameters == .search {
+     searchForRecipes(ingredients: ingredientsUsed)
+     } else {
+        print("Youpi")
+     //loadingFavoriteRecipes()
+     receipesTableView.reloadData()
+     }
+     receipesTableView.reloadData()
+     }
+     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueFromCellToChoosenRecipe",
            let recipeChoosenVC = segue.destination as? RecipeChoosenViewController,
@@ -72,7 +83,7 @@ class RecipeListViewController: ViewController {
             case .success(let recipes) :
                 self.toggleActivityIndicator(shown: false)
                 guard recipes.recipes.count > 0 else { // There are answers
-                    let error = APIErrors.nothingIsWritten // Changer l'erreur pour "Aucune réponse disponible"
+                    let error = APIErrors.ingredientUnknown // Changer l'erreur pour "Aucune réponse disponible"
                     if let errorMessage = error.errorDescription, let errorTitle = error.failureReason {
                         self.allErrors(errorMessage: errorMessage, errorTitle: errorTitle)
                     }
@@ -90,12 +101,7 @@ class RecipeListViewController: ViewController {
         }
     }
     private func savingAnswer(recipes:(RecipeResponse)) { // Storing recipes received from API
-        /*
-        while RecipeStorage.shared.recipes.count > 0 {
-            RecipeStorage.shared.remove(at: 0) // Let's delete the array between two requests
-        }
-        */
-        // print(recipes.recipes.count)
+        
         for index in 0 ..< recipes.recipes.count {
             // All recipe's characteristics
             // À sortir
@@ -104,11 +110,10 @@ class RecipeListViewController: ViewController {
             let ingredients = recipes.recipes[index].ingredients
             let timeToPrepare = recipes.recipes[index].duration
             let url = recipes.recipes[index].url
-            
-            let recette = RecipeType(name: recipeName, image: image, ingredientsNeeded: ingredients, totalTime: timeToPrepare, url: url) // Let's finalizing recipe to add to array
+            let person = Int(recipes.recipes[index].numberOfPeople)
+            let recette = RecipeType(name: recipeName, image: image, ingredientsNeeded: ingredients, totalTime: timeToPrepare, url: url, person: person) // Let's finalizing recipe to add to array
             
             downloadedRecipes.append(recette)
-            //RecipeStorage.shared.add(recipe:recette)
             //viewWillAppear(true)
         }
         
@@ -116,12 +121,9 @@ class RecipeListViewController: ViewController {
         
         toggleActivityIndicator(shown: false)
     }
-    private func loadingFavoriteRecipes() { //Storing recipes from CoreData
-        /*
-        while FavoriteRecipesStorage.shared.recipes.count > 0 {
-            FavoriteRecipesStorage.shared.remove(at: 0) // Let's delete the array between two requests
-        }
-        */
+    private func loadingFavoriteRecipes() { //Storing recipes from CoreData // A retirer et prendre les données depuis CoreData en direct ?
+        favoriteRecipes = []
+        
         let request: NSFetchRequest<RecipeRegistred> = RecipeRegistred.fetchRequest()
         guard let recipesRegistred = try? AppDelegate.viewContext.fetch(request) else {
             print("erreur, oups.")
@@ -129,22 +131,24 @@ class RecipeListViewController: ViewController {
         }
         
         for recipeRegistred in recipesRegistred {
-            guard let recipeName = recipeRegistred.name else {
-                return
-            }
-            let image = recipeRegistred.imageUrl
-            guard let ingredients = recipeRegistred.ingredients else {
-                return
-            }
-            let timeToPrepare = recipeRegistred.totalTime
-            let url = recipeRegistred.url
-            
-            let recette = RecipeType(name: recipeName, image: image, ingredientsNeeded: ingredients, totalTime: timeToPrepare, url: url) // Let's finalizing recipe to add to array
-            
-            
+            let recette = convertFromCoreDataToUsable(recipe: recipeRegistred)
+            /*
+             guard let recipeName = recipeRegistred.name else {
+             return
+             }
+             let image = recipeRegistred.imageUrl
+             guard let ingredients = recipeRegistred.ingredients else {
+             return
+             }
+             let timeToPrepare = recipeRegistred.totalTime
+             let url = recipeRegistred.url
+             
+             let recette = RecipeType(name: recipeName, image: image, ingredientsNeeded: ingredients, totalTime: timeToPrepare, url: url) // Let's finalizing recipe to add to array
+             
+             */
             favoriteRecipes.append(recette)
             
-          //  FavoriteRecipesStorage.shared.add(recipe:recette) // Ne pas utiliser ?
+            //  FavoriteRecipesStorage.shared.add(recipe:recette) // Ne pas utiliser ?
         }
         
         toggleActivityIndicator(shown: false)
@@ -157,7 +161,7 @@ class RecipeListViewController: ViewController {
         
         let objectToDelete = recipesRegistred[rank]
         AppDelegate.viewContext.delete(objectToDelete)
- 
+        
         do {
             try AppDelegate.viewContext.save()
         }
@@ -166,6 +170,22 @@ class RecipeListViewController: ViewController {
         }
         receipesTableView.reloadData()
         
+    }
+    private func convertFromCoreDataToUsable(recipe:RecipeRegistred)-> RecipeType {
+        var recipe2Name = ""
+        var ingredientList = [String]()
+        if let recipeName = recipe.name {
+            recipe2Name = recipeName
+        }
+        let image = recipe.imageUrl
+        if let ingredients = recipe.ingredients {
+            ingredientList = ingredients
+        }
+        let timeToPrepare = recipe.totalTime
+        let url = recipe.url
+        let person = Int(recipe.person)
+        let recette = RecipeType(name: recipe2Name, image: image, ingredientsNeeded: ingredientList, totalTime: timeToPrepare, url: url, person: person)
+        return recette
     }
     private func allErrors(errorMessage: String, errorTitle: String) {
         let alertVC = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
@@ -176,7 +196,7 @@ class RecipeListViewController: ViewController {
     
     private func toggleActivityIndicator(shown: Bool) {
         receipesTableView.isHidden = shown
-        activityIndicator.isHidden = !shown
+        // activityIndicator.isHidden = !shown
     }
 }
 
@@ -190,38 +210,46 @@ extension RecipeListViewController: UITableViewDataSource {
         switch parameters {
         case .search:
             return downloadedRecipes.count
-            /*
-            print(RecipeStorage.shared.recipes.count)
-            return RecipeStorage.shared.recipes.count
- */
+        /*
+         print(RecipeStorage.shared.recipes.count)
+         return RecipeStorage.shared.recipes.count
+         */
         default:
             print("nombre de favoris : \(favoriteRecipes.count)")
-            return favoriteRecipes.count
-            /*
-            print(FavoriteRecipesStorage.shared.recipes.count)
-            return FavoriteRecipesStorage.shared.recipes.count
- */
+            return RecipeRegistred.all.count
+        //return favoriteRecipes.count
+        /*
+         print(FavoriteRecipesStorage.shared.recipes.count)
+         return FavoriteRecipesStorage.shared.recipes.count
+         */
         }
         //print(RecipeStorage.shared.recipes.count)
         //return RecipeStorage.shared.recipes.count
     }
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120.0;//Choose your custom row height
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as? RecipeTableViewCell else {
             print("oups")
             return UITableViewCell()
         }
-        var recipe = RecipeType(name: "", ingredientsNeeded: [], totalTime: 0.0)
+        var recipe = RecipeType(name: "", ingredientsNeeded: [], totalTime: 0.0, person: 0)
         if parameters == .search {
-            //recipe = RecipeStorage.shared.recipes[indexPath.row]
             recipe = downloadedRecipes[indexPath.row]
         } else {
-            //recipe = FavoriteRecipesStorage.shared.recipes[indexPath.row]
-            recipe = favoriteRecipes[indexPath.row]
+            recipe = convertFromCoreDataToUsable(recipe: RecipeRegistred.all[indexPath.row])
         }
+        
         let name = recipe.name
-        let timeToPrepare = String(Int(recipe.totalTime))
+        var timeToPrepare = ""
+        if recipe.totalTime > 0 {
+            timeToPrepare = String(Int(recipe.totalTime))
+        } else {
+            timeToPrepare = "-"
+        }
         let image = UIImageView()
+        let person = recipe.person
         guard let imageUrl = recipe.image else { // There is a picture
             // Create a Default image
             cell.backgroundColor = UIColor.blue
@@ -234,7 +262,14 @@ extension RecipeListViewController: UITableViewDataSource {
         }
         image.load(url: URLUnwrapped)
         
-        cell.configure(image: image, timeToPrepare: timeToPrepare, imageURL: URLUnwrapped, name: name)
+        //cell.configure(image: image, timeToPrepare: timeToPrepare, imageURL: URLUnwrapped, name: name)
+        cell.configure(timeToPrepare: timeToPrepare, name: name, person: person)
+        cell.backgroundView = image
+        cell.backgroundView?.contentMode = .scaleAspectFill
+        //cell.backgroundView?.layer.frame = CGRect(x: self.view.frame.midX, y: self.view.frame.midY, width: 200, height: 130)
+        //cell.imageBackgroundCell.init
+        
+       // cell.
         
         return cell
     }
