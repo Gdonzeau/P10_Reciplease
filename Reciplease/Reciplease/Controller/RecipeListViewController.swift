@@ -14,6 +14,7 @@ class RecipeListViewController: ViewController {
     var parameters: Parameters = .favorites // By défault
     var favoriteRecipes = [RecipeType]() // To store recipes from Core Data
     var downloadedRecipes = [RecipeType]() // To store recipes from API
+    //var recipesFromCoreData = RecipeRegistred()
     
     @IBOutlet weak var receipesTableView: UITableView!
     //@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -57,6 +58,7 @@ class RecipeListViewController: ViewController {
      } else {
         print("Youpi")
      //loadingFavoriteRecipes()
+        toggleActivityIndicator(shown: false)
      receipesTableView.reloadData()
      }
      receipesTableView.reloadData()
@@ -72,7 +74,8 @@ class RecipeListViewController: ViewController {
                 recipeChoosenVC.recipeChoosen = downloadedRecipes[index]
             } else {
                 //recipeChoosenVC.recipeChoosen = FavoriteRecipesStorage.shared.recipes[index]
-                recipeChoosenVC.recipeChoosen = favoriteRecipes[index]
+                recipeChoosenVC.recipeChoosen = convertFromCoreDataToUsable(recipe: RecipeRegistred.all[index])
+                //recipeChoosenVC.recipeChoosen = favoriteRecipes[index]
             }
         }
     }
@@ -114,44 +117,12 @@ class RecipeListViewController: ViewController {
             let recette = RecipeType(name: recipeName, image: image, ingredientsNeeded: ingredients, totalTime: timeToPrepare, url: url, person: person) // Let's finalizing recipe to add to array
             
             downloadedRecipes.append(recette)
-            //viewWillAppear(true)
         }
-        
-        //receipesTableView.reloadData()
         
         toggleActivityIndicator(shown: false)
     }
     private func loadingFavoriteRecipes() { //Storing recipes from CoreData // A retirer et prendre les données depuis CoreData en direct ?
-        favoriteRecipes = []
         
-        let request: NSFetchRequest<RecipeRegistred> = RecipeRegistred.fetchRequest()
-        guard let recipesRegistred = try? AppDelegate.viewContext.fetch(request) else {
-            print("erreur, oups.")
-            return
-        }
-        
-        for recipeRegistred in recipesRegistred {
-            let recette = convertFromCoreDataToUsable(recipe: recipeRegistred)
-            /*
-             guard let recipeName = recipeRegistred.name else {
-             return
-             }
-             let image = recipeRegistred.imageUrl
-             guard let ingredients = recipeRegistred.ingredients else {
-             return
-             }
-             let timeToPrepare = recipeRegistred.totalTime
-             let url = recipeRegistred.url
-             
-             let recette = RecipeType(name: recipeName, image: image, ingredientsNeeded: ingredients, totalTime: timeToPrepare, url: url) // Let's finalizing recipe to add to array
-             
-             */
-            favoriteRecipes.append(recette)
-            
-            //  FavoriteRecipesStorage.shared.add(recipe:recette) // Ne pas utiliser ?
-        }
-        
-        toggleActivityIndicator(shown: false)
     }
     private func deleteObject(rank: Int) {
         let request: NSFetchRequest<RecipeRegistred> = RecipeRegistred.fetchRequest()
@@ -202,32 +173,19 @@ class RecipeListViewController: ViewController {
 
 extension RecipeListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        //print("1")
         return 1
     }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch parameters {
         case .search:
             return downloadedRecipes.count
-        /*
-         print(RecipeStorage.shared.recipes.count)
-         return RecipeStorage.shared.recipes.count
-         */
         default:
             print("nombre de favoris : \(favoriteRecipes.count)")
             return RecipeRegistred.all.count
-        //return favoriteRecipes.count
-        /*
-         print(FavoriteRecipesStorage.shared.recipes.count)
-         return FavoriteRecipesStorage.shared.recipes.count
-         */
         }
-        //print(RecipeStorage.shared.recipes.count)
-        //return RecipeStorage.shared.recipes.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120.0;//Choose your custom row height
+        return 120.0//Choose your custom row height
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as? RecipeTableViewCell else {

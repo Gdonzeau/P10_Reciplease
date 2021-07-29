@@ -27,8 +27,8 @@ class RecipeChoosenViewController: UIViewController {
         //addRecipeToFavorites()
         print("On ajoute \(recipeChoosen)")
         buttonAddIs(visible: false)
-        if isRecipeNotAlreadyRegistred() == true {
-            saveRecipe(recipeToSave: recipeChoosen)
+        if isRecipeNotAlreadyRegistred() == true { // Not necessary as button Save won't be visible...
+            savingRecipe(recipeToSave: recipeChoosen)
         }
         //addRecipeToFavorites()
     }
@@ -68,6 +68,8 @@ class RecipeChoosenViewController: UIViewController {
                 return
             }
             UIApplication.shared.open(urlAdress)
+        } else {
+            print("no url")
         }
     }
     override func viewDidLoad() {
@@ -110,18 +112,10 @@ class RecipeChoosenViewController: UIViewController {
      }
      */
     private func isRecipeNotAlreadyRegistred()-> Bool {
-        let request: NSFetchRequest<RecipeRegistred> = RecipeRegistred.fetchRequest()
-        guard let recipesRegistred = try? AppDelegate.viewContext.fetch(request) else {
-            return true // A modifier
-        }
-        
-        // if recipesRegistred.count == 0 {
         if RecipeRegistred.all.count == 0 {
             return true
         }
-        //for object in recipesRegistred {
         for object in RecipeRegistred.all {
-            print("On vérifie les recettes en mémoire")
             guard let name = object.name, let ingredients = object.ingredients else {
                 return false // A modifier
             }
@@ -132,25 +126,24 @@ class RecipeChoosenViewController: UIViewController {
             let recipe = RecipeType(name: name, image: image, ingredientsNeeded: ingredients, totalTime: totalTime, url: url, person: person)
             
             if recipe == recipeChoosen { // is the recipe on the View already favorit ?
-                print("Déjà en mémoire.")
                 return false
-            } else {
-                print("On met en mémoire")
-                //addRecipeToFavorites()
-                return true
             }
         }
         return true
     }
-    private func saveRecipe(recipeToSave: RecipeType) {
+    private func savingRecipe(recipeToSave: RecipeType) {
         let recipe = RecipeRegistred(context: AppDelegate.viewContext) //Appel du CoreDate RecipeService
+        recipe.saveRecipe(recipeToSave: recipeToSave)
+        /*
         recipe.imageUrl = recipeToSave.image
         recipe.ingredients = recipeToSave.ingredientsNeeded
         recipe.name = recipeToSave.name
         recipe.totalTime = recipeToSave.totalTime
         recipe.person = Float(Int(recipeToSave.person))
+        recipe.url = recipeToSave.url
         
         try? AppDelegate.viewContext.save()
+        */
     }
     /*
      private func deleteRecipeFromCoreData(recipeToDelete: RecipeType) {
