@@ -28,35 +28,7 @@ class RecipeChoosenViewController: UIViewController {
             savingRecipe(recipeToSave: recipeChoosen)
     }
     @IBAction func deleteRecipe(_ sender: UIButton) {
-        
-        for object in RecipeRegistred.all {
-            /*
-            guard let name = object.name, let ingredients = object.ingredients else {
-                return
-            }
-            let url = object.url
-            let image = object.imageUrl
-            let totalTime = object.totalTime
-            let person = Int(object.person)
-            let recipe = RecipeType(name: name, image: image, ingredientsNeeded: ingredients, totalTime: totalTime, url: url, person: person)
-            */
-            if createRecipeObject(object: object) == recipeChoosen {
-                // Effacer la recette
-                //let objectToDelete = recipesRegistred[index]
-                
-                //AppDelegate.viewContext.delete(objectToDelete)
-                
-                print("Trouvé, on efface")
-                AppDelegate.viewContext.delete(object)
-                try? AppDelegate.viewContext.save()
-                buttonAddIs(visible: true)
-                //deleteRecipeFromCoreData(recipeToDelete: recipeChoosen)
-                return
-            } else {
-                print("Absent de la base de données") // At each step where it is not the  right recipe
-                //return
-            }
-        }
+        deleteRecipeFromCoreData()
     }
     
     @IBAction func getDirectionsButtonAction(_ sender: UIButton) {
@@ -72,6 +44,7 @@ class RecipeChoosenViewController: UIViewController {
         prepareInformations()
         blogNameLabel.text = recipeName
         ingredientsList.text = ingredientList
+        // Remplacer par des if pour des valeurs par défaut ?
         guard let imageUrl = recipeChoosen.image else {
             return // Message d'erreur à ajouter
         }
@@ -87,6 +60,10 @@ class RecipeChoosenViewController: UIViewController {
             }
             UIApplication.shared.open(urlAdress)
         } else {
+            let error = APIErrors.noUrl
+            if let errorMessage = error.errorDescription, let errorTitle = error.failureReason {
+            allErrors(errorMessage: errorMessage, errorTitle: errorTitle)
+            }
             print("no url") // Ajouter un message d'erreur
         }
     }
@@ -132,17 +109,19 @@ class RecipeChoosenViewController: UIViewController {
         let recipe = RecipeRegistred(context: AppDelegate.viewContext) //Appel du CoreDate RecipeService
         recipe.saveRecipe(recipeToSave: recipeToSave)
     }
-    /*
-     private func deleteRecipeFromCoreData(recipeToDelete: RecipeType) {
-     let recipe = RecipeRegistred(context: AppDelegate.viewContext) //Appel du CoreDate RecipeService
-     recipe.imageUrl = recipeToDelete.image
-     recipe.ingredients = recipeToDelete.ingredientsNeeded
-     recipe.name = recipeToDelete.name
-     recipe.totalTime = recipeToDelete.totalTime
-     AppDelegate.viewContext.delete(recipe)
-     try? AppDelegate.viewContext.save()
-     }
-     */
+    private func deleteRecipeFromCoreData() {
+        for object in RecipeRegistred.all {
+            if createRecipeObject(object: object) == recipeChoosen {
+                print("Trouvé, on efface")
+                AppDelegate.viewContext.delete(object)
+                try? AppDelegate.viewContext.save()
+                buttonAddIs(visible: true)
+                return
+            } else {
+                print("Absent de la base de données") // At each step where it is not the  right recipe
+            }
+        }
+    }
     private func buttonAddIs(visible : Bool) {
         deleteRecipeButton.isHidden = visible
         saveRecipeButton.isHidden = !visible
@@ -151,7 +130,6 @@ class RecipeChoosenViewController: UIViewController {
         let alertVC = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alertVC,animated: true,completion: nil)
-        //toggleActivityIndicator(shown: false)
     }
     
 }

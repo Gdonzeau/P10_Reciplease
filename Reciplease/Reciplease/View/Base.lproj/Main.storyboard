@@ -220,7 +220,7 @@
                                                         <constraint firstAttribute="width" secondItem="8Zw-QG-KDy" secondAttribute="height" multiplier="101:51" id="PSW-jk-bN4"/>
                                                         <constraint firstAttribute="height" constant="51" id="ull-eS-aUI"/>
                                                     </constraints>
-                                                    <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -254,15 +254,6 @@
                                     <outlet property="dataSource" destination="2aN-AQ-If6" id="c9f-iQ-Rie"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="7tP-4m-DLA">
-                                <rect key="frame" x="0.0" y="627" width="414" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Delete Data"/>
-                                <connections>
-                                    <action selector="deleteData:" destination="2aN-AQ-If6" eventType="touchUpInside" id="K2U-l7-h2k"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="H1y-9H-jaE"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -275,7 +266,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="bca-N0-Mfd"/>
                     <connections>
-                        <outlet property="deleteDataButton" destination="7tP-4m-DLA" id="w9p-PI-11r"/>
                         <outlet property="receipesTableView" destination="ETt-k4-Ph6" id="sWB-Ny-QuU"/>
                     </connections>
                 </viewController>

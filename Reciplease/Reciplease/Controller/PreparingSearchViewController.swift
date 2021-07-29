@@ -81,7 +81,6 @@ class PreparingSearchViewController: ViewController{
         let alertVC = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alertVC,animated: true,completion: nil)
-        //toggleActivityIndicator(shown: false)
     }
 }
 

@@ -16,7 +16,8 @@ enum APIErrors: String, LocalizedError {
     case invalidStatusCode = "Status invalid"
     case errorGenerated = "Error generated"
     case nothingIsWritten = "You must write something correct"
-    case ingredientUnknown = "Town Unknown"
+    case ingredientUnknown = "Ingredient Unknown"
+    case noUrl = "No url adress"
     
     var errorDescription: String? {
         switch self {
@@ -36,6 +37,8 @@ enum APIErrors: String, LocalizedError {
             return "You must write something."
         case .ingredientUnknown:
             return "There is at least one ingredient unknown"
+        case .noUrl:
+            return "There is no url adress for this recipe"
         }
     }
     var failureReason: String? {
@@ -56,6 +59,8 @@ enum APIErrors: String, LocalizedError {
             return "No ingredient"
         case .ingredientUnknown:
             return "Ingredient unknown"
+        case .noUrl:
+            return "No url adress"
         }
     }
 }

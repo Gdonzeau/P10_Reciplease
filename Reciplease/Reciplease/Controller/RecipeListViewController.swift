@@ -11,75 +11,48 @@ import CoreData
 class RecipeListViewController: ViewController {
     
     var ingredientsUsed = ""
-    var parameters: Parameters = .favorites // By défault
+    var parameters: Parameters = .favorites // By default
     var favoriteRecipes = [RecipeType]() // To store recipes from Core Data
     var downloadedRecipes = [RecipeType]() // To store recipes from API
-    //var recipesFromCoreData = RecipeRegistred()
     
     @IBOutlet weak var receipesTableView: UITableView!
     //@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    @IBOutlet weak var deleteDataButton: UIButton!
-    @IBAction func deleteData(_ sender: UIButton) {
-        deleteObject(rank: 0)
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         toggleActivityIndicator(shown: true)
         testCoreData() // Only for test
         self.receipesTableView.rowHeight = 120.0
-        /*
-        if parameters == .search {
-            deleteDataButton.isHidden = true
-        } else {
-            deleteDataButton.isHidden = false
-        }
-        
-        if parameters == .search {
-            searchForRecipes(ingredients: ingredientsUsed)
-        } else {
-            loadingFavoriteRecipes()
-            receipesTableView.reloadData()
-        }
-        */
     }
     private func testCoreData() { // Only for test
         for recipe in RecipeRegistred.all {
             print (recipe.name as Any)
         }
     }
-    // Nécessaire ?
-     override func viewWillAppear(_ animated: Bool) {
-     super.viewWillAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-     if parameters == .search {
-     searchForRecipes(ingredients: ingredientsUsed)
-     } else {
-        print("Youpi")
-     //loadingFavoriteRecipes()
-        toggleActivityIndicator(shown: false)
-     receipesTableView.reloadData()
-     }
-     receipesTableView.reloadData()
-     }
-     
+        if parameters == .search {
+            searchForRecipes(ingredients: ingredientsUsed)
+        } else {
+            toggleActivityIndicator(shown: false)
+            receipesTableView.reloadData()
+        }
+        
+        receipesTableView.reloadData()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueFromCellToChoosenRecipe",
            let recipeChoosenVC = segue.destination as? RecipeChoosenViewController,
            let index = receipesTableView.indexPathForSelectedRow?.row {
-            print("C'est parti")
             if parameters == .search {
-                //recipeChoosenVC.recipeChoosen = RecipeStorage.shared.recipes[index]
                 recipeChoosenVC.recipeChoosen = downloadedRecipes[index]
             } else {
-                //recipeChoosenVC.recipeChoosen = FavoriteRecipesStorage.shared.recipes[index]
                 recipeChoosenVC.recipeChoosen = convertFromCoreDataToUsable(recipe: RecipeRegistred.all[index])
-                //recipeChoosenVC.recipeChoosen = favoriteRecipes[index]
             }
         }
     }
-    
     private func searchForRecipes(ingredients: String) { // Receiving recipes from API
         RecipesServices.shared.getRecipes(ingredients: ingredients) { (result) in
             switch result {
@@ -92,19 +65,21 @@ class RecipeListViewController: ViewController {
                     }
                     return
                 }
-                //print("Test : \(recipes)")
                 self.savingAnswer(recipes:recipes)
                 self.receipesTableView.reloadData()
-            //self.performSegue(withIdentifier: "segueToReceiptList", sender: nil)
             
             case .failure(let error) :
                 print("KO")
                 print(error.errorDescription as Any)
+                let error = APIErrors.invalidStatusCode
+                if let errorMessage = error.errorDescription, let errorTitle = error.failureReason {
+                    self.allErrors(errorMessage: errorMessage, errorTitle: errorTitle)
+                }
             }
         }
     }
     private func savingAnswer(recipes:(RecipeResponse)) { // Storing recipes received from API
-        
+        downloadedRecipes = [RecipeType]() // initializing
         for index in 0 ..< recipes.recipes.count {
             // All recipe's characteristics
             // À sortir
@@ -121,27 +96,7 @@ class RecipeListViewController: ViewController {
         
         toggleActivityIndicator(shown: false)
     }
-    private func loadingFavoriteRecipes() { //Storing recipes from CoreData // A retirer et prendre les données depuis CoreData en direct ?
-        
-    }
-    private func deleteObject(rank: Int) {
-        let request: NSFetchRequest<RecipeRegistred> = RecipeRegistred.fetchRequest()
-        guard let recipesRegistred = try? AppDelegate.viewContext.fetch(request) else {
-            return
-        }
-        
-        let objectToDelete = recipesRegistred[rank]
-        AppDelegate.viewContext.delete(objectToDelete)
-        
-        do {
-            try AppDelegate.viewContext.save()
-        }
-        catch {
-            // Handle Error
-        }
-        receipesTableView.reloadData()
-        
-    }
+    
     private func convertFromCoreDataToUsable(recipe:RecipeRegistred)-> RecipeType {
         var recipe2Name = ""
         var ingredientList = [String]()
@@ -162,7 +117,6 @@ class RecipeListViewController: ViewController {
         let alertVC = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alertVC,animated: true,completion: nil)
-        //toggleActivityIndicator(shown: false)
     }
     
     private func toggleActivityIndicator(shown: Bool) {
@@ -189,7 +143,6 @@ extension RecipeListViewController: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as? RecipeTableViewCell else {
-            print("oups")
             return UITableViewCell()
         }
         var recipe = RecipeType(name: "", ingredientsNeeded: [], totalTime: 0.0, person: 0)
@@ -208,6 +161,8 @@ extension RecipeListViewController: UITableViewDataSource {
         }
         let image = UIImageView()
         let person = recipe.person
+        
+        // Mettre des if au lieu des guard pour éviter le return et proposer une alternative par défaut
         guard let imageUrl = recipe.image else { // There is a picture
             // Create a Default image
             cell.backgroundColor = UIColor.blue
@@ -215,23 +170,19 @@ extension RecipeListViewController: UITableViewDataSource {
             return UITableViewCell() // À améliorer...
         }
         guard let URLUnwrapped = URL(string: imageUrl) else {
-            print("Lien internet mauvais") // Message d'erreur
-            return UITableViewCell() // À améliorer
+            let error = APIErrors.noUrl
+            if let errorMessage = error.errorDescription, let errorTitle = error.failureReason {
+            allErrors(errorMessage: errorMessage, errorTitle: errorTitle)
+            }
+            print("Lien internet mauvais")
+            return UITableViewCell()
         }
         image.load(url: URLUnwrapped)
-        
-        //cell.configure(image: image, timeToPrepare: timeToPrepare, imageURL: URLUnwrapped, name: name)
         cell.configure(timeToPrepare: timeToPrepare, name: name, person: person)
         cell.backgroundView = image
         cell.backgroundView?.contentMode = .scaleAspectFill
-        //cell.backgroundView?.layer.frame = CGRect(x: self.view.frame.midX, y: self.view.frame.midY, width: 200, height: 130)
-        //cell.imageBackgroundCell.init
-        
-       // cell.
-        
         return cell
     }
-    
 }
 extension RecipeListViewController: UITableViewDelegate { // To delete cells one by one
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -239,18 +190,9 @@ extension RecipeListViewController: UITableViewDelegate { // To delete cells one
             print("On efface : \(indexPath.row)")
             if parameters == .search {
                 downloadedRecipes.remove(at: indexPath.row)
-                //RecipeStorage.shared.remove(at: indexPath.row)
             } else {
-                //FavoriteRecipesStorage.shared.recipes[indexPath.row]
-                favoriteRecipes.remove(at: indexPath.row)
-                //FavoriteRecipesStorage.shared.remove(at: indexPath.row)
-                deleteObject(rank: indexPath.row)
-                do {
-                    try AppDelegate.viewContext.save()
-                }
-                catch {
-                    // Handle Error
-                }
+                AppDelegate.viewContext.delete(RecipeRegistred.all[indexPath.row])
+                try? AppDelegate.viewContext.save()
             }
             tableView.deleteRows(at: [indexPath], with: .bottom)
         }
