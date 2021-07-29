@@ -13,8 +13,7 @@ class RecipeChoosenViewController: UIViewController {
     var recipeName = String()
     var ingredientList = String()
     var recipeChoosen = RecipeType(name: "", image: "", ingredientsNeeded: [], totalTime: 0.00, url: "", person: 0)
-    //var recetteChoisie = Recipe(from: <#Decoder#>)
-    //var imageUrl = URL(string: "")
+    
     @IBOutlet weak var blogNameLabel: UILabel!
     @IBOutlet weak var imageRecipe: UIImageView!
     @IBOutlet weak var ingredientsList: UITextView!
@@ -24,22 +23,14 @@ class RecipeChoosenViewController: UIViewController {
     @IBOutlet weak var deleteRecipeButton: UIButton!
     
     @IBAction func saveRecipe(_ sender: UIButton) {
-        //addRecipeToFavorites()
         print("On ajoute \(recipeChoosen)")
         buttonAddIs(visible: false)
-        if isRecipeNotAlreadyRegistred() == true { // Not necessary as button Save won't be visible...
             savingRecipe(recipeToSave: recipeChoosen)
-        }
-        //addRecipeToFavorites()
     }
     @IBAction func deleteRecipe(_ sender: UIButton) {
-        buttonAddIs(visible: true)
-        let request: NSFetchRequest<RecipeRegistred> = RecipeRegistred.fetchRequest()
-        guard let recipesRegistred = try? AppDelegate.viewContext.fetch(request) else {
-            return
-        }
-        for index in 0 ..< recipesRegistred.count {
-            let object = recipesRegistred[index]
+        
+        for object in RecipeRegistred.all {
+            /*
             guard let name = object.name, let ingredients = object.ingredients else {
                 return
             }
@@ -48,34 +39,33 @@ class RecipeChoosenViewController: UIViewController {
             let totalTime = object.totalTime
             let person = Int(object.person)
             let recipe = RecipeType(name: name, image: image, ingredientsNeeded: ingredients, totalTime: totalTime, url: url, person: person)
-            if recipe == recipeChoosen {
+            */
+            if createRecipeObject(object: object) == recipeChoosen {
                 // Effacer la recette
-                let objectToDelete = recipesRegistred[index]
-                AppDelegate.viewContext.delete(objectToDelete)
+                //let objectToDelete = recipesRegistred[index]
+                
+                //AppDelegate.viewContext.delete(objectToDelete)
+                
                 print("Trouvé, on efface")
+                AppDelegate.viewContext.delete(object)
+                try? AppDelegate.viewContext.save()
+                buttonAddIs(visible: true)
                 //deleteRecipeFromCoreData(recipeToDelete: recipeChoosen)
                 return
             } else {
-                print("Absent de la base de données") // Théoriquement n'arrivera pas
-                return
+                print("Absent de la base de données") // At each step where it is not the  right recipe
+                //return
             }
         }
     }
     
     @IBAction func getDirectionsButtonAction(_ sender: UIButton) {
-        if let url = recipeChoosen.url {
-            guard let urlAdress = URL(string: url) else {
-                return
-            }
-            UIApplication.shared.open(urlAdress)
-        } else {
-            print("no url")
-        }
+        openUrl()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         testCoreData()
-        buttonAddIs(visible: isRecipeNotAlreadyRegistred())
+        buttonAddIs(visible: isRecipeNotAlreadyRegistred()) // If recipe is already favorite, button Del will be visible
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -89,6 +79,16 @@ class RecipeChoosenViewController: UIViewController {
             return // Message d'erreur à ajouter
         }
         imageRecipe.load(url: imageUrlUnwrapped)
+    }
+    private func openUrl() {
+        if let url = recipeChoosen.url {
+            guard let urlAdress = URL(string: url) else {
+                return
+            }
+            UIApplication.shared.open(urlAdress)
+        } else {
+            print("no url") // Ajouter un message d'erreur
+        }
     }
     private func testCoreData() { // Only for test
         for recipe in RecipeRegistred.all {
@@ -106,26 +106,23 @@ class RecipeChoosenViewController: UIViewController {
             ingredientList += "\n"
         }
     }
-    /*
-     private func addRecipeToFavorites() {
-     saveRecipe(recipeToSave: recipeChoosen)
-     }
-     */
+    private func createRecipeObject(object:RecipeRegistred) -> RecipeType {
+        guard let name = object.name, let ingredients = object.ingredients else {
+            return RecipeType(name: "", ingredientsNeeded: [], totalTime: 0, person: 0) // A modifier
+        }
+        let url = object.url
+        let image = object.imageUrl
+        let totalTime = object.totalTime
+        let person = Int(object.person)
+        let recipe = RecipeType(name: name, image: image, ingredientsNeeded: ingredients, totalTime: totalTime, url: url, person: person)
+        return recipe
+    }
     private func isRecipeNotAlreadyRegistred()-> Bool {
-        if RecipeRegistred.all.count == 0 {
+        if RecipeRegistred.all.count == 0 { // If there is no recipe in favorite
             return true
         }
         for object in RecipeRegistred.all {
-            guard let name = object.name, let ingredients = object.ingredients else {
-                return false // A modifier
-            }
-            let url = object.url
-            let image = object.imageUrl
-            let totalTime = object.totalTime
-            let person = Int(object.person)
-            let recipe = RecipeType(name: name, image: image, ingredientsNeeded: ingredients, totalTime: totalTime, url: url, person: person)
-            
-            if recipe == recipeChoosen { // is the recipe on the View already favorit ?
+            if createRecipeObject(object: object) == recipeChoosen { // is the recipe on the View already favorit ?
                 return false
             }
         }
@@ -134,16 +131,6 @@ class RecipeChoosenViewController: UIViewController {
     private func savingRecipe(recipeToSave: RecipeType) {
         let recipe = RecipeRegistred(context: AppDelegate.viewContext) //Appel du CoreDate RecipeService
         recipe.saveRecipe(recipeToSave: recipeToSave)
-        /*
-        recipe.imageUrl = recipeToSave.image
-        recipe.ingredients = recipeToSave.ingredientsNeeded
-        recipe.name = recipeToSave.name
-        recipe.totalTime = recipeToSave.totalTime
-        recipe.person = Float(Int(recipeToSave.person))
-        recipe.url = recipeToSave.url
-        
-        try? AppDelegate.viewContext.save()
-        */
     }
     /*
      private func deleteRecipeFromCoreData(recipeToDelete: RecipeType) {
@@ -159,6 +146,12 @@ class RecipeChoosenViewController: UIViewController {
     private func buttonAddIs(visible : Bool) {
         deleteRecipeButton.isHidden = visible
         saveRecipeButton.isHidden = !visible
+    }
+    private func allErrors(errorMessage: String, errorTitle: String) {
+        let alertVC = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(alertVC,animated: true,completion: nil)
+        //toggleActivityIndicator(shown: false)
     }
     
 }
