@@ -9,11 +9,11 @@ import Foundation
 
 struct RecipeType {
     var name: String
-    var image: String?//URL?
+    var imageUrl: String?//URL?
     var ingredientsNeeded: [String]
-    var totalTime: Float
+    var duration: Float
     var url: String?//URL?
-    var person: Int
+    var numberOfPeople: Int
   }
 
 extension RecipeType: Equatable {

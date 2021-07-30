@@ -52,7 +52,7 @@ struct Recipe: Codable {
     let url: String
     let numberOfPeople: Float
     let duration: Float
-    let ingredients: [String]
+    let ingredientsNeeded: [String]
 
     enum BlaBla: String, CodingKey {
         case recipe
@@ -61,7 +61,7 @@ struct Recipe: Codable {
         case url
         case numberOfPeople = "yield"
         case duration = "totalTime"
-        case ingredients = "ingredientLines"
+        case ingredientsNeeded = "ingredientLines"
 
         case totalDaily
         case ENERC_KCAL
@@ -78,7 +78,7 @@ struct Recipe: Codable {
         url = try recipe.decode(String.self, forKey: .url)
         numberOfPeople = try recipe.decode(Float.self, forKey: .numberOfPeople)
         duration = try recipe.decode(Float.self, forKey: .duration)
-        ingredients = try recipe.decode([String].self, forKey: .ingredients)
+        ingredientsNeeded = try recipe.decode([String].self, forKey: .ingredientsNeeded)
 
 
 

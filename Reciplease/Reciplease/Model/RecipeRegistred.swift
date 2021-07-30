@@ -26,11 +26,11 @@ class RecipeRegistred: NSManagedObject {
         return recipesCoreData
     }
     func saveRecipe(recipeToSave: RecipeType) {
-        self.imageUrl = recipeToSave.image
+        self.imageUrl = recipeToSave.imageUrl
         self.ingredients = recipeToSave.ingredientsNeeded
         self.name = recipeToSave.name
-        self.totalTime = recipeToSave.totalTime
-        self.person = Float(Int(recipeToSave.person))
+        self.totalTime = recipeToSave.duration
+        self.person = Float(Int(recipeToSave.numberOfPeople))
         self.url = recipeToSave.url
         
         try? AppDelegate.viewContext.save()

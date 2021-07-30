@@ -85,11 +85,11 @@ class RecipeListViewController: ViewController {
             // À sortir
             let recipeName = recipes.recipes[index].name
             let image = recipes.recipes[index].imageURL
-            let ingredients = recipes.recipes[index].ingredients
+            let ingredients = recipes.recipes[index].ingredientsNeeded
             let timeToPrepare = recipes.recipes[index].duration
             let url = recipes.recipes[index].url
             let person = Int(recipes.recipes[index].numberOfPeople)
-            let recette = RecipeType(name: recipeName, image: image, ingredientsNeeded: ingredients, totalTime: timeToPrepare, url: url, person: person) // Let's finalizing recipe to add to array
+            let recette = RecipeType(name: recipeName, imageUrl: image, ingredientsNeeded: ingredients, duration: timeToPrepare, url: url, numberOfPeople: person) // Let's finalizing recipe to add to array
             
             downloadedRecipes.append(recette)
         }
@@ -110,7 +110,7 @@ class RecipeListViewController: ViewController {
         let timeToPrepare = recipe.totalTime
         let url = recipe.url
         let person = Int(recipe.person)
-        let recette = RecipeType(name: recipe2Name, image: image, ingredientsNeeded: ingredientList, totalTime: timeToPrepare, url: url, person: person)
+        let recette = RecipeType(name: recipe2Name, imageUrl: image, ingredientsNeeded: ingredientList, duration: timeToPrepare, url: url, numberOfPeople: person)
         return recette
     }
     private func allErrors(errorMessage: String, errorTitle: String) {
@@ -145,7 +145,7 @@ extension RecipeListViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as? RecipeTableViewCell else {
             return UITableViewCell()
         }
-        var recipe = RecipeType(name: "", ingredientsNeeded: [], totalTime: 0.0, person: 0)
+        var recipe = RecipeType(name: "", ingredientsNeeded: [], duration: 0.0, numberOfPeople: 0)
         if parameters == .search {
             recipe = downloadedRecipes[indexPath.row]
         } else {
@@ -154,16 +154,16 @@ extension RecipeListViewController: UITableViewDataSource {
         
         let name = recipe.name
         var timeToPrepare = ""
-        if recipe.totalTime > 0 {
-            timeToPrepare = String(Int(recipe.totalTime))
+        if recipe.duration > 0 {
+            timeToPrepare = String(Int(recipe.duration))
         } else {
             timeToPrepare = "-"
         }
         let image = UIImageView()
-        let person = recipe.person
+        let person = recipe.numberOfPeople
         
         // Mettre des if au lieu des guard pour éviter le return et proposer une alternative par défaut
-        guard let imageUrl = recipe.image else { // There is a picture
+        guard let imageUrl = recipe.imageUrl else { // There is a picture
             // Create a Default image
             cell.backgroundColor = UIColor.blue
             print("problème d'image")

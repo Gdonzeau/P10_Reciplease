@@ -18,6 +18,7 @@ enum APIErrors: String, LocalizedError {
     case nothingIsWritten = "You must write something correct"
     case ingredientUnknown = "Ingredient Unknown"
     case noUrl = "No url adress"
+    case noImage = "No Image"
     
     var errorDescription: String? {
         switch self {
@@ -39,6 +40,8 @@ enum APIErrors: String, LocalizedError {
             return "There is at least one ingredient unknown"
         case .noUrl:
             return "There is no url adress for this recipe"
+        case .noImage:
+            return "There are no image associated with this recipe"
         }
     }
     var failureReason: String? {
@@ -61,6 +64,8 @@ enum APIErrors: String, LocalizedError {
             return "Ingredient unknown"
         case .noUrl:
             return "No url adress"
+        case .noImage:
+            return "No image associated"
         }
     }
 }

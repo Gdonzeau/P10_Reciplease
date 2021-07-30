@@ -12,7 +12,7 @@ class RecipeChoosenViewController: UIViewController {
     
     var recipeName = String()
     var ingredientList = String()
-    var recipeChoosen = RecipeType(name: "", image: "", ingredientsNeeded: [], totalTime: 0.00, url: "", person: 0)
+    var recipeChoosen = RecipeType(name: "", imageUrl: "", ingredientsNeeded: [], duration: 0.00, url: "", numberOfPeople: 0)
     
     @IBOutlet weak var blogNameLabel: UILabel!
     @IBOutlet weak var imageRecipe: UIImageView!
@@ -44,14 +44,28 @@ class RecipeChoosenViewController: UIViewController {
         prepareInformations()
         blogNameLabel.text = recipeName
         ingredientsList.text = ingredientList
+        var urlImage = ""
         // Remplacer par des if pour des valeurs par défaut ?
-        guard let imageUrl = recipeChoosen.image else {
-            return // Message d'erreur à ajouter
+        if let imageUrl = recipeChoosen.imageUrl {
+            print("ok : \(imageUrl)")
+            urlImage = imageUrl
+        } else {
+            let error = APIErrors.noImage
+            if let errorMessage = error.errorDescription, let errorTitle = error.failureReason {
+            allErrors(errorMessage: errorMessage, errorTitle: errorTitle)
+            }
         }
-        guard let imageUrlUnwrapped = URL(string: imageUrl) else {
-            return // Message d'erreur à ajouter
+        if let imageUrlUnwrapped = URL(string: urlImage) {
+            print("ok2 : \(imageUrlUnwrapped)")
+            imageRecipe.load(url: imageUrlUnwrapped)
+        } else {
+            let error = APIErrors.noImage
+            if let errorMessage = error.errorDescription, let errorTitle = error.failureReason {
+            allErrors(errorMessage: errorMessage, errorTitle: errorTitle)
+            }
+            imageRecipe.image = UIImage(named: "imageDefault") // No image, so Default image
         }
-        imageRecipe.load(url: imageUrlUnwrapped)
+        
     }
     private func openUrl() {
         if let url = recipeChoosen.url {
@@ -85,13 +99,13 @@ class RecipeChoosenViewController: UIViewController {
     }
     private func createRecipeObject(object:RecipeRegistred) -> RecipeType {
         guard let name = object.name, let ingredients = object.ingredients else {
-            return RecipeType(name: "", ingredientsNeeded: [], totalTime: 0, person: 0) // A modifier
+            return RecipeType(name: "", ingredientsNeeded: [], duration: 0, numberOfPeople: 0) // A modifier
         }
         let url = object.url
         let image = object.imageUrl
         let totalTime = object.totalTime
         let person = Int(object.person)
-        let recipe = RecipeType(name: name, image: image, ingredientsNeeded: ingredients, totalTime: totalTime, url: url, person: person)
+        let recipe = RecipeType(name: name, imageUrl: image, ingredientsNeeded: ingredients, duration: totalTime, url: url, numberOfPeople: person)
         return recipe
     }
     private func isRecipeNotAlreadyRegistred()-> Bool {
