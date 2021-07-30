@@ -9,11 +9,9 @@ import UIKit
 
 class RecipeTableViewCell: UITableViewCell {
 
-    //@IBOutlet weak var totalTime: UILabel!
-    
-    @IBOutlet weak var informations: UITextView!
-    //@IBOutlet weak var imageBackgroundCell: UIImageView!
     @IBOutlet weak var recipeName: UILabel!
+    @IBOutlet weak var timing: UILabel!
+    @IBOutlet weak var howManyPerson: UILabel!
     //@IBOutlet weak var blackLine: UIView!
     /*
      //Ajouter didSet
@@ -56,12 +54,38 @@ class RecipeTableViewCell: UITableViewCell {
  */
     }
     func configure(timeToPrepare: String, name: String, person: Int) {
-        //imageBackgroundCell.load(url: imageURL)
+        let interval: TimeInterval = Double(timeToPrepare) ?? 0
+
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .positional
+        formatter.allowedUnits = [.hour, .minute]
+        formatter.zeroFormattingBehavior = .pad
+        formatter.collapsesLargestUnit = false
+
+        guard let time = formatter.string(from: interval*60) else {
+            return
+        }
+        if time == "00:00" {
+            timing.isHidden = true
+        } else {
+            timing.isHidden = false
+        }
+        if person == 0 {
+            howManyPerson.isHidden = true
+        } else {
+            howManyPerson.isHidden = false
+        }
+        
         recipeName.text = "  " + name
-        recipeName.backgroundColor = UIColor(displayP3Red: 0.2, green: 0.2, blue: 0.2, alpha: 0.8)
+        recipeName.backgroundColor = UIColor(displayP3Red: 0.2, green: 0.2, blue: 0.2, alpha: 0.5)
         //recipeName.font(.custom("OpenSans-Bold", size: 34))
-        informations.text =  "🕒 : " + timeToPrepare + " min. \n Pers: \(String(person))"
-        informations.backgroundColor = UIColor(displayP3Red: 0.2, green: 0.2, blue: 0.2, alpha: 0.8)
+        timing.text = " 🕒 : " + time
+        howManyPerson.text = " Pers: \(String(person))"
+        //informations.text =  "🕒 : " + time + " min. \n Pers: \(String(person))"
+        timing.backgroundColor = UIColor(displayP3Red: 0.2, green: 0.2, blue: 0.2, alpha: 0.5)
+        howManyPerson.backgroundColor = UIColor(displayP3Red: 0.2, green: 0.2, blue: 0.2, alpha: 0.5)
+        
+        
         
     }
 }
