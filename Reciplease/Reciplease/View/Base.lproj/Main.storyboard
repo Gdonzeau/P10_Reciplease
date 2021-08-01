@@ -383,7 +383,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="60" id="LPi-Pj-oXT"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" name="PartyLetPlain" family="Party LET" pointSize="30"/>
+                                                        <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="24"/>
                                                         <state key="normal" title="Get directions">
                                                             <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
@@ -398,14 +398,14 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6NB-h3-m9N">
-                                                        <rect key="frame" x="220" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <rect key="frame" x="220" y="-0.33333333333333215" width="60" height="59.666666666666657"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="6NB-h3-m9N" secondAttribute="height" multiplier="1:1" id="4IK-ge-ZJT"/>
                                                             <constraint firstAttribute="height" constant="60" id="RP8-hT-aFL"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="PartyLetPlain" family="Party LET" pointSize="30"/>
-                                                        <state key="normal" title="Save"/>
+                                                        <color key="tintColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" backgroundImage="star" catalog="system"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                 <integer key="value" value="10"/>
@@ -416,14 +416,14 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="noG-hb-JUz">
-                                                        <rect key="frame" x="314" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <rect key="frame" x="314" y="-0.33333333333333215" width="60" height="59.666666666666657"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="noG-hb-JUz" secondAttribute="height" multiplier="1:1" id="Kh7-tm-JOl"/>
                                                             <constraint firstAttribute="height" constant="60" id="l7G-42-5aX"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="PartyLetPlain" family="Party LET" pointSize="30"/>
-                                                        <state key="normal" title="Del"/>
+                                                        <color key="tintColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" backgroundImage="star.fill" catalog="system"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                 <integer key="value" value="10"/>
@@ -497,6 +497,8 @@
         <segue reference="WZK-tf-qLm"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="star" catalog="system" width="128" height="116"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
