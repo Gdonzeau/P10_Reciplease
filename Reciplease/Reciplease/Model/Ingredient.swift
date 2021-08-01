@@ -6,7 +6,8 @@
 //
 
 import Foundation
-
+/*
 struct Ingredient {
     var name = ""
 }
+*/

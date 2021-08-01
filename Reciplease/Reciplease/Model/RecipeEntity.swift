@@ -8,19 +8,19 @@
 import Foundation
 import CoreData
 
-class RecipeRegistred: NSManagedObject {
+class RecipeEntity: NSManagedObject {
     
-    static var all: [RecipeRegistred] {
-        let request: NSFetchRequest<RecipeRegistred> = RecipeRegistred.fetchRequest()
+    static var all: [RecipeEntity] {
+        let request: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
         guard let recipesRegistred = try? AppDelegate.viewContext.fetch(request) else {
             return []
         }
         return recipesRegistred
     }
     
-    func loadRecipes() -> [RecipeRegistred] {
-        var recipesCoreData = [RecipeRegistred]()
-        for recipe in RecipeRegistred.all {
+    func loadRecipes() -> [RecipeEntity] {
+        var recipesCoreData = [RecipeEntity]()
+        for recipe in RecipeEntity.all {
             recipesCoreData.append(recipe)
         }
         return recipesCoreData

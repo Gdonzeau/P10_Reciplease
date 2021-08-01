@@ -82,7 +82,7 @@ class RecipeChoosenViewController: UIViewController {
         }
     }
     private func testCoreData() { // Only for test
-        for recipe in RecipeRegistred.all {
+        for recipe in RecipeEntity.all {
             print (recipe.name as Any)
         }
     }
@@ -97,7 +97,7 @@ class RecipeChoosenViewController: UIViewController {
             ingredientList += "\n"
         }
     }
-    private func createRecipeObject(object:RecipeRegistred) -> RecipeType {
+    private func createRecipeObject(object:RecipeEntity) -> RecipeType {
         guard let name = object.name, let ingredients = object.ingredients else {
             return RecipeType(name: "", ingredientsNeeded: [], duration: 0, numberOfPeople: 0) // A modifier
         }
@@ -109,10 +109,10 @@ class RecipeChoosenViewController: UIViewController {
         return recipe
     }
     private func isRecipeNotAlreadyRegistred()-> Bool {
-        if RecipeRegistred.all.count == 0 { // If there is no recipe in favorite
+        if RecipeEntity.all.count == 0 { // If there is no recipe in favorite
             return true
         }
-        for object in RecipeRegistred.all {
+        for object in RecipeEntity.all {
             if createRecipeObject(object: object) == recipeChoosen { // is the recipe on the View already favorit ?
                 return false
             }
@@ -120,11 +120,11 @@ class RecipeChoosenViewController: UIViewController {
         return true
     }
     private func savingRecipe(recipeToSave: RecipeType) {
-        let recipe = RecipeRegistred(context: AppDelegate.viewContext) //Appel du CoreDate RecipeService
+        let recipe = RecipeEntity(context: AppDelegate.viewContext) //Appel du CoreDate RecipeService
         recipe.saveRecipe(recipeToSave: recipeToSave)
     }
     private func deleteRecipeFromCoreData() {
-        for object in RecipeRegistred.all {
+        for object in RecipeEntity.all {
             if createRecipeObject(object: object) == recipeChoosen {
                 print("Trouvé, on efface")
                 AppDelegate.viewContext.delete(object)

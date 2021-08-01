@@ -25,7 +25,7 @@ class RecipeListViewController: ViewController {
         self.receipesTableView.rowHeight = 120.0
     }
     private func testCoreData() { // Only for test
-        for recipe in RecipeRegistred.all {
+        for recipe in RecipeEntity.all {
             print (recipe.name as Any)
         }
     }
@@ -49,7 +49,7 @@ class RecipeListViewController: ViewController {
             if parameters == .search {
                 recipeChoosenVC.recipeChoosen = downloadedRecipes[index]
             } else {
-                recipeChoosenVC.recipeChoosen = convertFromCoreDataToUsable(recipe: RecipeRegistred.all[index])
+                recipeChoosenVC.recipeChoosen = convertFromCoreDataToUsable(recipe: RecipeEntity.all[index])
             }
         }
     }
@@ -97,7 +97,7 @@ class RecipeListViewController: ViewController {
         toggleActivityIndicator(shown: false)
     }
     
-    private func convertFromCoreDataToUsable(recipe:RecipeRegistred)-> RecipeType {
+    private func convertFromCoreDataToUsable(recipe:RecipeEntity)-> RecipeType {
         var recipe2Name = ""
         var ingredientList = [String]()
         if let recipeName = recipe.name {
@@ -135,7 +135,7 @@ extension RecipeListViewController: UITableViewDataSource {
             return downloadedRecipes.count
         default:
             print("nombre de favoris : \(favoriteRecipes.count)")
-            return RecipeRegistred.all.count
+            return RecipeEntity.all.count
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -149,7 +149,7 @@ extension RecipeListViewController: UITableViewDataSource {
         if parameters == .search {
             recipe = downloadedRecipes[indexPath.row]
         } else {
-            recipe = convertFromCoreDataToUsable(recipe: RecipeRegistred.all[indexPath.row])
+            recipe = convertFromCoreDataToUsable(recipe: RecipeEntity.all[indexPath.row])
         }
         
         let name = recipe.name
@@ -191,7 +191,7 @@ extension RecipeListViewController: UITableViewDelegate { // To delete cells one
             if parameters == .search {
                 downloadedRecipes.remove(at: indexPath.row)
             } else {
-                AppDelegate.viewContext.delete(RecipeRegistred.all[indexPath.row])
+                AppDelegate.viewContext.delete(RecipeEntity.all[indexPath.row])
                 try? AppDelegate.viewContext.save()
             }
             tableView.deleteRows(at: [indexPath], with: .bottom)

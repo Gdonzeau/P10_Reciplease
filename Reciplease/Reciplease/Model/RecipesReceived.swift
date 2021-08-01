@@ -45,15 +45,23 @@ struct RecipeResponse: Decodable {
         case recipes = "hits"
     }
 }
-
-struct Recipe: Codable {
+struct Recipe {
     let name: String
     let imageURL: String
     let url: String
     let numberOfPeople: Float
     let duration: Float
     let ingredientsNeeded: [String]
-
+}
+extension Recipe: Codable {
+    /*
+    let name: String
+    let imageURL: String
+    let url: String
+    let numberOfPeople: Float
+    let duration: Float
+    let ingredientsNeeded: [String]
+*/
     enum BlaBla: String, CodingKey {
         case recipe
         case name = "label"

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+/*
 class IngredientService {
     static let shared = IngredientService()
     private init() {}
@@ -20,3 +20,4 @@ class IngredientService {
         ingredients.remove(at: index)
     }
 }
+*/

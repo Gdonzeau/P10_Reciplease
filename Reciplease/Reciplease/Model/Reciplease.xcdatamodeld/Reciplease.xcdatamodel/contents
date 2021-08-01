@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="19H1217" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="RecipeRegistred" representedClassName=".RecipeRegistred" syncable="YES" codeGenerationType="category">
+    <entity name="RecipeEntity" representedClassName=".RecipeEntity" syncable="YES" codeGenerationType="category">
         <attribute name="imageUrl" optional="YES" attributeType="String"/>
         <attribute name="ingredients" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
         <attribute name="name" optional="YES" attributeType="String"/>
@@ -9,6 +9,6 @@
         <attribute name="url" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="RecipeRegistred" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="RecipeEntity" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>
