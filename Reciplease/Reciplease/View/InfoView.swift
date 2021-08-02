@@ -8,6 +8,8 @@
 import UIKit
 
 class InfoView: UIView {
+    
+    
     var recipe: Recipe? {
         didSet {
             configureView()

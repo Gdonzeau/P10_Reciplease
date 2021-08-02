@@ -22,6 +22,7 @@ class RecipeChoosenViewController: UIViewController {
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var favoriteOrNot: UIButton!
     @IBOutlet weak var newImageRecipe: UIView!
+    @IBOutlet weak var infoView: InfoView!
     
     @IBAction func favoriteOrNotChange(_ sender: UIButton) {
         saveOrDelete()
