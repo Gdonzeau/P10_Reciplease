@@ -15,14 +15,18 @@ class RecipeListViewController: ViewController {
     var favoriteRecipes = [RecipeType]() // To store recipes from Core Data
     var downloadedRecipes = [RecipeType]() // To store recipes from API
     
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var receipesTableView: UITableView!
     //@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imageView.isHidden = true
         toggleActivityIndicator(shown: true)
         testCoreData() // Only for test
         self.receipesTableView.rowHeight = 120.0
+        whichImage()
     }
     private func testCoreData() { // Only for test
         for recipe in RecipeEntity.all {
@@ -34,8 +38,13 @@ class RecipeListViewController: ViewController {
         
         if parameters == .search {
             searchForRecipes(ingredients: ingredientsUsed)
+            
         } else {
             toggleActivityIndicator(shown: false)
+            if RecipeEntity.all.count == 0 {
+                receipesTableView.isHidden = true
+                imageView.isHidden = false
+            }
             receipesTableView.reloadData()
         }
         
@@ -51,6 +60,13 @@ class RecipeListViewController: ViewController {
             } else {
                 recipeChoosenVC.recipeChoosen = convertFromCoreDataToUsable(recipe: RecipeEntity.all[index])
             }
+        }
+    }
+    private func whichImage() {
+        if parameters == .search {
+            imageView.image = UIImage(named: "noRecipe")
+        } else {
+            imageView.image = UIImage(named: "noFavorit")
         }
     }
     private func searchForRecipes(ingredients: String) { // Receiving recipes from API
@@ -121,7 +137,7 @@ class RecipeListViewController: ViewController {
     
     private func toggleActivityIndicator(shown: Bool) {
         receipesTableView.isHidden = shown
-        // activityIndicator.isHidden = !shown
+        activityIndicator.isHidden = !shown
     }
 }
 
@@ -134,7 +150,7 @@ extension RecipeListViewController: UITableViewDataSource {
         case .search:
             return downloadedRecipes.count
         default:
-            print("nombre de favoris : \(favoriteRecipes.count)")
+            print("nombre de favoris : \(favoriteRecipes.count)/\(RecipeEntity.all.count)")
             return RecipeEntity.all.count
         }
     }

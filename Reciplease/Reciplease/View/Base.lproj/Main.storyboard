@@ -226,9 +226,7 @@
         <scene sceneID="CtQ-Kf-A6b">
             <objects>
                 <navigationController id="JQ0-ec-uID" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" badgeValue="Research" id="7Ec-d4-N9V">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="Search" image="imageDefault" id="7Ec-d4-N9V"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8Nq-lX-cT6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -249,6 +247,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="7q4-cA-S1h">
+                                <rect key="frame" x="188.66666666666666" y="349.66666666666669" width="37" height="37"/>
+                            </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ETt-k4-Ph6">
                                 <rect key="frame" x="0.0" y="44" width="414" height="643"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -317,6 +318,13 @@
                                     <outlet property="dataSource" destination="2aN-AQ-If6" id="c9f-iQ-Rie"/>
                                 </connections>
                             </tableView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gLh-2C-F1P">
+                                <rect key="frame" x="57" y="218" width="300" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="L03-PX-ecT"/>
+                                    <constraint firstAttribute="width" secondItem="gLh-2C-F1P" secondAttribute="height" multiplier="1:1" id="mVZ-rz-mZM"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="H1y-9H-jaE"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -324,11 +332,17 @@
                             <constraint firstItem="H1y-9H-jaE" firstAttribute="trailing" secondItem="ETt-k4-Ph6" secondAttribute="trailing" id="4yP-My-1vg"/>
                             <constraint firstItem="ETt-k4-Ph6" firstAttribute="leading" secondItem="H1y-9H-jaE" secondAttribute="leading" id="BYb-h4-lgH"/>
                             <constraint firstItem="ETt-k4-Ph6" firstAttribute="top" secondItem="H1y-9H-jaE" secondAttribute="top" id="DIG-dA-cRJ"/>
+                            <constraint firstItem="gLh-2C-F1P" firstAttribute="centerY" secondItem="Gpc-0C-Vfz" secondAttribute="centerY" id="HOr-wW-DKP"/>
                             <constraint firstItem="ETt-k4-Ph6" firstAttribute="bottom" secondItem="H1y-9H-jaE" secondAttribute="bottom" id="Raz-zk-K6k"/>
+                            <constraint firstItem="gLh-2C-F1P" firstAttribute="centerX" secondItem="Gpc-0C-Vfz" secondAttribute="centerX" id="apO-Xq-bdk"/>
+                            <constraint firstItem="7q4-cA-S1h" firstAttribute="centerX" secondItem="Gpc-0C-Vfz" secondAttribute="centerX" id="gwb-xF-oyE"/>
+                            <constraint firstItem="7q4-cA-S1h" firstAttribute="centerY" secondItem="Gpc-0C-Vfz" secondAttribute="centerY" id="wUv-ou-dZj"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bca-N0-Mfd"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="7q4-cA-S1h" id="gnR-Gj-IAq"/>
+                        <outlet property="imageView" destination="gLh-2C-F1P" id="hJn-xf-QT8"/>
                         <outlet property="receipesTableView" destination="ETt-k4-Ph6" id="sWB-Ny-QuU"/>
                     </connections>
                 </viewController>
@@ -497,6 +511,7 @@
         <segue reference="WZK-tf-qLm"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="imageDefault" width="100" height="100"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="labelColor">
