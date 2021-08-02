@@ -294,7 +294,6 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="121" id="c4L-Xz-JGm"/>
-                                                        <constraint firstAttribute="width" secondItem="Off-hT-psY" secondAttribute="height" multiplier="121:52" id="ei3-hC-QCJ"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
@@ -367,7 +366,6 @@
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SKV-Xv-Bgf">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="250"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="374" id="Ufc-gg-Vjy"/>
                                                     <constraint firstAttribute="height" constant="250" id="uQK-FI-rM1"/>
                                                 </constraints>
                                             </imageView>

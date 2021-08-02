@@ -23,7 +23,7 @@ class RecipeChoosenViewController: UIViewController {
     @IBOutlet weak var deleteRecipeButton: UIButton!
     
     @IBAction func saveRecipe(_ sender: UIButton) {
-        print("On ajoute \(recipeChoosen)")
+        //print("On ajoute \(recipeChoosen)")
         buttonAddIs(visible: false)
             savingRecipe(recipeToSave: recipeChoosen)
     }
@@ -36,7 +36,7 @@ class RecipeChoosenViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        testCoreData()
+        //testCoreData()
         buttonAddIs(visible: isRecipeNotAlreadyRegistred()) // If recipe is already favorite, button Del will be visible
         // Do any additional setup after loading the view.
     }
@@ -47,7 +47,6 @@ class RecipeChoosenViewController: UIViewController {
         var urlImage = ""
         // Remplacer par des if pour des valeurs par défaut ?
         if let imageUrl = recipeChoosen.imageUrl {
-            print("ok : \(imageUrl)")
             urlImage = imageUrl
         } else {
             let error = APIErrors.noImage
@@ -56,7 +55,6 @@ class RecipeChoosenViewController: UIViewController {
             }
         }
         if let imageUrlUnwrapped = URL(string: urlImage) {
-            print("ok2 : \(imageUrlUnwrapped)")
             imageRecipe.load(url: imageUrlUnwrapped)
         } else {
             let error = APIErrors.noImage
@@ -81,11 +79,13 @@ class RecipeChoosenViewController: UIViewController {
             print("no url") // Ajouter un message d'erreur
         }
     }
+    /*
     private func testCoreData() { // Only for test
         for recipe in RecipeEntity.all {
             print (recipe.name as Any)
         }
     }
+    */
     private func prepareInformations() {
         recipeName = recipeChoosen.name
         presentIngredients()

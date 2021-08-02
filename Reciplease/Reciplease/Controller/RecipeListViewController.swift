@@ -24,28 +24,29 @@ class RecipeListViewController: ViewController {
         super.viewDidLoad()
         imageView.isHidden = true
         toggleActivityIndicator(shown: true)
-        testCoreData() // Only for test
+       // testCoreData() // Only for test
         self.receipesTableView.rowHeight = 120.0
         whichImage()
     }
+    /*
     private func testCoreData() { // Only for test
         for recipe in RecipeEntity.all {
             print (recipe.name as Any)
         }
     }
+ */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        imageView.isHidden = true
         if parameters == .search {
             searchForRecipes(ingredients: ingredientsUsed)
-            
         } else {
             toggleActivityIndicator(shown: false)
             if RecipeEntity.all.count == 0 {
-                receipesTableView.isHidden = true
+                //receipesTableView.isHidden = true
                 imageView.isHidden = false
             }
-            receipesTableView.reloadData()
+            //receipesTableView.reloadData()
         }
         
         receipesTableView.reloadData()
@@ -74,6 +75,7 @@ class RecipeListViewController: ViewController {
             switch result {
             case .success(let recipes) :
                 self.toggleActivityIndicator(shown: false)
+                /* // If no answer, image will appear
                 guard recipes.recipes.count > 0 else { // There are answers
                     let error = APIErrors.ingredientUnknown // Changer l'erreur pour "Aucune réponse disponible"
                     if let errorMessage = error.errorDescription, let errorTitle = error.failureReason {
@@ -81,6 +83,7 @@ class RecipeListViewController: ViewController {
                     }
                     return
                 }
+                */
                 self.savingAnswer(recipes:recipes)
                 self.receipesTableView.reloadData()
             
@@ -148,9 +151,19 @@ extension RecipeListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch parameters {
         case .search:
+            if downloadedRecipes.count == 0 {
+                imageView.isHidden = false
+            } else {
+                imageView.isHidden = true
+            }
             return downloadedRecipes.count
         default:
-            print("nombre de favoris : \(favoriteRecipes.count)/\(RecipeEntity.all.count)")
+            //print("nombre de favoris : \(favoriteRecipes.count)/\(RecipeEntity.all.count)")
+            if RecipeEntity.all.count == 0 {
+                imageView.isHidden = false
+            } else {
+                imageView.isHidden = true
+            }
             return RecipeEntity.all.count
         }
     }
@@ -211,6 +224,7 @@ extension RecipeListViewController: UITableViewDelegate { // To delete cells one
                 try? AppDelegate.viewContext.save()
             }
             tableView.deleteRows(at: [indexPath], with: .bottom)
+            //viewWillAppear(true)
         }
     }
 }
