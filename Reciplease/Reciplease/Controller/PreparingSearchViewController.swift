@@ -60,16 +60,12 @@ class PreparingSearchViewController: ViewController{
             return
         }
         ingredientAdded = "- " + ingredientAdded
-        
-        //let newIngredient = Ingredient(name: ingredientAdded)
-        //IngredientService.shared.add(ingredient: newIngredient)
         ingredientsList.append(ingredientAdded) // Adding new ingredient
         ingredientName.text = ""
         viewWillAppear(true)
     }
     
     private func gettingIngredients() {
-        //guard IngredientService.shared.ingredients.count > 0 else {
             guard ingredientsList.count > 0 else {
             let error = APIErrors.nothingIsWritten
             if let errorMessage = error.errorDescription, let errorTitle = error.failureReason {
@@ -77,22 +73,10 @@ class PreparingSearchViewController: ViewController{
             }
             return
         }
-        /*
-        for index in 0 ..< IngredientService.shared.ingredients.count {
-            ingredientsUsed += IngredientService.shared.ingredients[index].name
-            ingredientsUsed += " "
-            print(IngredientService.shared.ingredients[index].name)
-        }
-        */
         for index in 0 ..< ingredientsList.count {
             ingredientsUsed += ingredientsList[index]
         }
         self.performSegue(withIdentifier: "segueToReceiptList", sender: nil)
-        /*
-        for element in IngredientService.shared.ingredients {
-            ingredientsUsed += element.name
-        }
- */
     }
     
     private func disMissKeyboardMethod() {
@@ -118,12 +102,6 @@ extension PreparingSearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientCell", for: indexPath)
-        
-        //let ingredient = IngredientService.shared.ingredients[indexPath.row]
-        //let ingredient = ingredientsList
-        //print(ingredient)
-        
-        //cell.textLabel?.text = ingredient.name
         cell.textLabel?.text = ingredientsList[indexPath.row]
         
         return cell
@@ -140,7 +118,6 @@ extension PreparingSearchViewController: UITableViewDelegate { // To delete cell
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             print("On efface : \(indexPath.row)")
-            //IngredientService.shared.remove(at: indexPath.row)
             ingredientsList.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .bottom)
             ingredientsUsed = ""
@@ -148,6 +125,5 @@ extension PreparingSearchViewController: UITableViewDelegate { // To delete cell
                 ingredientsUsed += ingredient
             }
         }
-        
     }
 }
