@@ -4,8 +4,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,7 +14,7 @@
         <scene sceneID="R6M-vk-xA7">
             <objects>
                 <navigationController id="eLO-nD-xTi" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Favorites" id="yZq-Rb-aZQ"/>
+                    <tabBarItem key="tabBarItem" title="Favorites" image="star.fill" catalog="system" id="yZq-Rb-aZQ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="3Wk-7w-xN0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -204,7 +204,7 @@
                             <outletCollection property="gestureRecognizers" destination="y6W-f6-sFd" appends="YES" id="g9y-Du-xrd"/>
                         </connections>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Search" id="G9Y-ZI-Fyg"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="G9Y-ZI-Fyg"/>
                     <navigationItem key="navigationItem" title="Reciplease" id="DWm-EH-te7"/>
                     <connections>
                         <outlet property="ingredientName" destination="gPc-u2-AZf" id="B0A-sb-CCL"/>
@@ -226,7 +226,7 @@
         <scene sceneID="CtQ-Kf-A6b">
             <objects>
                 <navigationController id="JQ0-ec-uID" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" image="imageDefault" id="7Ec-d4-N9V"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="7Ec-d4-N9V"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8Nq-lX-cT6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -266,7 +266,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="Fc7-Na-WSr"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                    <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -296,6 +296,11 @@
                                                         <constraint firstAttribute="width" constant="121" id="c4L-Xz-JGm"/>
                                                     </constraints>
                                                 </stackView>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4P2-4h-CJN" customClass="InfoView" customModule="Reciplease" customModuleProvider="target">
+                                                    <rect key="frame" x="134" y="23" width="112" height="60"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="xUf-fa-qoD" secondAttribute="bottom" id="Nc9-fn-JqW"/>
@@ -360,8 +365,19 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mXQ-kT-I4k">
                                 <rect key="frame" x="20" y="44" width="374" height="623"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="0fW-H4-blQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="623"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jnx-yR-Mju">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="128"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hGE-yp-gwg" customClass="InfoView" customModule="Reciplease" customModuleProvider="target">
+                                                <rect key="frame" x="96" y="60" width="182" height="50"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0fW-H4-blQ">
+                                        <rect key="frame" x="0.0" y="136" width="374" height="487"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SKV-Xv-Bgf">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="250"/>
@@ -370,92 +386,49 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TeZ-db-QOR">
-                                                <rect key="frame" x="0.0" y="258" width="374" height="50"/>
+                                                <rect key="frame" x="0.0" y="250" width="374" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="q1H-ca-SZY"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="24"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yjk-DI-X4D">
-                                                <rect key="frame" x="0.0" y="316" width="374" height="239"/>
+                                                <rect key="frame" x="0.0" y="300" width="374" height="127"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                 <color key="textColor" systemColor="labelColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="34" translatesAutoresizingMaskIntoConstraints="NO" id="Nu1-b0-XjZ">
-                                                <rect key="frame" x="0.0" y="563" width="374" height="60"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U3Z-hJ-oYa">
-                                                        <rect key="frame" x="0.0" y="0.0" width="186" height="60"/>
-                                                        <color key="backgroundColor" red="0.1833591759" green="0.61514002079999996" blue="0.45942020420000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="60" id="LPi-Pj-oXT"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="24"/>
-                                                        <state key="normal" title="Get directions">
-                                                            <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="getDirectionsButtonAction:" destination="N1R-fJ-665" eventType="touchUpInside" id="KGP-eH-dnL"/>
-                                                            <action selector="searchRecipesButton:" destination="3Uv-Xu-4zb" eventType="touchUpInside" id="tCf-bq-OhZ"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6NB-h3-m9N">
-                                                        <rect key="frame" x="220" y="-0.33333333333333215" width="60" height="59.666666666666657"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="6NB-h3-m9N" secondAttribute="height" multiplier="1:1" id="4IK-ge-ZJT"/>
-                                                            <constraint firstAttribute="height" constant="60" id="RP8-hT-aFL"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="PartyLetPlain" family="Party LET" pointSize="30"/>
-                                                        <color key="tintColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <state key="normal" backgroundImage="star" catalog="system"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="saveRecipe:" destination="N1R-fJ-665" eventType="touchUpInside" id="Jdj-9w-nQe"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="noG-hb-JUz">
-                                                        <rect key="frame" x="314" y="-0.33333333333333215" width="60" height="59.666666666666657"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="noG-hb-JUz" secondAttribute="height" multiplier="1:1" id="Kh7-tm-JOl"/>
-                                                            <constraint firstAttribute="height" constant="60" id="l7G-42-5aX"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="PartyLetPlain" family="Party LET" pointSize="30"/>
-                                                        <color key="tintColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <state key="normal" backgroundImage="star.fill" catalog="system"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="deleteRecipe:" destination="N1R-fJ-665" eventType="touchUpInside" id="uGN-2q-620"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U3Z-hJ-oYa">
+                                                <rect key="frame" x="0.0" y="427" width="374" height="60"/>
+                                                <color key="backgroundColor" red="0.1833591759" green="0.61514002079999996" blue="0.45942020420000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="60" id="EBL-AD-y1S"/>
-                                                    <constraint firstItem="6NB-h3-m9N" firstAttribute="top" secondItem="Nu1-b0-XjZ" secondAttribute="top" id="TQ7-NO-qZr"/>
-                                                    <constraint firstItem="noG-hb-JUz" firstAttribute="height" secondItem="6NB-h3-m9N" secondAttribute="height" id="mrh-9o-Ccy"/>
-                                                    <constraint firstAttribute="bottom" secondItem="6NB-h3-m9N" secondAttribute="bottom" id="qyy-kL-P6x"/>
+                                                    <constraint firstAttribute="height" constant="60" id="LPi-Pj-oXT"/>
                                                 </constraints>
-                                            </stackView>
+                                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="24"/>
+                                                <state key="normal" title="Get directions">
+                                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="getDirectionsButtonAction:" destination="N1R-fJ-665" eventType="touchUpInside" id="KGP-eH-dnL"/>
+                                                    <action selector="searchRecipesButton:" destination="3Uv-Xu-4zb" eventType="touchUpInside" id="tCf-bq-OhZ"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                     </stackView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="0fW-H4-blQ" firstAttribute="leading" secondItem="mXQ-kT-I4k" secondAttribute="leading" id="JXJ-rE-RU2"/>
+                                    <constraint firstItem="0fW-H4-blQ" firstAttribute="top" secondItem="mXQ-kT-I4k" secondAttribute="top" constant="136" id="yeA-VB-kAv"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="eou-Cj-9QO"/>
@@ -469,14 +442,27 @@
                     </view>
                     <navigationItem key="navigationItem" id="sDw-qj-Pl3">
                         <nil key="title"/>
+                        <barButtonItem key="rightBarButtonItem" id="YKx-YK-DbM">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6Lg-EW-b47">
+                                <rect key="frame" x="350" y="0.0" width="44" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="heart" catalog="system" symbolScale="large"/>
+                                </state>
+                                <connections>
+                                    <action selector="favoriteOrNotChange:" destination="N1R-fJ-665" eventType="touchUpInside" id="ahX-Uw-rgp"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="blogNameLabel" destination="TeZ-db-QOR" id="i8E-uw-Crm"/>
-                        <outlet property="deleteRecipeButton" destination="noG-hb-JUz" id="nc4-3R-3hk"/>
+                        <outlet property="favoriteOrNot" destination="6Lg-EW-b47" id="3wc-Ry-6NG"/>
                         <outlet property="getDirectionsButton" destination="U3Z-hJ-oYa" id="Kbb-q8-M3F"/>
                         <outlet property="imageRecipe" destination="SKV-Xv-Bgf" id="mvE-WW-Qzx"/>
                         <outlet property="ingredientsList" destination="yjk-DI-X4D" id="QkS-cH-fFR"/>
-                        <outlet property="saveRecipeButton" destination="6NB-h3-m9N" id="9WZ-uF-SIW"/>
+                        <outlet property="newImageRecipe" destination="Jnx-yR-Mju" id="adZ-ue-aMM"/>
                         <outlet property="stackView" destination="0fW-H4-blQ" id="i2J-sj-V7q"/>
                     </connections>
                 </viewController>
@@ -509,14 +495,17 @@
         <segue reference="WZK-tf-qLm"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="imageDefault" width="100" height="100"/>
-        <image name="star" catalog="system" width="128" height="116"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

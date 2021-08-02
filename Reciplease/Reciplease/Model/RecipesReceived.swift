@@ -52,7 +52,14 @@ struct Recipe {
     let numberOfPeople: Float
     let duration: Float
     let ingredientsNeeded: [String]
+    /*
+    init(from recipeEntity: RecipeEntity) {
+        self.name = recipeEntity.name
+            //etc.
+    }
+ */
 }
+
 extension Recipe: Codable {
     /*
     let name: String

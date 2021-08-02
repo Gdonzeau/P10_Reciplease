@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class RecipeEntity: NSManagedObject {
+class RecipeEntity: NSManagedObject { // Le storage Service
     
     static var all: [RecipeEntity] {
         let request: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
