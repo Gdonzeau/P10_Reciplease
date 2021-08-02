@@ -12,6 +12,7 @@ class RecipeTableViewCell: UITableViewCell {
     @IBOutlet weak var recipeName: UILabel!
     @IBOutlet weak var timing: UILabel!
     @IBOutlet weak var howManyPerson: UILabel!
+    @IBOutlet weak var informations: InfoView!
     //@IBOutlet weak var blackLine: UIView!
     /*
      //Ajouter didSet
@@ -31,6 +32,7 @@ class RecipeTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         addShadow()
+        
         // Initialization code
     }
     private func addShadow() {

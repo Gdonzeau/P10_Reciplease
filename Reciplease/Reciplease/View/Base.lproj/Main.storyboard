@@ -320,6 +320,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="howManyPerson" destination="7sv-bK-T2A" id="bjM-GD-Ei2"/>
+                                            <outlet property="informations" destination="4P2-4h-CJN" id="sVK-QP-DO2"/>
                                             <outlet property="recipeName" destination="xUf-fa-qoD" id="b4Q-ZF-ITi"/>
                                             <outlet property="timing" destination="C9N-gK-yXX" id="Wzg-Q3-iOM"/>
                                             <segue destination="N1R-fJ-665" kind="show" identifier="segueFromCellToChoosenRecipe" id="EXq-62-jE9"/>

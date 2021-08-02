@@ -15,6 +15,11 @@ class InfoView: UIView {
             configureView()
         }
     }
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        backgroundColor = UIColor(displayP3Red: 0.5, green: 0.5, blue: 0.5, alpha: 1)
+        // Initialization code
+    }
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -23,8 +28,13 @@ class InfoView: UIView {
     }
     */
     private func configureView() {
+        
         let preparationTime = UILabel()
         preparationTime.textAlignment = .center
         preparationTime.translatesAutoresizingMaskIntoConstraints = false //Utilise autolayout
+        preparationTime.text = "Bonjour"
+        let howManyPerson = UILabel()
+        howManyPerson.textAlignment = .center
+        howManyPerson.translatesAutoresizingMaskIntoConstraints = false
     }
 }

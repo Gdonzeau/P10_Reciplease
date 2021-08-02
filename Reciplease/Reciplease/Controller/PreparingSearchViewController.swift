@@ -49,12 +49,7 @@ class PreparingSearchViewController: ViewController{
         }
     }
     private func deleteIngredientTableView() {
-        /*
-        for index in 0 ..< IngredientService.shared.ingredients.count {
-            //print(index)
-        IngredientService.shared.remove(at: 0)
-        }
-        */
+        ingredientsUsed = ""
         for _ in 0 ..< ingredientsList.count {
             ingredientsList.remove(at: 0)
         }
@@ -148,6 +143,10 @@ extension PreparingSearchViewController: UITableViewDelegate { // To delete cell
             //IngredientService.shared.remove(at: indexPath.row)
             ingredientsList.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .bottom)
+            ingredientsUsed = ""
+            for ingredient in ingredientsList {
+                ingredientsUsed += ingredient
+            }
         }
         
     }
