@@ -52,6 +52,7 @@ struct Recipe {
     let numberOfPeople: Float
     let duration: Float
     let ingredientsNeeded: [String]
+    
     // Je sais, pas de ! mais là, c'est pour tester
     init(from recipeEntity: RecipeEntity) {
         self.name = recipeEntity.name!
@@ -61,6 +62,7 @@ struct Recipe {
         self.duration = recipeEntity.totalTime
         self.ingredientsNeeded = recipeEntity.ingredients!
     }
+    
  
 }
 

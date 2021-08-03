@@ -11,7 +11,9 @@ class RecipeTableViewCell: UITableViewCell {
 
     @IBOutlet weak var recipeName: UILabel!
     @IBOutlet weak var timing: UILabel!
+    @IBOutlet weak var SVTiming: UIStackView!
     @IBOutlet weak var howManyPerson: UILabel!
+    @IBOutlet weak var SVHowManyPerson: UIStackView!
     @IBOutlet weak var informations: InfoView!
     //@IBOutlet weak var blackLine: UIView!
     /*
@@ -57,35 +59,50 @@ class RecipeTableViewCell: UITableViewCell {
     }
     func configure(timeToPrepare: String, name: String, person: Int) {
         let interval: TimeInterval = Double(timeToPrepare) ?? 0
-
+        
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .positional
+        if interval >= 60 {
+        formatter.allowedUnits = [.hour, .minute]
+        } else {
+            formatter.allowedUnits = [.minute]
+        }
+        
+        /*
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .positional
         formatter.allowedUnits = [.hour, .minute]
         formatter.zeroFormattingBehavior = .pad
         formatter.collapsesLargestUnit = false
-
-        guard let time = formatter.string(from: interval*60) else {
+*/
+        guard var time = formatter.string(from: interval*60) else {
             return
         }
-        if time == "00:00" {
-            timing.isHidden = true
+        if interval >= 60 {
+            time = time + " h"
         } else {
-            timing.isHidden = false
+        time = time + " m"
+        }
+        
+        if timeToPrepare == "-" {
+            SVTiming.isHidden = true
+        } else {
+            SVTiming.isHidden = false
         }
         if person == 0 {
-            howManyPerson.isHidden = true
+            SVHowManyPerson.isHidden = true
         } else {
-            howManyPerson.isHidden = false
+            SVHowManyPerson.isHidden = false
         }
         
         recipeName.text = "  " + name
         recipeName.backgroundColor = UIColor(displayP3Red: 0.2, green: 0.2, blue: 0.2, alpha: 0.5)
         //recipeName.font(.custom("OpenSans-Bold", size: 34))
-        timing.text = " 🕒 : " + time
-        howManyPerson.text = " Pers: \(String(person))"
+        timing.text = " : \(time)"
+        howManyPerson.text = " : \(String(person))"
         //informations.text =  "🕒 : " + time + " min. \n Pers: \(String(person))"
-        timing.backgroundColor = UIColor(displayP3Red: 0.2, green: 0.2, blue: 0.2, alpha: 0.5)
-        howManyPerson.backgroundColor = UIColor(displayP3Red: 0.2, green: 0.2, blue: 0.2, alpha: 0.5)
+        SVTiming.backgroundColor = UIColor(displayP3Red: 0.2, green: 0.2, blue: 0.2, alpha: 0.5)
+        SVHowManyPerson.backgroundColor = UIColor(displayP3Red: 0.2, green: 0.2, blue: 0.2, alpha: 0.5)
         
         
         

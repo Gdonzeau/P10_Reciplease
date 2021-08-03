@@ -14,7 +14,7 @@ class RecipeListViewController: ViewController {
     var parameters: Parameters = .favorites // By default
     var favoriteRecipes = [RecipeType]() // To store recipes from Core Data
     var downloadedRecipes = [RecipeType]() // To store recipes from API
-    var recipe = Recipe(from: RecipeEntity())
+    //var recipe = Recipe(from: RecipeEntity())
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -134,12 +134,12 @@ class RecipeListViewController: ViewController {
         let recette = RecipeType(name: recipe2Name, imageUrl: image, ingredientsNeeded: ingredientList, duration: timeToPrepare, url: url, numberOfPeople: person)
         return recette
     }
-    
+    /*
     private func conversionTry(recipe:RecipeEntity) -> Recipe {
         let recipe = Recipe(from: recipe)
         return recipe
     }
-    
+    */
     private func allErrors(errorMessage: String, errorTitle: String) {
         let alertVC = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))

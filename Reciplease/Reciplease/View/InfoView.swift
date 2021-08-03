@@ -17,7 +17,7 @@ class InfoView: UIView {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        backgroundColor = UIColor(displayP3Red: 0.5, green: 0.5, blue: 0.5, alpha: 1)
+        backgroundColor = UIColor(displayP3Red: 0.5, green: 0.5, blue: 0.5, alpha: 0)
         // Initialization code
     }
     /*
@@ -28,13 +28,18 @@ class InfoView: UIView {
     }
     */
     private func configureView() {
-        
+        // Paramètres de configureView mais marche pas
+        let timeToPrepare = ""
+        let person = 0
+        //
         let preparationTime = UILabel()
         preparationTime.textAlignment = .center
         preparationTime.translatesAutoresizingMaskIntoConstraints = false //Utilise autolayout
-        preparationTime.text = "Bonjour"
+        preparationTime.text = timeToPrepare
+        
         let howManyPerson = UILabel()
         howManyPerson.textAlignment = .center
         howManyPerson.translatesAutoresizingMaskIntoConstraints = false
+        howManyPerson.text = " : \(String(person))"
     }
 }

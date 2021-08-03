@@ -15,16 +15,36 @@ class ViewController: UIViewController {
         test()
     }
     func test() {
-        let interval: TimeInterval = 4155
-
+        var essai = ""
+        let interval: TimeInterval = 60
+        
         let formatter = DateComponentsFormatter()
+        essai = formatter.string(from: interval)!
+        print(essai)
         formatter.unitsStyle = .positional
-        formatter.allowedUnits = [.hour, .minute, .second]
+        essai = formatter.string(from: interval)!
+        print(essai)
+        if interval >= 3600 {
+        formatter.allowedUnits = [.hour, .minute]
+        } else {
+            formatter.allowedUnits = [.minute]
+        }
+        essai = formatter.string(from: interval)!
+        print(essai) // S'arrêter là pour l'affichage
+        /*
         formatter.zeroFormattingBehavior = .pad
+        essai = formatter.string(from: interval)!
+        print(essai)
         formatter.collapsesLargestUnit = false
-
+        essai = formatter.string(from: interval)!
+        print(essai)
+        */
         if let final = formatter.string(from: interval) {
-            print("Time : \(final)")
+            if interval >= 3600 {
+            print("Time : \(final) h")
+            } else {
+                print("Time : \(final) m")
+            }
         }
     }
 }
