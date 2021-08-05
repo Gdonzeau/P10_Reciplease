@@ -9,19 +9,21 @@ import UIKit
 import Alamofire
 
 class ViewController: UIViewController {
-    
+    var recipeFromCoreData = RecipeEntity(context: AppDelegate.viewContext)
     override func viewDidLoad() {
         super.viewDidLoad()
-        //test2()
+        test2()
+        recipeFromCoreData.deleteAll()
     }
-    /*
+    
     func test2() {
-        if RecipeEntity.all.count > 0 {
-            let recipeEntity = RecipeEntity.all[0]
+        if recipeFromCoreData.loadRecipes().count > 0 {
+            
+            let recipeEntity = recipeFromCoreData.loadRecipes()[0]
             let recipe = Recipe(from: recipeEntity)
             print (recipe.name)
         }
     }
- */
+ 
 }
 

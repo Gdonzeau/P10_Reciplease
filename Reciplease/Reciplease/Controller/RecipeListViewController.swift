@@ -6,14 +6,13 @@
 //
 
 import UIKit
-import CoreData
+//import CoreData
 
 class RecipeListViewController: ViewController {
     
     var ingredientsUsed = ""
     var parameters: Parameters = .favorites // By default
     var favoriteRecipes = [Recipe]() // To store recipes from Core Data
-    //var downloadedRecipes = [RecipeType]() // To store recipes from API
     var recipesFromCoreData = RecipeEntity(context: AppDelegate.viewContext)
     var downloadedRecipes = [Recipe]()
     var recipeEmpty = Recipe(from: RecipeEntity(context: AppDelegate.viewContext))
@@ -21,23 +20,15 @@ class RecipeListViewController: ViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var receipesTableView: UITableView!
-    //@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         imageView.isHidden = true
         toggleActivityIndicator(shown: true)
-       // testCoreData() // Only for test
         self.receipesTableView.rowHeight = 120.0
         whichImage()
     }
-    /*
-    private func testCoreData() { // Only for test
-        for recipe in RecipeEntity.all {
-            print (recipe.name as Any)
-        }
-    }
- */
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         imageView.isHidden = true
@@ -49,9 +40,7 @@ class RecipeListViewController: ViewController {
                 //receipesTableView.isHidden = true
                 imageView.isHidden = false
             }
-            //receipesTableView.reloadData()
         }
-        
         receipesTableView.reloadData()
     }
     
@@ -78,15 +67,6 @@ class RecipeListViewController: ViewController {
             switch result {
             case .success(let recipes) :
                 self.toggleActivityIndicator(shown: false)
-                /* // If no answer, image will appear
-                guard recipes.recipes.count > 0 else { // There are answers
-                    let error = APIErrors.ingredientUnknown // Changer l'erreur pour "Aucune réponse disponible"
-                    if let errorMessage = error.errorDescription, let errorTitle = error.failureReason {
-                        self.allErrors(errorMessage: errorMessage, errorTitle: errorTitle)
-                    }
-                    return
-                }
-                */
                 self.savingAnswer(recipes:recipes) // self.recipes = recipes
                 self.receipesTableView.reloadData()
             
@@ -101,54 +81,17 @@ class RecipeListViewController: ViewController {
         }
     }
     private func savingAnswer(recipes:(RecipeResponse)) { // Storing recipes received from API
-        //downloadedRecipes = [RecipeType]() // initializing
         downloadedRecipes = [Recipe]() // initializing
         downloadedRecipes = recipes.recipes //{
-        
-        /*
-        for index in 0 ..< recipes.recipes.count {
-            // All recipe's characteristics
-            // À sortir
-            let recipeName = recipes.recipes[index].name
-            let image = recipes.recipes[index].imageURL
-            let ingredients = recipes.recipes[index].ingredientsNeeded
-            let timeToPrepare = recipes.recipes[index].duration
-            let url = recipes.recipes[index].url
-            let person = Int(recipes.recipes[index].numberOfPeople)
-            let recette = RecipeType(name: recipeName, imageUrl: image, ingredientsNeeded: ingredients, duration: timeToPrepare, url: url, numberOfPeople: person) // Let's finalizing recipe to add to array
-            */
-            
-         //   downloadedRecipes.append(recette)
-       // }
         
         toggleActivityIndicator(shown: false)
     }
     private func convertFromCoreDataToUsable(recipe:RecipeEntity)-> Recipe {
-    //private func convertFromCoreDataToUsable(recipe:RecipeEntity)-> RecipeType {
-        /*
-        var recipe2Name = ""
-        var ingredientList = [String]()
-        if let recipeName = recipe.name {
-            recipe2Name = recipeName
-        }
-        let image = recipe.imageUrl
-        if let ingredients = recipe.ingredients {
-            ingredientList = ingredients
-        }
-        let timeToPrepare = recipe.totalTime
-        let url = recipe.url
-        let person = Int(recipe.person)
-        let recette = RecipeType(name: recipe2Name, imageUrl: image, ingredientsNeeded: ingredientList, duration: timeToPrepare, url: url, numberOfPeople: person)
-        */
+    
         let recette = Recipe(from: recipe)
         return recette
     }
-    /*
-    private func conversionTry(recipe:RecipeEntity) -> Recipe {
-        let recipe = Recipe(from: recipe)
-        return recipe
-    }
-    */
+    
     private func allErrors(errorMessage: String, errorTitle: String) {
         let alertVC = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -175,7 +118,7 @@ extension RecipeListViewController: UITableViewDataSource {
             }
             return downloadedRecipes.count
         default:
-            //print("nombre de favoris : \(favoriteRecipes.count)/\(RecipeEntity.all.count)")
+            print("nombre de favoris : \(recipesFromCoreData.loadRecipes().count)")
             if recipesFromCoreData.loadRecipes().count == 0 {
                 imageView.isHidden = false
             } else {
@@ -191,12 +134,10 @@ extension RecipeListViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as? RecipeTableViewCell else {
             return UITableViewCell()
         }
-        //var recipe = RecipeType(name: "", ingredientsNeeded: [], duration: 0.0, numberOfPeople: 0)
         var recipe = recipeEmpty
         if parameters == .search {
             recipe = downloadedRecipes[indexPath.row]
         } else {
-            //let recipeSearched = recipesFromCoreData.loadRecipes()
             recipe = convertFromCoreDataToUsable(recipe: recipesFromCoreData.loadRecipes()[indexPath.row])
         }
         
@@ -239,11 +180,11 @@ extension RecipeListViewController: UITableViewDelegate { // To delete cells one
             if parameters == .search {
                 downloadedRecipes.remove(at: indexPath.row)
             } else {
-                AppDelegate.viewContext.delete(recipesFromCoreData.loadRecipes()[indexPath.row])
+                recipesFromCoreData.deleteRecipe(recipeToDelete: downloadedRecipes[indexPath.row])
+                //AppDelegate.viewContext.delete(recipesFromCoreData.loadRecipes()[indexPath.row])
                 try? AppDelegate.viewContext.save()
             }
             tableView.deleteRows(at: [indexPath], with: .bottom)
-            //viewWillAppear(true)
         }
     }
 }

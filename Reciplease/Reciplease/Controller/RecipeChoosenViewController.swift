@@ -6,14 +6,13 @@
 //
 
 import UIKit
-import CoreData
+//import CoreData
 //import WebKit
 
 class RecipeChoosenViewController: UIViewController {
     
     var recipeName = String()
     var ingredientList = String()
-    //var recipeChoosen = RecipeType(name: "", imageUrl: "", ingredientsNeeded: [], duration: 0.00, url: "", numberOfPeople: 0)
     var recipesFromCoreData = RecipeEntity(context: AppDelegate.viewContext)
     var recipeChoosen = Recipe(from: RecipeEntity(context: AppDelegate.viewContext))
     
@@ -104,16 +103,6 @@ class RecipeChoosenViewController: UIViewController {
     }
     
     private func createRecipeObject(object:RecipeEntity) -> Recipe {
-        guard let name = object.name, let ingredients = object.ingredients else {
-            return Recipe(from: RecipeEntity(context: AppDelegate.viewContext)) // A modifier
-        }
-        /*
-        let url = object.url
-        let image = object.imageUrl
-        let totalTime = object.totalTime
-        let person = Int(object.person)
-        let recipe = RecipeType(name: name, imageUrl: image, ingredientsNeeded: ingredients, duration: totalTime, url: url, numberOfPeople: person)
- */
         let recipe = Recipe(from: object)
         return recipe
     }
