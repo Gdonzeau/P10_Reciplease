@@ -9,7 +9,7 @@ import UIKit
 import Alamofire
 
 class ViewController: UIViewController {
-    var recipeFromCoreData = RecipeEntity(context: AppDelegate.viewContext)
+    //var recipeFromCoreData = RecipeEntity(context: AppDelegate.viewContext)
     override func viewDidLoad() {
         super.viewDidLoad()
         test2()
