@@ -36,7 +36,8 @@ class RecipeListViewController: ViewController {
             searchForRecipes(ingredients: ingredientsUsed)
         } else {
             toggleActivityIndicator(shown: false)
-            if recipesFromCoreData.loadRecipes().count == 0 {
+            //if recipesFromCoreData.loadRecipes().count == 0 {
+                if RecipeEntity.all.count == 0 {
                 //receipesTableView.isHidden = true
                 imageView.isHidden = false
             }
@@ -51,7 +52,8 @@ class RecipeListViewController: ViewController {
             if parameters == .search {
                 recipeChoosenVC.recipeChoosen = downloadedRecipes[index]
             } else {
-                recipeChoosenVC.recipeChoosen = convertFromCoreDataToUsable(recipe: recipesFromCoreData.loadRecipes()[index])
+                //recipeChoosenVC.recipeChoosen = convertFromCoreDataToUsable(recipe: recipesFromCoreData.loadRecipes()[index])
+                recipeChoosenVC.recipeChoosen = convertFromCoreDataToUsable(recipe: RecipeEntity.all[index])
             }
         }
     }
@@ -118,13 +120,16 @@ extension RecipeListViewController: UITableViewDataSource {
             }
             return downloadedRecipes.count
         default:
-            print("nombre de favoris : \(recipesFromCoreData.loadRecipes().count)")
-            if recipesFromCoreData.loadRecipes().count == 0 {
+            //print("nombre de favoris : \(recipesFromCoreData.loadRecipes().count)")
+            print("Nombre de favoris : \(RecipeEntity.all.count)")
+            //if recipesFromCoreData.loadRecipes().count == 0 {
+                if RecipeEntity.all.count == 0 {
                 imageView.isHidden = false
             } else {
                 imageView.isHidden = true
             }
-            return recipesFromCoreData.loadRecipes().count
+            //return recipesFromCoreData.loadRecipes().count
+            return RecipeEntity.all.count
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -138,7 +143,8 @@ extension RecipeListViewController: UITableViewDataSource {
         if parameters == .search {
             recipe = downloadedRecipes[indexPath.row]
         } else {
-            recipe = convertFromCoreDataToUsable(recipe: recipesFromCoreData.loadRecipes()[indexPath.row])
+            //recipe = convertFromCoreDataToUsable(recipe: recipesFromCoreData.loadRecipes()[indexPath.row])
+            recipe = convertFromCoreDataToUsable(recipe: RecipeEntity.all[indexPath.row])
         }
         
         let name = recipe.name

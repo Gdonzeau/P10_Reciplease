@@ -108,10 +108,12 @@ class RecipeChoosenViewController: UIViewController {
     }
     
     private func isRecipeNotAlreadyRegistred()-> Bool {
-        if recipesFromCoreData.loadRecipes().count == 0 { // If there is no recipe in favorite
+        //if recipesFromCoreData.loadRecipes().count == 0 { // If there is no recipe in favorite
+            if RecipeEntity.all.count == 0 {
             return true
         }
-        for object in recipesFromCoreData.loadRecipes() {
+        //for object in recipesFromCoreData.loadRecipes() {
+        for object in RecipeEntity.all {
             if createRecipeObject(object: object) == recipeChoosen { // is the recipe on the View already favorit ?
                 return false
             }
@@ -125,7 +127,8 @@ class RecipeChoosenViewController: UIViewController {
     }
     
     private func deleteRecipeFromCoreData() {
-        for object in recipesFromCoreData.loadRecipes() {
+       // for object in recipesFromCoreData.loadRecipes() {
+            for object in RecipeEntity.all {
             if createRecipeObject(object: object) == recipeChoosen {
                 print("Trouvé, on efface")
                 AppDelegate.viewContext.delete(object)
