@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+/*
 struct RecipeType {
     var name: String
     var imageUrl: String?//URL?
@@ -21,4 +21,4 @@ extension RecipeType: Equatable {
         return lhs.name == rhs.name && lhs.url == rhs.url // if var(de type Recipe) == var(
     }
 }
-
+*/

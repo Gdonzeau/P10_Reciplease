@@ -47,20 +47,21 @@ struct RecipeResponse: Decodable {
 }
 struct Recipe {
     let name: String
-    let imageURL: String
-    let url: String
+    let imageURL: String?
+    let url: String?
     let numberOfPeople: Float
     let duration: Float
     let ingredientsNeeded: [String]
     
     // Je sais, pas de ! mais là, c'est pour tester
     init(from recipeEntity: RecipeEntity) {
-        self.name = recipeEntity.name!
-        self.imageURL = recipeEntity.imageUrl!
-        self.url = recipeEntity.url!
+        
+        self.name = recipeEntity.name ?? "No name"
+        self.imageURL = recipeEntity.imageUrl ?? "No adress image"
+        self.url = recipeEntity.url ?? "No url"
         self.numberOfPeople = recipeEntity.person
         self.duration = recipeEntity.totalTime
-        self.ingredientsNeeded = recipeEntity.ingredients!
+        self.ingredientsNeeded = recipeEntity.ingredients ?? []
     }
     
  

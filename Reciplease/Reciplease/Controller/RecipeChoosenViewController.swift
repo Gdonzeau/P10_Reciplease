@@ -7,13 +7,15 @@
 
 import UIKit
 import CoreData
-import WebKit
+//import WebKit
 
 class RecipeChoosenViewController: UIViewController {
     
     var recipeName = String()
     var ingredientList = String()
-    var recipeChoosen = RecipeType(name: "", imageUrl: "", ingredientsNeeded: [], duration: 0.00, url: "", numberOfPeople: 0)
+    //var recipeChoosen = RecipeType(name: "", imageUrl: "", ingredientsNeeded: [], duration: 0.00, url: "", numberOfPeople: 0)
+    var recipesFromCoreData = RecipeEntity(context: AppDelegate.viewContext)
+    var recipeChoosen = Recipe(from: RecipeEntity(context: AppDelegate.viewContext))
     
     @IBOutlet weak var blogNameLabel: UILabel!
     @IBOutlet weak var imageRecipe: UIImageView!
@@ -45,7 +47,7 @@ class RecipeChoosenViewController: UIViewController {
         ingredientsList.text = ingredientList
         var urlImage = ""
         // Remplacer par des if pour des valeurs par défaut ?
-        if let imageUrl = recipeChoosen.imageUrl {
+        if let imageUrl = recipeChoosen.imageURL {
             urlImage = imageUrl
         } else {
             let error = APIErrors.noImage
@@ -101,23 +103,26 @@ class RecipeChoosenViewController: UIViewController {
         }
     }
     
-    private func createRecipeObject(object:RecipeEntity) -> RecipeType {
+    private func createRecipeObject(object:RecipeEntity) -> Recipe {
         guard let name = object.name, let ingredients = object.ingredients else {
-            return RecipeType(name: "", ingredientsNeeded: [], duration: 0, numberOfPeople: 0) // A modifier
+            return Recipe(from: RecipeEntity(context: AppDelegate.viewContext)) // A modifier
         }
+        /*
         let url = object.url
         let image = object.imageUrl
         let totalTime = object.totalTime
         let person = Int(object.person)
         let recipe = RecipeType(name: name, imageUrl: image, ingredientsNeeded: ingredients, duration: totalTime, url: url, numberOfPeople: person)
+ */
+        let recipe = Recipe(from: object)
         return recipe
     }
     
     private func isRecipeNotAlreadyRegistred()-> Bool {
-        if RecipeEntity.all.count == 0 { // If there is no recipe in favorite
+        if recipesFromCoreData.loadRecipes().count == 0 { // If there is no recipe in favorite
             return true
         }
-        for object in RecipeEntity.all {
+        for object in recipesFromCoreData.loadRecipes() {
             if createRecipeObject(object: object) == recipeChoosen { // is the recipe on the View already favorit ?
                 return false
             }
@@ -125,13 +130,13 @@ class RecipeChoosenViewController: UIViewController {
         return true
     }
     
-    private func savingRecipe(recipeToSave: RecipeType) {
+    private func savingRecipe(recipeToSave: Recipe) {
         let recipe = RecipeEntity(context: AppDelegate.viewContext) //Appel du CoreDate RecipeService
         recipe.saveRecipe(recipeToSave: recipeToSave)
     }
     
     private func deleteRecipeFromCoreData() {
-        for object in RecipeEntity.all {
+        for object in recipesFromCoreData.loadRecipes() {
             if createRecipeObject(object: object) == recipeChoosen {
                 print("Trouvé, on efface")
                 AppDelegate.viewContext.delete(object)

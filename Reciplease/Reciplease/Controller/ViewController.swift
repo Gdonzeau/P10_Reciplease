@@ -12,40 +12,16 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        test()
+        //test2()
     }
-    func test() {
-        var essai = ""
-        let interval: TimeInterval = 60
-        
-        let formatter = DateComponentsFormatter()
-        essai = formatter.string(from: interval)!
-        print(essai)
-        formatter.unitsStyle = .positional
-        essai = formatter.string(from: interval)!
-        print(essai)
-        if interval >= 3600 {
-        formatter.allowedUnits = [.hour, .minute]
-        } else {
-            formatter.allowedUnits = [.minute]
-        }
-        essai = formatter.string(from: interval)!
-        print(essai) // S'arrêter là pour l'affichage
-        /*
-        formatter.zeroFormattingBehavior = .pad
-        essai = formatter.string(from: interval)!
-        print(essai)
-        formatter.collapsesLargestUnit = false
-        essai = formatter.string(from: interval)!
-        print(essai)
-        */
-        if let final = formatter.string(from: interval) {
-            if interval >= 3600 {
-            print("Time : \(final) h")
-            } else {
-                print("Time : \(final) m")
-            }
+    /*
+    func test2() {
+        if RecipeEntity.all.count > 0 {
+            let recipeEntity = RecipeEntity.all[0]
+            let recipe = Recipe(from: recipeEntity)
+            print (recipe.name)
         }
     }
+ */
 }
 

@@ -15,19 +15,23 @@ class RecipeTableViewCell: UITableViewCell {
     @IBOutlet weak var howManyPerson: UILabel!
     @IBOutlet weak var SVHowManyPerson: UIStackView!
     @IBOutlet weak var informations: InfoView!
-    //@IBOutlet weak var blackLine: UIView!
-    /*
+    
+    
      //Ajouter didSet
+    /*
     var recipe: RecipeType {
         didSet {
-            if let image = recipe.image {
+            
+            if let image = recipe.imageUrl {
+                
                 if let url = URL(string: image) {
-                imageBackgroundCell.load(url: url)
+               // imageBackgroundCell.load(url: url)
                 }
             }
+            
             recipeName.text = recipe.name
             //recipeName.font(.custom("OpenSans-Bold", size: 34))
-            totalTime.text = String(recipe.totalTime)
+            timing.text = String(recipe.totalTime)
         }
     }
     */
@@ -38,26 +42,9 @@ class RecipeTableViewCell: UITableViewCell {
         // Initialization code
     }
     private func addShadow() {
-        /*
-        blackLine.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7).cgColor
-        blackLine.layer.shadowRadius = 0.0
-        blackLine.layer.shadowOffset = CGSize(width: 4.0, height: 4.0)
-        blackLine.layer.shadowOpacity = 2.0
- */
-        //imageBackgroundCell.layer.masksToBounds = false
- 
-        /*
-        imageBackgroundCell.layer.shadowColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.7).cgColor
-        imageBackgroundCell.layer.shadowOpacity = 0.3
-        imageBackgroundCell.layer.shadowOffset = CGSize.zero
-        imageBackgroundCell.layer.shadowRadius = 6
-        imageBackgroundCell.layer.masksToBounds = false
-        //imageBackgroundCell.layer.borderWidth = 1.5
-        //imageBackgroundCell.layer.borderColor = UIColor.white.cgColor
-        imageBackgroundCell.layer.cornerRadius = imageView?.bounds.width ?? 1 / 2
- */
+        // Pas d'ombre finalement
     }
-    func configure(timeToPrepare: String, name: String, person: Int) {
+    func configure(timeToPrepare: String, name: String, person: Float) {
         let interval: TimeInterval = Double(timeToPrepare) ?? 0
         
         let formatter = DateComponentsFormatter()
@@ -68,13 +55,6 @@ class RecipeTableViewCell: UITableViewCell {
             formatter.allowedUnits = [.minute]
         }
         
-        /*
-        let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .positional
-        formatter.allowedUnits = [.hour, .minute]
-        formatter.zeroFormattingBehavior = .pad
-        formatter.collapsesLargestUnit = false
-*/
         guard var time = formatter.string(from: interval*60) else {
             return
         }

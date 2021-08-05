@@ -287,8 +287,14 @@
                                                                                 <constraint firstAttribute="height" constant="26" id="jyN-hn-nQz"/>
                                                                             </constraints>
                                                                         </imageView>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sob-qR-q3a">
+                                                                            <rect key="frame" x="25.999999999999996" y="0.0" width="49.666666666666657" height="26"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                            <nil key="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9N-gK-yXX">
-                                                                            <rect key="frame" x="26" y="0.0" width="95" height="26"/>
+                                                                            <rect key="frame" x="75.666666666666686" y="0.0" width="45.333333333333343" height="26"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="26" id="YCf-CY-atL"/>
                                                                             </constraints>
@@ -334,6 +340,9 @@
                                                         <constraint firstAttribute="width" constant="121" id="bl0-yr-yR3"/>
                                                         <constraint firstAttribute="trailing" secondItem="Off-hT-psY" secondAttribute="trailing" id="xGW-Ay-ccL"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <outlet property="name" destination="Sob-qR-q3a" id="53z-Qf-kYp"/>
+                                                    </connections>
                                                 </view>
                                             </subviews>
                                             <constraints>
@@ -416,11 +425,24 @@
                                                     </imageView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hGE-yp-gwg" customClass="InfoView" customModule="Reciplease" customModuleProvider="target">
                                                         <rect key="frame" x="184" y="8" width="182" height="50"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UeB-Ja-DMj">
+                                                                <rect key="frame" x="70.333333333333314" y="14.999999999999998" width="41.333333333333343" height="20.333333333333329"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
                                                         <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                                         <constraints>
+                                                            <constraint firstItem="UeB-Ja-DMj" firstAttribute="centerY" secondItem="hGE-yp-gwg" secondAttribute="centerY" id="SCu-6A-1cJ"/>
                                                             <constraint firstAttribute="width" secondItem="hGE-yp-gwg" secondAttribute="height" multiplier="91:25" id="k5s-4G-72w"/>
+                                                            <constraint firstItem="UeB-Ja-DMj" firstAttribute="centerX" secondItem="hGE-yp-gwg" secondAttribute="centerX" id="mzX-kx-I6V"/>
                                                             <constraint firstAttribute="width" constant="182" id="pxx-d0-9V9"/>
                                                         </constraints>
+                                                        <connections>
+                                                            <outlet property="name" destination="UeB-Ja-DMj" id="yF0-22-nez"/>
+                                                        </connections>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>

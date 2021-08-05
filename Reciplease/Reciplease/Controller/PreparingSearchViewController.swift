@@ -12,6 +12,12 @@ class PreparingSearchViewController: ViewController{
     var ingredientsList = [String]()
     var parameters: Parameters = .search
     
+    var paraTest = "Bonjour" {
+        didSet {
+            searchButton.setTitle(paraTest, for: .normal)
+        }
+    }
+    
     @IBOutlet weak var ingredientName: UITextField!
     @IBOutlet weak var ingredientTableView: UITableView!
     @IBOutlet weak var searchButton: UIButton!
@@ -20,6 +26,7 @@ class PreparingSearchViewController: ViewController{
     @IBAction func addIngredientButton(_ sender: UIButton) {
         ingredientName.resignFirstResponder()
         addIngredient()
+        paraTest = "Priviet"
     }
     @IBAction func searchRecipesButton(_ sender: UIButton) {
         gettingIngredients()
@@ -33,6 +40,7 @@ class PreparingSearchViewController: ViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        paraTest = "Salut"
         ingredientName.attributedPlaceholder = NSAttributedString(string: "Lemon, Cheese, Sausages,...",
                                                                   attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
         self.ingredientTableView.rowHeight = 40.0

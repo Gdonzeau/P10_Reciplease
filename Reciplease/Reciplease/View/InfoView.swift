@@ -8,7 +8,7 @@
 import UIKit
 
 class InfoView: UIView {
-    
+    @IBOutlet weak var name: UILabel!
     
     var recipe: Recipe? {
         didSet {
@@ -29,6 +29,7 @@ class InfoView: UIView {
     */
     private func configureView() {
         // Paramètres de configureView mais marche pas
+        name.text = "OK"
         let timeToPrepare = ""
         let person = 0
         //
