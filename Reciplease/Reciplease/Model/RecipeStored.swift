@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 class RecipeStored: NSManagedObject { // Le storage Service
-    
+    /*
      static var all: [RecipeStored] {
      let request: NSFetchRequest<RecipeStored> = RecipeStored.fetchRequest()
      guard let recipesRegistred = try? AppDelegate.viewContext.fetch(request) else {
@@ -17,7 +17,7 @@ class RecipeStored: NSManagedObject { // Le storage Service
      }
      return recipesRegistred
      }
-     
+     */
     func loadRecipes() -> [RecipeStored] { // Ajouter throws
         
         let request: NSFetchRequest<RecipeStored> = RecipeStored.fetchRequest()
