@@ -13,8 +13,9 @@ class RecipeChoosenViewController: UIViewController {
     
     var recipeName = String()
     var ingredientList = String()
-    var recipesFromCoreData = RecipeEntity(context: AppDelegate.viewContext)
-    var recipeChoosen = Recipe(from: RecipeEntity(context: AppDelegate.viewContext))
+    var recipesFromCoreData = RecipeStored(context: AppDelegate.viewContext)
+    var recipeChoosen = Recipe(from: RecipeStored(context: AppDelegate.viewContext))
+    var recipeEntity = RecipeStored(context: AppDelegate.viewContext)
     
     @IBOutlet weak var blogNameLabel: UILabel!
     @IBOutlet weak var imageRecipe: UIImageView!
@@ -102,18 +103,18 @@ class RecipeChoosenViewController: UIViewController {
         }
     }
     
-    private func createRecipeObject(object:RecipeEntity) -> Recipe {
+    private func createRecipeObject(object:RecipeStored) -> Recipe {
         let recipe = Recipe(from: object)
         return recipe
     }
     
     private func isRecipeNotAlreadyRegistred()-> Bool {
         //if recipesFromCoreData.loadRecipes().count == 0 { // If there is no recipe in favorite
-            if RecipeEntity.all.count == 0 {
+            if RecipeStored.all.count == 0 {
             return true
         }
         //for object in recipesFromCoreData.loadRecipes() {
-        for object in RecipeEntity.all {
+        for object in RecipeStored.all {
             if createRecipeObject(object: object) == recipeChoosen { // is the recipe on the View already favorit ?
                 return false
             }
@@ -122,13 +123,13 @@ class RecipeChoosenViewController: UIViewController {
     }
     
     private func savingRecipe(recipeToSave: Recipe) {
-        let recipe = RecipeEntity(context: AppDelegate.viewContext) //Appel du CoreDate RecipeService
+        let recipe = RecipeStored(context: AppDelegate.viewContext) //Appel du CoreDate RecipeService
         recipe.saveRecipe(recipeToSave: recipeToSave)
     }
     
     private func deleteRecipeFromCoreData() {
        // for object in recipesFromCoreData.loadRecipes() {
-            for object in RecipeEntity.all {
+            for object in RecipeStored.all {
             if createRecipeObject(object: object) == recipeChoosen {
                 print("Trouvé, on efface")
                 AppDelegate.viewContext.delete(object)

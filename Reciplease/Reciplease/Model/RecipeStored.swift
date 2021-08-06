@@ -8,19 +8,19 @@
 import Foundation
 import CoreData
 
-class RecipeEntity: NSManagedObject { // Le storage Service
+class RecipeStored: NSManagedObject { // Le storage Service
     
-     static var all: [RecipeEntity] {
-     let request: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
+     static var all: [RecipeStored] {
+     let request: NSFetchRequest<RecipeStored> = RecipeStored.fetchRequest()
      guard let recipesRegistred = try? AppDelegate.viewContext.fetch(request) else {
      return []
      }
      return recipesRegistred
      }
      
-    func loadRecipes() -> [RecipeEntity] { // Ajouter throws
+    func loadRecipes() -> [RecipeStored] { // Ajouter throws
         
-        let request: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
+        let request: NSFetchRequest<RecipeStored> = RecipeStored.fetchRequest()
         
         do {
             print("Ok")
@@ -30,7 +30,7 @@ class RecipeEntity: NSManagedObject { // Le storage Service
             let error = APIErrors.noData // Peut-être pas API... mais juste Error
             print(error)
             //return error
-            return [RecipeEntity]()
+            return [RecipeStored]()
         }
         
     }
@@ -45,14 +45,14 @@ class RecipeEntity: NSManagedObject { // Le storage Service
         try? AppDelegate.viewContext.save()
     }
     func deleteRecipe(recipeToDelete: Recipe) {
-        let request: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
+        let request: NSFetchRequest<RecipeStored> = RecipeStored.fetchRequest()
         do {
             let response = try AppDelegate.viewContext.fetch(request)
         } catch {
             print("Error while deleting")
             return
         }
-        let recipe  = RecipeEntity(context: AppDelegate.viewContext)
+        let recipe  = RecipeStored(context: AppDelegate.viewContext)
         
         recipe.imageUrl = recipeToDelete.imageURL
         recipe.ingredients = recipeToDelete.ingredientsNeeded
@@ -64,7 +64,7 @@ class RecipeEntity: NSManagedObject { // Le storage Service
         AppDelegate.viewContext.delete(recipe)
     }
     func deleteAll() {
-        let request: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
+        let request: NSFetchRequest<RecipeStored> = RecipeStored.fetchRequest()
         do {
             let response = try AppDelegate.viewContext.fetch(request)
             

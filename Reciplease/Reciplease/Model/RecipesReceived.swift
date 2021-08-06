@@ -54,7 +54,7 @@ struct Recipe {
     let ingredientsNeeded: [String]
     
     // Je sais, pas de ! mais là, c'est pour tester
-    init(from recipeEntity: RecipeEntity) {
+    init(from recipeEntity: RecipeStored) {
         
         self.name = recipeEntity.name ?? "No name"
         self.imageURL = recipeEntity.imageUrl ?? "No adress image"
